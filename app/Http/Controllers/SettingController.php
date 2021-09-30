@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ImageRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class SettingController extends Controller
@@ -36,6 +37,10 @@ class SettingController extends Controller
 
     public function security()
     {
-        return view('auth.settings.security');
+        $devices = DB::table('sessions')
+            ->where('user_id', Auth::user()->id)
+            ->get()->reverse();
+
+        return view('auth.settings.security',['devices' => $devices]);
     }
 }

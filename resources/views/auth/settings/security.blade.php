@@ -374,6 +374,7 @@
     <div class="card">
       <div class="card-header border-bottom">
         <h4 class="card-title">Recent devices</h4>
+        {{-- DUC : https://codezen.io/how-to-manage-logged-in-devices-in-laravel/ --}}
       </div>
       <div class="card-body my-2 py-25">
         <div class="table-responsive">
@@ -382,55 +383,24 @@
               <tr>
                 <th class="text-start">BROWSER</th>
                 <th>DEVICE</th>
-                <th>LOCATION</th>
+                <th>LOCATION (IP)</th>
                 <th>RECENT ACTIVITY</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="text-start">
-                  <div class="avatar me-25">
-                    <img src="{{asset('images/icons/google-chrome.png')}}" alt="avatar" width="20" height="20" />
-                  </div>
-                  <span class="fw-bolder">Chrome on Windows</span>
-                </td>
-                <td>Dell XPS 15</td>
-                <td>United States</td>
-                <td>10, Jan 2021 20:07</td>
-              </tr>
-              <tr>
-                <td class="text-start">
-                  <div class="avatar me-25">
-                    <img src="{{asset('images/icons/google-chrome.png')}}" alt="avatar" width="20" height="20" />
-                  </div>
-                  <span class="fw-bolder">Chrome on Android</span>
-                </td>
-                <td>Google Pixel 3a</td>
-                <td>Ghana</td>
-                <td>11, Jan 2021 10:16</td>
-              </tr>
-              <tr>
-                <td class="text-start">
-                  <div class="avatar me-25">
-                    <img src="{{asset('images/icons/google-chrome.png')}}" alt="avatar" width="20" height="20" />
-                  </div>
-                  <span class="fw-bolder">Chrome on MacOS</span>
-                </td>
-                <td>Apple iMac</td>
-                <td>Mayotte</td>
-                <td>11, Jan 2021 12:10</td>
-              </tr>
-              <tr>
-                <td class="text-start">
-                  <div class="avatar me-25">
-                    <img src="{{asset('images/icons/google-chrome.png')}}" alt="avatar" width="20" height="20" />
-                  </div>
-                  <span class="fw-bolder">Chrome on iPhone</span>
-                </td>
-                <td>Apple iPhone XR</td>
-                <td>Mauritania</td>
-                <td>12, Jan 2021 8:29</td>
-              </tr>
+              @foreach ($devices as $device)
+                <tr>
+                  <td class="text-start">
+                    <div class="avatar me-25">
+                      <img src="{{asset('images/icons/google-chrome.png')}}" alt="avatar" width="20" height="20" />
+                    </div>
+                    <span class="fw-bolder">Chrome</span>
+                  </td>
+                  <td>{{ $device->user_agent }}</td>
+                  <td>{{ $device->ip_address }}</td>
+                  <td>{{ Carbon\Carbon::parse($device->last_activity)->diffForHumans() }}</td>
+                </tr>
+              @endforeach
             </tbody>
           </table>
         </div>
