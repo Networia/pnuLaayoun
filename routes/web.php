@@ -34,7 +34,12 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('demos')->group(function () {
-        Route::view('form/element','content.demo.input' )->name('demo.input');
+        Route::get('form/element', function ()
+        {
+            $last=collect();
+            $last->b_n = 'hi';
+            return view('content.demo.input',['last' => $last]);
+        })->name('demo.input');
 
     });
 });

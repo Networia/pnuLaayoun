@@ -10,7 +10,7 @@
         </div>
         <div class="card-body">
             <div class="card-text row">
-                <x-forms.input label="Basic Input" name="b_n" cols="col-3" />
+                <x-forms.input label="Basic Input" name="b_n" cols="col-3" :last="$last"/>
             </div>
         </div>
     </div>
