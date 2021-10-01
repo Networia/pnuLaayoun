@@ -31,6 +31,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('account', [SettingController::class, 'account'])->name('settings.account');
         Route::post('account/image', [SettingController::class, 'account_image'])->name('settings.account.image');
         Route::get('security', [SettingController::class, 'security'])->name('settings.security');
+    });
+
+    Route::prefix('demos')->group(function () {
+        Route::view('form/element','content.demo.input' )->name('demo.input');
 
     });
 });
