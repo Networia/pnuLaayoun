@@ -10,7 +10,15 @@
         </div>
         <div class="card-body">
             <div class="card-text row">
-                <x-forms.input label="Basic Input" name="b_n" cols="col-3" :last="$last"/>
+                {{-- Defult Input --}}
+                <x-forms.input />
+
+                {{-- Basic Input --}}
+                <x-forms.input label="Basic Input (change att)" name="basic_inp" cols="col-3" id="basic_inp"/>
+                <x-forms.input label="Basic Input (change type)" name="basic_inp" cols="col-3" id="basic_inp" type="password" />
+
+                {{-- In Edit Input : :last="$YOU_LAST_DATA", components auto set last data of this input if exest, accept collection --}}
+                <x-forms.input label="Edit Input (passed last data )" :last="$last" name="b_n" cols="col-3"/>
             </div>
         </div>
     </div>
