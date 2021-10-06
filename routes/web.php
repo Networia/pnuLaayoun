@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\demo\inputController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
@@ -34,12 +35,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('demos')->group(function () {
-        Route::get('form/element', function ()
-        {
-            $last=collect();
-            $last->b_n = 'hi';
-            return view('content.demo.input',['last' => $last]);
-        })->name('demo.input');
+        Route::get('form/element', [inputController::class , 'index'])->name('demo.input');
 
     });
 });
