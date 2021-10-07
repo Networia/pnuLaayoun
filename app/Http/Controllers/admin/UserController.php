@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -113,8 +114,11 @@ class UserController extends Controller
     public function security($id)
     {
         $user = User::findOrFail($id);
+        $devices = DB::table('sessions')
+            ->where('user_id', $user->id)
+            ->get()->reverse();
 
-        return view('user.app-user-view-security',['user' => $user]);
+        return view('user.app-user-view-security',['user' => $user , 'devices' => $devices]);
     }
 
     public function password(Request $data)
