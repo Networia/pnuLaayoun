@@ -133,4 +133,19 @@ class UserController extends Controller
 
         return back();
     }
+
+    // Two-steps verification
+
+    public function tsv($id)
+    {
+        $user = User::findOrFail($id);
+
+        $user->forceFill([
+            'two_factor_secret' => null,
+            'two_factor_recovery_codes' => null,
+        ])->save();
+
+        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        return back();
+    }
 }

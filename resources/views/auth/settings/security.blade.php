@@ -177,7 +177,7 @@
 
         @if (auth()->user()->two_factor_secret)
           <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#twoFactorAuthModal">
-            Enable two-factor authentication
+            Info two-factor authentication
           </button>
         @else
           <form method="POST" action="/user/two-factor-authentication">

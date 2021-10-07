@@ -44,6 +44,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('detail/update/{id}', [UserController::class , 'update'])->name('user.update');
         Route::get('security/{id}', [UserController::class , 'security'])->name('user.security');
         Route::post('security/password/{id}', [UserController::class , 'password'])->name('user.security.password');
+        Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->name('user.security.tsv');
 
     });
 
