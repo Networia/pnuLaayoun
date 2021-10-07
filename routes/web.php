@@ -38,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('user')->middleware('verified')->group(function () {
         Route::get('', [UserController::class , 'list'])->name('user.list');
         Route::get('api', [UserController::class , 'api'])->name('user.api');
+        Route::post('store', [UserController::class , 'store'])->name('user.store');
 
     });
 

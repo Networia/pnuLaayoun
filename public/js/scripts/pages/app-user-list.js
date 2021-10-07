@@ -278,83 +278,27 @@ $(function () {
           next: '&nbsp;'
         }
       },
-      // initComplete: function () {
-      //   // Adding role filter once table initialized
-      //   this.api()
-      //     .columns(2)
-      //     .every(function () {
-      //       var column = this
-      //       var label = $('<label class="form-label" for="UserRole">Role</label>').appendTo('.user_role')
-      //       var select = $(
-      //         '<select id="UserRole" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Role </option></select>'
-      //       )
-      //         .appendTo('.user_role')
-      //         .on('change', function () {
-      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
-      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
-      //         })
+      initComplete: function (settings, json) {
+        // Adding role filter once table initialized
+        this.api()
+          .columns(3)
+          .every(function () {
+            var column = this
+            var label = $('<label class="form-label" for="UserStatus">Status</label>').appendTo('.user_status')
+            var select = $(
+              '<select id="UserStatus" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Status </option></select>'
+            )
+              .appendTo('.user_status')
+              .on('change', function () {
+                var val = $.fn.dataTable.util.escapeRegex($(this).val())
+                column.search(val ? '^' + val + '$' : '', true, false).draw()
+              })
 
-      //       column
-      //         .data()
-      //         .unique()
-      //         .sort()
-      //         .each(function (d, j) {
-      //           select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
-      //         })
-      //     })
-      //   // Adding plan filter once table initialized
-      //   this.api()
-      //     .columns(3)
-      //     .every(function () {
-      //       var column = this
-      //       var label = $('<label class="form-label" for="UserPlan">Plan</label>').appendTo('.user_plan')
-      //       var select = $(
-      //         '<select id="UserPlan" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Plan </option></select>'
-      //       )
-      //         .appendTo('.user_plan')
-      //         .on('change', function () {
-      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
-      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
-      //         })
-
-      //       column
-      //         .data()
-      //         .unique()
-      //         .sort()
-      //         .each(function (d, j) {
-      //           select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
-      //         })
-      //     })
-      //   // Adding status filter once table initialized
-      //   this.api()
-      //     .columns(5)
-      //     .every(function () {
-      //       var column = this
-      //       var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.user_status')
-      //       var select = $(
-      //         '<select id="FilterTransaction" class="form-select text-capitalize mb-md-0 mb-2xx"><option value=""> Select Status </option></select>'
-      //       )
-      //         .appendTo('.user_status')
-      //         .on('change', function () {
-      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
-      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
-      //         })
-
-      //       column
-      //         .data()
-      //         .unique()
-      //         .sort()
-      //         .each(function (d, j) {
-      //           select.append(
-      //             '<option value="' +
-      //               statusObj[d].title +
-      //               '" class="text-capitalize">' +
-      //               statusObj[d].title +
-      //               '</option>'
-      //           )
-      //         })
-      //     })
-      // }
+              json.filter_status.forEach(element => {
+                select.append('<option value="' + element.value + '" class="text-capitalize">' + statusObj[element.value].title + '</option>');
+              });
+          })
+      }
     })
   }
 
@@ -375,13 +319,14 @@ $(function () {
       }
     })
 
-    newUserForm.on('submit', function (e) {
-      var isValid = newUserForm.valid()
-      e.preventDefault()
-      if (isValid) {
-        newUserSidebar.modal('hide')
-      }
-    })
+    // newUserForm.on('submit', function (e) {
+    //   var isValid = newUserForm.valid()
+    //   e.preventDefault()
+    //   if (isValid) {
+    //     newUserSidebar.modal('hide')
+    //     // newUserForm.submit()
+    //   }
+    // })
   }
 
   // Phone Number
