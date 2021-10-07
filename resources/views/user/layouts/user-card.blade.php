@@ -17,11 +17,11 @@
       <div class="d-flex justify-content-around my-2 pt-75">
         <div class="d-flex align-items-start me-2">
           <span class="badge bg-light-primary p-75 rounded">
-            <i data-feather="check" class="font-medium-2"></i>
+            <i data-feather="clock" class="font-medium-2"></i>
           </span>
           <div class="ms-75">
-            <h4 class="mb-0">1.23k</h4>
-            <small>Tasks Done</small>
+            <h4 class="mb-0">{{ $user->created_at->format('Y-m-d') }}</h4>
+            <small>Account Created at</small>
           </div>
         </div>
         <div class="d-flex align-items-start">
