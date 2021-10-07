@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
@@ -13,6 +14,8 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+    use PasswordValidationRules;
+
     public function list()
     {
         $pageConfigs = ['pageHeader' => false];
@@ -104,6 +107,30 @@ class UserController extends Controller
         }
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        return back();
+    }
+
+    public function security($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('user.app-user-view-security',['user' => $user]);
+    }
+
+    public function password(Request $data)
+    {
+        $user = User::findOrFail($data->id);
+
+        Validator::make($data->toArray(), [
+            'password' => $this->passwordRules(),
+        ])->validate();
+
+        $user->update([
+            'password' => Hash::make($data->password)
+        ]);
+
+        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+
         return back();
     }
 }
