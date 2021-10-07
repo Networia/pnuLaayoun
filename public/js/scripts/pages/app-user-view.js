@@ -8,6 +8,7 @@
 ==========================================================================================*/
 (function () {
   const suspendUser = document.querySelector('.suspend-user');
+  const $suspendUser = $('.suspend-user');
 
   // Suspend User javascript
   if (suspendUser) {
@@ -33,6 +34,8 @@
               confirmButton: 'btn btn-success'
             }
           });
+          console.log($suspendUser.data('link'))
+          window.location = $suspendUser.data('link')
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           Swal.fire({
             title: 'Cancelled',

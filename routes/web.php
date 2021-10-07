@@ -40,6 +40,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('api', [UserController::class , 'api'])->name('user.api');
         Route::post('store', [UserController::class , 'store'])->name('user.store');
         Route::get('change/status/{id}', [UserController::class , 'status'])->name('user.status');
+        Route::get('detail/{id}', [UserController::class , 'detail'])->name('user.detail');
+        Route::post('update/{id}', [UserController::class , 'update'])->name('user.update');
 
     });
 

@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', 'User View - Account')
+@section('title', 'User - Account')
 
 @section('vendor-style')
   {{-- Page Css files --}}
@@ -31,14 +31,13 @@
             <div class="d-flex align-items-center flex-column">
               <img
                 class="img-fluid rounded mt-3 mb-2"
-                src="{{asset('images/portrait/small/avatar-s-2.jpg')}}"
-                height="110"
+                src="{{ asset($user->image == null ? 'https://ui-avatars.com/api/?background=7367f0&color=FFF&name=' . $user->name : $user->image) }}"                height="110"
                 width="110"
                 alt="User avatar"
               />
               <div class="user-info text-center">
-                <h4>Gertrude Barton</h4>
-                <span class="badge bg-light-secondary">Author</span>
+                <h4>{{ $user->name }}</h4>
+                <span class="badge bg-light-secondary">{{ $user->role ?? 'No' }}</span>
               </div>
             </div>
           </div>
@@ -66,87 +65,36 @@
           <div class="info-container">
             <ul class="list-unstyled">
               <li class="mb-75">
-                <span class="fw-bolder me-25">Username:</span>
-                <span>violet.dev</span>
+                <span class="fw-bolder me-25">Full Name:</span>
+                <span>{{ $user->username ?? $user->name }}</span>
               </li>
               <li class="mb-75">
-                <span class="fw-bolder me-25">Billing Email:</span>
-                <span>vafgot@vultukir.org</span>
+                <span class="fw-bolder me-25">Email:</span>
+                <span>{{ $user->email }}</span>
               </li>
               <li class="mb-75">
                 <span class="fw-bolder me-25">Status:</span>
-                <span class="badge bg-light-success">Active</span>
+                @if ($user->status)
+                  <span class="badge bg-light-success">Active</span>
+                @else
+                  <span class="badge bg-light-danger">Desactive</span>
+                @endif
               </li>
               <li class="mb-75">
                 <span class="fw-bolder me-25">Role:</span>
-                <span>Author</span>
-              </li>
-              <li class="mb-75">
-                <span class="fw-bolder me-25">Tax ID:</span>
-                <span>Tax-8965</span>
-              </li>
-              <li class="mb-75">
-                <span class="fw-bolder me-25">Contact:</span>
-                <span>+1 (609) 933-44-22</span>
-              </li>
-              <li class="mb-75">
-                <span class="fw-bolder me-25">Language:</span>
-                <span>English</span>
-              </li>
-              <li class="mb-75">
-                <span class="fw-bolder me-25">Country:</span>
-                <span>Wake Island</span>
+                <span>{{ $user->role ?? 'No' }}</span>
               </li>
             </ul>
             <div class="d-flex justify-content-center pt-2">
               <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">
                 Edit
               </a>
-              <a href="javascript:;" class="btn btn-outline-danger suspend-user">Suspended</a>
+              <a href="javascript:;" class="btn btn-outline-danger suspend-user" data-link="{{ route('user.status',$user->id) }}" >Suspended</a>
             </div>
           </div>
         </div>
       </div>
       <!-- /User Card -->
-      <!-- Plan Card -->
-      <div class="card border-primary">
-        <div class="card-body">
-          <div class="d-flex justify-content-between align-items-start">
-            <span class="badge bg-light-primary">Standard</span>
-            <div class="d-flex justify-content-center">
-              <sup class="h5 pricing-currency text-primary mt-1 mb-0">$</sup>
-              <span class="fw-bolder display-5 mb-0 text-primary">99</span>
-              <sub class="pricing-duration font-small-4 ms-25 mt-auto mb-2">/month</sub>
-            </div>
-          </div>
-          <ul class="ps-1 mb-2">
-            <li class="mb-50">10 Users</li>
-            <li class="mb-50">Up to 10 GB storage</li>
-            <li>Basic Support</li>
-          </ul>
-          <div class="d-flex justify-content-between align-items-center fw-bolder mb-50">
-            <span>Days</span>
-            <span>4 of 30 Days</span>
-          </div>
-          <div class="progress mb-50" style="height: 8px">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="width: 80%"
-              aria-valuenow="65"
-              aria-valuemax="100"
-              aria-valuemin="80"
-            ></div>
-          </div>
-          <span>4 days remaining</span>
-          <div class="d-grid w-100 mt-2">
-            <button class="btn btn-primary" data-bs-target="#upgradePlanModal" data-bs-toggle="modal">
-              Upgrade Plan
-            </button>
-          </div>
-        </div>
-      </div>
-      <!-- /Plan Card -->
     </div>
     <!--/ User Sidebar -->
 
@@ -184,25 +132,6 @@
         </li>
       </ul>
       <!--/ User Pills -->
-
-      <!-- Project table -->
-      <div class="card">
-        <h4 class="card-header">User's Projects List</h4>
-        <div class="table-responsive">
-          <table class="table datatable-project">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Project</th>
-                <th class="text-nowrap">Total Task</th>
-                <th>Progress</th>
-                <th>Hours</th>
-              </tr>
-            </thead>
-          </table>
-        </div>
-      </div>
-      <!-- /Project table -->
 
       <!-- Activity Timeline -->
       <div class="card">
@@ -272,22 +201,6 @@
       </div>
       <!-- /Activity Timeline -->
 
-      <!-- Invoice table -->
-      <div class="card">
-        <table class="invoice-table table text-nowrap">
-          <thead>
-            <tr>
-              <th></th>
-              <th>#ID</th>
-              <th><i data-feather="trending-up"></i></th>
-              <th>TOTAL Paid</th>
-              <th class="text-truncate">Issued Date</th>
-              <th class="cell-fit">Actions</th>
-            </tr>
-          </thead>
-        </table>
-      </div>
-      <!-- /Invoice table -->
     </div>
     <!--/ User Content -->
   </div>

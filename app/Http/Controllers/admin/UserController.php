@@ -7,6 +7,9 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -59,6 +62,48 @@ class UserController extends Controller
             return back();
         }
 
+        return back();
+    }
+
+    public function detail($id)
+    {
+        $user = User::findOrFail($id);
+
+        return view('user.app-user-view-account',['user' => $user]);
+    }
+
+    public function update(Request $input)
+    {
+        $user = User::findOrFail($input->id);
+
+        Validator::make($input->toArray(), [
+            'name' => ['required', 'string', 'max:255'],
+
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                'unique:users,email,'.$input->id
+            ],
+        ])->validate();
+
+        if ($input['email'] !== $user->email && $user instanceof MustVerifyEmail) {
+            $user->forceFill([
+                'name' => $input['name'],
+                'email' => $input['email'],
+                'email_verified_at' => null,
+            ])->save();
+    
+            $user->sendEmailVerificationNotification();
+        } else {
+            $user->forceFill([
+                'name' => $input['name'],
+                'email' => $input['email'],
+            ])->save();
+        }
+
+        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
 }
