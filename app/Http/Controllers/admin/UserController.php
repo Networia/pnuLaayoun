@@ -36,4 +36,29 @@ class UserController extends Controller
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
+
+    public function status($id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->status == 1) {
+            $user->update([
+                'status' => 0
+            ]);
+
+            session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+            return back();
+        }
+
+        if ($user->status == 0) {
+            $user->update([
+                'status' => 1
+            ]);
+
+            session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+            return back();
+        }
+
+        return back();
+    }
 }

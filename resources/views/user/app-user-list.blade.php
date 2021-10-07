@@ -92,7 +92,7 @@
       </div>
     </div>
     <div class="card-datatable table-responsive pt-0">
-      <table class="user-list-table table" data-api="{{ route('user.api') }}">
+      <table class="user-list-table table" data-api="{{ route('user.api') }}" data-status="{{ route('user.status','') }}">
         <thead class="table-light">
           <tr>
             <th></th>

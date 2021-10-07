@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Validation\ValidationException;
 use Laravel\Fortify\Fortify;
 
 class FortifyServiceProvider extends ServiceProvider
@@ -39,7 +40,12 @@ class FortifyServiceProvider extends ServiceProvider
             // info(request()->header());
         
             if ($user && Hash::check($request->password, $user->password)) {
-                
+                if ($user->status == 0) {
+                    throw ValidationException::withMessages([
+                        Fortify::username() => "Your account is deactivated",
+                    ]);
+                    return false;
+                }
                 return $user;
             }
         });
