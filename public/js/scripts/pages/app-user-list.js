@@ -16,9 +16,8 @@ $(function () {
     select = $('.select2'),
     dtContact = $('.dt-contact'),
     statusObj = {
-      1: { title: 'Pending', class: 'badge-light-warning' },
-      2: { title: 'Active', class: 'badge-light-success' },
-      3: { title: 'Inactive', class: 'badge-light-secondary' }
+      0: { title: 'Desactive', class: 'badge-light-danger' },
+      1: { title: 'Active', class: 'badge-light-success' },
     }
 
   var assetPath = '../../../app-assets/',
@@ -44,14 +43,12 @@ $(function () {
   // Users List datatable
   if (dtUserTable.length) {
     dtUserTable.DataTable({
-      ajax: assetPath + 'data/user-list.json', // JSON file to add data
+      ajax: dtUserTable.data('api'), // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
-        { data: 'full_name' },
-        { data: 'role' },
-        { data: 'current_plan' },
-        { data: 'billing' },
+        { data: 'name' },
+        { data: 'role', defaultContent : 'Subscriber' },
         { data: 'status' },
         { data: '' }
       ],
@@ -71,19 +68,19 @@ $(function () {
           targets: 1,
           responsivePriority: 4,
           render: function (data, type, full, meta) {
-            var $name = full['full_name'],
+            var $name = full['name'],
               $email = full['email'],
-              $image = full['avatar']
+              $image = full['image']
             if ($image) {
               // For Avatar image
               var $output =
-                '<img src="' + assetPath + 'images/avatars/' + $image + '" alt="Avatar" height="32" width="32">'
+                '<img src="'+ $image + '" alt="Avatar" height="32" width="32">'
             } else {
               // For Avatar badge
               var stateNum = Math.floor(Math.random() * 6) + 1
               var states = ['success', 'danger', 'warning', 'info', 'dark', 'primary', 'secondary']
               var $state = states[stateNum],
-                $name = full['full_name'],
+                $name = full['name'],
                 $initials = $name.match(/\b\w/g) || []
               $initials = (($initials.shift() || '') + ($initials.pop() || '')).toUpperCase()
               $output = '<span class="avatar-content">' + $initials + '</span>'
@@ -117,7 +114,7 @@ $(function () {
           // User Role
           targets: 2,
           render: function (data, type, full, meta) {
-            var $role = full['role']
+            var $role = full['role'] ?? 'Subscriber'
             var roleBadgeObj = {
               Subscriber: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
               Author: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
@@ -129,16 +126,8 @@ $(function () {
           }
         },
         {
-          targets: 4,
-          render: function (data, type, full, meta) {
-            var $billing = full['billing']
-
-            return '<span class="text-nowrap">' + $billing + '</span>'
-          }
-        },
-        {
           // User Status
-          targets: 5,
+          targets: 3,
           render: function (data, type, full, meta) {
             var $status = full['status']
 
@@ -256,7 +245,7 @@ $(function () {
           display: $.fn.dataTable.Responsive.display.modal({
             header: function (row) {
               var data = row.data()
-              return 'Details of ' + data['full_name']
+              return 'Details of ' + data['name']
             }
           }),
           type: 'column',
@@ -289,83 +278,83 @@ $(function () {
           next: '&nbsp;'
         }
       },
-      initComplete: function () {
-        // Adding role filter once table initialized
-        this.api()
-          .columns(2)
-          .every(function () {
-            var column = this
-            var label = $('<label class="form-label" for="UserRole">Role</label>').appendTo('.user_role')
-            var select = $(
-              '<select id="UserRole" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Role </option></select>'
-            )
-              .appendTo('.user_role')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val())
-                column.search(val ? '^' + val + '$' : '', true, false).draw()
-              })
+      // initComplete: function () {
+      //   // Adding role filter once table initialized
+      //   this.api()
+      //     .columns(2)
+      //     .every(function () {
+      //       var column = this
+      //       var label = $('<label class="form-label" for="UserRole">Role</label>').appendTo('.user_role')
+      //       var select = $(
+      //         '<select id="UserRole" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Role </option></select>'
+      //       )
+      //         .appendTo('.user_role')
+      //         .on('change', function () {
+      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
+      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
+      //         })
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
-              })
-          })
-        // Adding plan filter once table initialized
-        this.api()
-          .columns(3)
-          .every(function () {
-            var column = this
-            var label = $('<label class="form-label" for="UserPlan">Plan</label>').appendTo('.user_plan')
-            var select = $(
-              '<select id="UserPlan" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Plan </option></select>'
-            )
-              .appendTo('.user_plan')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val())
-                column.search(val ? '^' + val + '$' : '', true, false).draw()
-              })
+      //       column
+      //         .data()
+      //         .unique()
+      //         .sort()
+      //         .each(function (d, j) {
+      //           select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
+      //         })
+      //     })
+      //   // Adding plan filter once table initialized
+      //   this.api()
+      //     .columns(3)
+      //     .every(function () {
+      //       var column = this
+      //       var label = $('<label class="form-label" for="UserPlan">Plan</label>').appendTo('.user_plan')
+      //       var select = $(
+      //         '<select id="UserPlan" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Plan </option></select>'
+      //       )
+      //         .appendTo('.user_plan')
+      //         .on('change', function () {
+      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
+      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
+      //         })
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
-              })
-          })
-        // Adding status filter once table initialized
-        this.api()
-          .columns(5)
-          .every(function () {
-            var column = this
-            var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.user_status')
-            var select = $(
-              '<select id="FilterTransaction" class="form-select text-capitalize mb-md-0 mb-2xx"><option value=""> Select Status </option></select>'
-            )
-              .appendTo('.user_status')
-              .on('change', function () {
-                var val = $.fn.dataTable.util.escapeRegex($(this).val())
-                column.search(val ? '^' + val + '$' : '', true, false).draw()
-              })
+      //       column
+      //         .data()
+      //         .unique()
+      //         .sort()
+      //         .each(function (d, j) {
+      //           select.append('<option value="' + d + '" class="text-capitalize">' + d + '</option>')
+      //         })
+      //     })
+      //   // Adding status filter once table initialized
+      //   this.api()
+      //     .columns(5)
+      //     .every(function () {
+      //       var column = this
+      //       var label = $('<label class="form-label" for="FilterTransaction">Status</label>').appendTo('.user_status')
+      //       var select = $(
+      //         '<select id="FilterTransaction" class="form-select text-capitalize mb-md-0 mb-2xx"><option value=""> Select Status </option></select>'
+      //       )
+      //         .appendTo('.user_status')
+      //         .on('change', function () {
+      //           var val = $.fn.dataTable.util.escapeRegex($(this).val())
+      //           column.search(val ? '^' + val + '$' : '', true, false).draw()
+      //         })
 
-            column
-              .data()
-              .unique()
-              .sort()
-              .each(function (d, j) {
-                select.append(
-                  '<option value="' +
-                    statusObj[d].title +
-                    '" class="text-capitalize">' +
-                    statusObj[d].title +
-                    '</option>'
-                )
-              })
-          })
-      }
+      //       column
+      //         .data()
+      //         .unique()
+      //         .sort()
+      //         .each(function (d, j) {
+      //           select.append(
+      //             '<option value="' +
+      //               statusObj[d].title +
+      //               '" class="text-capitalize">' +
+      //               statusObj[d].title +
+      //               '</option>'
+      //           )
+      //         })
+      //     })
+      // }
     })
   }
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\demo\inputController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
@@ -32,6 +33,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('account', [SettingController::class, 'account'])->name('settings.account');
         Route::post('account/image', [SettingController::class, 'account_image'])->name('settings.account.image');
         Route::get('security', [SettingController::class, 'security'])->name('settings.security');
+    });
+
+    Route::prefix('user')->middleware('verified')->group(function () {
+        Route::get('', [UserController::class , 'list'])->name('user.list');
+        Route::get('api', [UserController::class , 'api'])->name('user.api');
+
     });
 
     Route::prefix('demos')->group(function () {
