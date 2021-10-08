@@ -136,4 +136,39 @@ class Helper
             }
         }
     }
+    public static function menu()
+    {
+        $test=new \stdClass;
+
+        // if (Gate::allows('admin')) {
+
+            $info=$test->menu[]= new \stdClass;
+            $info->url=route('user.list');
+            $info->name="Utilisateur";
+            $info->icon="users";
+            $info->slug=" ";
+
+            $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+                    $submenu=$info->submenu[]=new \stdClass;
+                    $submenu->url=route("user.list");
+                    $submenu->name=__('List');
+                    $submenu->icon="circle";
+                    $submenu->slug="user.list";
+
+        // }
+
+            $info=$test->menu[]= new \stdClass;
+            $info->url=route('settings.account');
+            $info->name=__('Réglage');
+            $info->icon="settings";
+            $info->slug="settings.account";
+
+            $verticalMenuData = $test;
+            // $horizontalMenuJson = file_get_contents(base_path('resources/data/menu-data/horizontalMenu.json'));
+            // $horizontalMenuData = json_decode($horizontalMenuJson);
+
+            // Share all menuData to all the views
+            return [$verticalMenuData, $verticalMenuData , $test];
+    }
 }
