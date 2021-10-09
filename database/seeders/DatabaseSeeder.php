@@ -22,5 +22,9 @@ class DatabaseSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => Hash::make('salahhusa9'),
         ]);
+
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
     }
 }
