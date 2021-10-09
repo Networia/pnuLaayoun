@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\TestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,15 @@ Route::middleware(['auth'])->group(function () {
         Route::post('security/password/{id}', [UserController::class , 'password'])->name('user.security.password');
         Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->name('user.security.tsv');
 
+    });
+
+    Route::prefix('test')->group(function () {
+        Route::get('', [TestController::class , 'index'])->name('test');
+        Route::get('api', [TestController::class , 'api'])->name('test.api');
+        Route::get('create', [TestController::class , 'create'])->name('test.create');
+        Route::post('store', [TestController::class , 'store'])->name('test.store');
+        Route::get('edit/{id}', [TestController::class , 'edit'])->name('test.edit');
+        Route::post('update/{id}', [TestController::class , 'update'])->name('test.update');
     });
 
     Route::prefix('demos')->group(function () {

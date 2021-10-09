@@ -12,20 +12,20 @@ class {{ControllerName}}Controller extends Controller
 {
     public function index()
     {
-        if (Gate::denies('{{name}}','list')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
+        //if (Gate::denies('{{name}}','list')) {
+        //    session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
+        //    return back();
+        //}
 
-        return view('content.{{name}}',['pageName' => '{{name}}']);
+        return view('content.{{name}}.table');
     }
 
     public function api()
     {
-        if (Gate::denies('{{name}}','list')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
+        //if (Gate::denies('{{name}}','list')) {
+        //    session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
+        //    return back();
+        //}
 
         $model = {{ControllerName}}::query();
         return \DataTables::eloquent($model)
@@ -52,7 +52,7 @@ class {{ControllerName}}Controller extends Controller
             return back();
         }
 
-        return view('content.{{name}}_add',['pageName' => '{{name}}']);
+        return view('content.{{name}}_add');
     }
 
     public function store({{ControllerName}}Request $data)
@@ -77,7 +77,7 @@ class {{ControllerName}}Controller extends Controller
 
         $last = {{ControllerName}}::findOrFail($id);
 
-        return view('content.{{name}}_edit',['pageName' => '{{name}}', 'last' => $last]);
+        return view('content.{{name}}_edit',['last' => $last]);
     }
 
     public function update({{ControllerName}}Request $data)

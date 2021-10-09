@@ -11,7 +11,7 @@ class TableVuexy extends Command
      *
      * @var string
      */
-    protected $signature = 'vuexy:table {path?}';
+    protected $signature = 'vuexy:table {name} {path?}';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class TableVuexy extends Command
 
         $fullPathTo = app_path() . '\Http\Controllers\\' . $this->argument('path');
         $lastfile = app_path() . '\stubs\vuexy\controller.stub';
-        $file = $fullPathTo.'\TestController.php';
+        $file = $fullPathTo.'\\'.ucfirst($this->argument('name')).'Controller.php';
         $nameSpace = 'App\Http\Controllers';
 
         //* Create controller
@@ -63,11 +63,112 @@ class TableVuexy extends Command
                 '{{ControllerName}}','{{name}}','{{NameSpace}}'
             ],
             [
-                ucfirst('test') , 'test' , $nameSpace
+                ucfirst($this->argument('name')) , $this->argument('name') , $nameSpace
             ]
             ,file_get_contents($file)
         ));
 
-        
+        $this->info('* The Controller created');
+
+        //* Create views
+            //* Add
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $lastfileview = app_path() . '\stubs\vuexy\view_add.stub';
+        $newviewfile = $fullPathViewTo.'\add.blade.php';
+
+        if (!file_exists($fullPathViewTo)) {
+            mkdir($fullPathViewTo, 0777, true);
+        }
+
+        if (!copy($lastfileview, $newviewfile)) {
+            $this->info("failed to copy $newviewfile...\n");
+        }
+
+        file_put_contents($newviewfile,str_replace(
+            [
+                '{{name}}'
+            ],
+            [
+                $this->argument('name')
+            ]
+            ,file_get_contents($newviewfile)
+        ));
+
+        $this->info('* The add view created');
+
+        //* Edit
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $lastfileview = app_path() . '\stubs\vuexy\view_edit.stub';
+        $newviewfile = $fullPathViewTo.'\edit.blade.php';
+
+        if (!file_exists($fullPathViewTo)) {
+            mkdir($fullPathViewTo, 0777, true);
+        }
+
+        if (!copy($lastfileview, $newviewfile)) {
+            $this->info("failed to copy $newviewfile...\n");
+        }
+
+        file_put_contents($newviewfile,str_replace(
+            [
+                '{{name}}'
+            ],
+            [
+                $this->argument('name')
+            ]
+            ,file_get_contents($newviewfile)
+        ));
+
+        $this->info('* The edit view created');
+
+        //* Table
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $lastfileview = app_path() . '\stubs\vuexy\view_table.stub';
+        $newviewfile = $fullPathViewTo.'\table.blade.php';
+
+        if (!file_exists($fullPathViewTo)) {
+            mkdir($fullPathViewTo, 0777, true);
+        }
+
+        if (!copy($lastfileview, $newviewfile)) {
+            $this->info("failed to copy $newviewfile...\n");
+        }
+
+        file_put_contents($newviewfile,str_replace(
+            [
+                '{{name}}'
+            ],
+            [
+                $this->argument('name')
+            ]
+            ,file_get_contents($newviewfile)
+        ));
+
+        $this->info('* The table view created');
+
+        //* Table JS
+        $fullPathViewTo = public_path('js\scripts\tables\\'.$this->argument('path'));
+        $lastfileview = app_path() . '\stubs\vuexy\table.js.stub';
+        $newviewfile = $fullPathViewTo.'\\'.$this->argument('name').'-table-datatables-advanced.js';
+
+        if (!file_exists($fullPathViewTo)) {
+            mkdir($fullPathViewTo, 0777, true);
+        }
+
+        if (!copy($lastfileview, $newviewfile)) {
+            $this->info("failed to copy $newviewfile...\n");
+        }
+
+        file_put_contents($newviewfile,str_replace(
+            [
+                '{{name}}'
+            ],
+            [
+                $this->argument('name')
+            ]
+            ,file_get_contents($newviewfile)
+        ));
+
+        $this->info('* The table js view created');
     }
 }
