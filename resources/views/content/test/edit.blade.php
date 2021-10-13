@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Éditer les informations de {{name}} : '.$last->name))
+@section('title', __('Éditer les informations de test : '.$last->name))
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -16,16 +16,17 @@
             <div class="card">
     
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('{{name}}.update',request()->id) }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('test.update',request()->id) }}">
                         @csrf
                         <div class="row">
 
                             <x-forms.input label="demo" :last="$last" name="demo" cols="col-3"/>
 
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary mt-1 me-1">Sauvegarder</button>
-                                <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>
+                            <div class="col-12 d-flex flex-sm-row flex-column mt-2">
+                                <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Sauvegarder</button>
+                                <button type="reset" class="btn btn-outline-secondary">Réinitialiser</button>
                             </div>
+
                         </div>
 
                     </form>

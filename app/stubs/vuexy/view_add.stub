@@ -22,9 +22,9 @@
 
                             <x-forms.input label="stub" name="stub" cols="col-3"/>
 
-                            <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                                <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1">Créer</button>
-                                <button type="reset" class="btn btn-outline-secondary">Réinitialiser</button>
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
+                                <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>
                             </div>
                         </div>
                     </form>
