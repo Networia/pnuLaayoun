@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\RolePermissionController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\demo\inputController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('security/password/{id}', [UserController::class , 'password'])->name('user.security.password');
         Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->name('user.security.tsv');
 
+    });
+
+    Route::prefix('role')->middleware(['verified','password.confirm'])->group(function () {
+        Route::get('', [RolePermissionController::class , 'index'])->name('role');
+        Route::post('create', [RolePermissionController::class , 'create'])->name('role.create');
+        Route::get('edit/{id}', [RolePermissionController::class , 'edit'])->name('role.edit');
+        Route::post('update/{id}', [RolePermissionController::class , 'update'])->name('role.update');
     });
 
     Route::prefix('test')->group(function () {

@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -20,12 +21,14 @@ class UserController extends Controller
     public function list()
     {
         $pageConfigs = ['pageHeader' => false];
-        return view('user.app-user-list', ['pageConfigs' => $pageConfigs]);
+        $roles = Role::all();
+
+        return view('user.app-user-list', ['pageConfigs' => $pageConfigs,'roles' => $roles]);
     }
 
     public function api()
     {
-        $model = User::query();
+        $model = User::with('roles');
         return \DataTables::eloquent($model)->with([
             'filter_status' => User::select('status as value')->groupBy('status')->get(),
         ])
@@ -34,11 +37,13 @@ class UserController extends Controller
 
     public function store(UserRequest $input)
     {
-        User::create([
+        $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        $user->assignRole($input->role);
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return back();

@@ -59,6 +59,7 @@ $(function () {
           // For Responsive
           className: 'control',
           orderable: false,
+          searchable: false,
           responsivePriority: 2,
           targets: 0,
           render: function (data, type, full, meta) {
@@ -115,14 +116,15 @@ $(function () {
         {
           // User Role
           targets: 2,
+          searchable: false,
           render: function (data, type, full, meta) {
-            var $role = full['role'] ?? 'Subscriber'
+            var $role = full['roles'][0]['name'] ?? 'Subscriber'
             var roleBadgeObj = {
               Subscriber: feather.icons['user'].toSvg({ class: 'font-medium-3 text-primary me-50' }),
               Author: feather.icons['settings'].toSvg({ class: 'font-medium-3 text-warning me-50' }),
               Maintainer: feather.icons['database'].toSvg({ class: 'font-medium-3 text-success me-50' }),
               Editor: feather.icons['edit-2'].toSvg({ class: 'font-medium-3 text-info me-50' }),
-              Admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
+              admin: feather.icons['slack'].toSvg({ class: 'font-medium-3 text-danger me-50' })
             }
             return "<span class='text-truncate align-middle'>" + roleBadgeObj[$role] + $role + '</span>'
           }
@@ -145,6 +147,7 @@ $(function () {
         {
           // Actions
           targets: -1,
+          searchable: false,
           title: 'Actions',
           orderable: false,
           render: function (data, type, full, meta) {

@@ -248,9 +248,30 @@ $(function () {
     roleTitle = $('.role-title')
 
   roleAdd.on('click', function () {
+    var form = $('#addRoleForm')
+    form.attr('action',form.data('add-action'))
     roleTitle.text('Add New Role') // reset text
   })
   roleEdit.on('click', function () {
+    var form = $('#addRoleForm')
+    form.attr('action',form.data('update-action')+"/"+$(this).data('id'))
+
+    $('.form-check-input').attr('checked',false)
+    $('#modalRoleName').val('')
+    var jqxhr = $.ajax( $(this).data('edit') )
+    .done(function(role) {
+
+      $('#modalRoleName').val(role.name)
+      role.permissions.forEach(permission => {
+        var element = $('#'+permission.name);
+
+        element.attr('checked',true);
+      });
+    })
+    .fail(function() {
+      alert( "error" );
+    })
+    
     roleTitle.text('Edit Role')
   })
 })

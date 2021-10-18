@@ -163,16 +163,14 @@
                 name="password_confirmation"
               />
             </div>
-            {{-- <div class="mb-1">
+            <div class="mb-1">
               <label class="form-label" for="user-role">User Role</label>
-              <select id="user-role" class="select2 form-select">
-                <option value="subscriber">Subscriber</option>
-                <option value="editor">Editor</option>
-                <option value="maintainer">Maintainer</option>
-                <option value="author">Author</option>
-                <option value="admin">Admin</option>
+              <select id="user-role" class="select2 form-select" name="role">
+                @foreach ($roles as $role)
+                  <option value="{{ $role->name }}">{{ $role->name }}</option>
+                @endforeach
               </select>
-            </div> --}}
+            </div>
             <button type="submit" class="btn btn-primary me-1">Submit</button>
             <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
           </div>
