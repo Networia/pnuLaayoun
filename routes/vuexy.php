@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('test')->group(function () {
         Route::get('', [TestController::class , 'index'])->name('test');
         Route::get('api', [TestController::class , 'api'])->name('test.api');
+        Route::get('select', [TestController::class , 'list_select'])->name('test.list_select');
         Route::get('create', [TestController::class , 'create'])->name('test.create');
         Route::post('store', [TestController::class , 'store'])->name('test.store');
         Route::get('edit/{id}', [TestController::class , 'edit'])->name('test.edit');

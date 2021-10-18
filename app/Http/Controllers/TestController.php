@@ -34,7 +34,7 @@ class TestController extends Controller
 
     public function list_select(Request $data)
     {
-        $item = Test::where('name', 'like', '%'.$data->q.'%')->get();
+        $item = Test::where('f1', 'like', '%'.$data->q.'%')->get();
         $itemCount =  $item->count();
         //? create if not find
         if ($itemCount == 0) {

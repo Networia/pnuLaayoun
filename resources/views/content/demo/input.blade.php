@@ -19,6 +19,8 @@
 
                 {{-- In Edit Input : :last="$YOU_LAST_DATA", components auto set last data of this input if exest, accept collection --}}
                 <x-forms.input label="Edit Input (passed last data )" :last="$last" name="b_n" cols="col-3"/>
+
+                <x-forms.select2 name="test" cols="col-3"/>
             </div>
         </div>
     </div>

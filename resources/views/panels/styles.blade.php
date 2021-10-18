@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="{{ asset(mix('vendors/css/extensions/toastr.min.css')) }}">
 
 @yield('vendor-style')
+@stack('vendor-style')
 <!-- END: Vendor CSS-->
 
 <!-- BEGIN: Theme CSS-->
@@ -27,6 +28,7 @@
 <link rel="stylesheet" href="{{ asset(mix('css/base/plugins/extensions/ext-component-toastr.css')) }}">
 {{-- Page Styles --}}
 @yield('page-style')
+@stack('page-style')
 
 <!-- laravel style -->
 <link rel="stylesheet" href="{{ asset(mix('css/overrides.css')) }}" />
