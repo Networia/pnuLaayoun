@@ -97,7 +97,7 @@ class TableVuexy extends Command
         $this->info('* The add view created');
 
         //* Edit
-        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').'\\'.$this->argument('name'));
         $lastfileview = app_path() . '\stubs\vuexy\view_edit.stub';
         $newviewfile = $fullPathViewTo.'\edit.blade.php';
 
@@ -122,7 +122,7 @@ class TableVuexy extends Command
         $this->info('* The edit view created');
 
         //* Table
-        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').'\\'.$this->argument('name'));
         $lastfileview = app_path() . '\stubs\vuexy\view_table.stub';
         $newviewfile = $fullPathViewTo.'\table.blade.php';
 

@@ -12,21 +12,11 @@ class {{ControllerName}}Controller extends Controller
 {
     public function index()
     {
-        //if (Gate::denies('{{name}}','list')) {
-        //    session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-        //    return back();
-        //}
-
         return view('content.{{name}}.table');
     }
 
     public function api()
     {
-        //if (Gate::denies('{{name}}','list')) {
-        //    session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-        //    return back();
-        //}
-
         $model = {{ControllerName}}::query();
         return \DataTables::eloquent($model)
         ->toJson();
@@ -47,21 +37,11 @@ class {{ControllerName}}Controller extends Controller
 
     public function create()
     {
-        if (Gate::denies('{{name}}','create')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
-
         return view('content.{{name}}_add');
     }
 
     public function store({{ControllerName}}Request $data)
     {
-        if (Gate::denies('{{name}}','create')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
-
         {{ControllerName}}::create($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
@@ -70,11 +50,6 @@ class {{ControllerName}}Controller extends Controller
 
     public function edit($id)
     {
-        if (Gate::denies('{{name}}','edit')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
-
         $last = {{ControllerName}}::findOrFail($id);
 
         return view('content.{{name}}_edit',['last' => $last]);
@@ -82,11 +57,6 @@ class {{ControllerName}}Controller extends Controller
 
     public function update({{ControllerName}}Request $data)
     {
-        if (Gate::denies('{{name}}','edit')) {
-            session()->flash('toastr', ['type' => 'error' , 'title' => __('toastr.title.error') , 'contant' =>  __('toastr.contant.denies')]);
-            return back();
-        }
-
         $user = {{ControllerName}}::findOrFail($data->id);
 
         $user->update($data->toArray());
