@@ -10,7 +10,7 @@
           />
           <div class="user-info text-center">
             <h4>{{ $user->name }}</h4>
-            <span class="badge bg-light-secondary">{{ $user->role ?? 'No' }}</span>
+            <span class="badge bg-light-secondary">{{ $user->roles[0]->name ?? 'No' }}</span>
           </div>
         </div>
       </div>
@@ -55,7 +55,7 @@
           </li>
           <li class="mb-75">
             <span class="fw-bolder me-25">Role:</span>
-            <span>{{ $user->role ?? 'No' }}</span>
+            <span>{{ $user->roles[0]->name ?? 'No' }}</span>
           </li>
         </ul>
         <div class="d-flex justify-content-center pt-2">

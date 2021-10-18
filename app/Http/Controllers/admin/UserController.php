@@ -76,7 +76,7 @@ class UserController extends Controller
 
     public function detail($id)
     {
-        $user = User::findOrFail($id);
+        $user = User::with('roles')->findOrFail($id);
 
         return view('user.app-user-view-account',['user' => $user]);
     }
