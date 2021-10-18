@@ -38,19 +38,19 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('user')->middleware(['verified','password.confirm'])->group(function () {
-        Route::get('', [UserController::class , 'list'])->name('user.list');
-        Route::get('api', [UserController::class , 'api'])->name('user.api');
-        Route::post('store', [UserController::class , 'store'])->name('user.store');
-        Route::get('change/status/{id}', [UserController::class , 'status'])->name('user.status');
-        Route::get('detail/{id}', [UserController::class , 'detail'])->name('user.detail');
-        Route::post('detail/update/{id}', [UserController::class , 'update'])->name('user.update');
-        Route::get('security/{id}', [UserController::class , 'security'])->name('user.security');
-        Route::post('security/password/{id}', [UserController::class , 'password'])->name('user.security.password');
-        Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->name('user.security.tsv');
+        Route::get('', [UserController::class , 'list'])->middleware('can:user_list')->name('user.list');
+        Route::get('api', [UserController::class , 'api'])->middleware('can:user_list')->name('user.api');
+        Route::post('store', [UserController::class , 'store'])->middleware('can:user_create')->name('user.store');
+        Route::get('change/status/{id}', [UserController::class , 'status'])->middleware('can:user_status')->name('user.status');
+        Route::get('detail/{id}', [UserController::class , 'detail'])->middleware('can:user_info')->name('user.detail');
+        Route::post('detail/update/{id}', [UserController::class , 'update'])->middleware('can:user_info')->name('user.update');
+        Route::get('security/{id}', [UserController::class , 'security'])->middleware('can:user_password')->name('user.security');
+        Route::post('security/password/{id}', [UserController::class , 'password'])->middleware('can:user_password')->name('user.security.password');
+        Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->middleware('can:user_2fa')->name('user.security.tsv');
 
     });
 
-    Route::prefix('role')->middleware(['verified','password.confirm'])->group(function () {
+    Route::prefix('role')->middleware(['verified','password.confirm','role:admin'])->group(function () {
         Route::get('', [RolePermissionController::class , 'index'])->name('role');
         Route::post('create', [RolePermissionController::class , 'create'])->name('role.create');
         Route::get('edit/{id}', [RolePermissionController::class , 'edit'])->name('role.edit');

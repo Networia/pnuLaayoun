@@ -140,13 +140,12 @@ class Helper
     {
         $test=new \stdClass;
 
-        // if (Gate::allows('admin')) {
-
             $info=$test->menu[]= new \stdClass;
             $info->url=route('user.list');
             $info->name="Utilisateur";
             $info->icon="users";
             $info->slug=" ";
+            $info->permission=['user_list','user_create']; // hasAnyPermission
 
             $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
 
@@ -155,8 +154,21 @@ class Helper
                     $submenu->name=__('List');
                     $submenu->icon="circle";
                     $submenu->slug="user.list";
+                    $submenu->permission="user_list";
 
-        // }
+            $info=$test->menu[]= new \stdClass;
+            $info->url=route('user.list');
+            $info->name="Roles";
+            $info->icon="shield";
+            $info->slug=" ";
+
+            $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+        
+                    $submenu=$info->submenu[]=new \stdClass;
+                    $submenu->url=route("role");
+                    $submenu->name=__('List');
+                    $submenu->icon="circle";
+                    $submenu->slug="role";
 
             $info=$test->menu[]= new \stdClass;
             $info->url=route('settings.account');
@@ -165,10 +177,7 @@ class Helper
             $info->slug="settings.account";
 
             $verticalMenuData = $test;
-            // $horizontalMenuJson = file_get_contents(base_path('resources/data/menu-data/horizontalMenu.json'));
-            // $horizontalMenuData = json_decode($horizontalMenuJson);
-
-            // Share all menuData to all the views
+            
             return [$verticalMenuData, $verticalMenuData , $test];
     }
 }
