@@ -11,14 +11,14 @@ class TableVuexy extends Command
      *
      * @var string
      */
-    protected $signature = 'vuexy:table {name} {path?}';
+    protected $signature = 'vuexy:crud {name} {path?}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command of create vuexy table with controller and view';
+    protected $description = 'Command of create vuexy table with controller and view , vuexy:crud {name} {path?}';
 
     /**
      * Create a new command instance.
@@ -72,7 +72,7 @@ class TableVuexy extends Command
 
         //* Create views
             //* Add
-        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').$this->argument('name'));
+        $fullPathViewTo = resource_path('views\content\\'.$this->argument('path').'\\'.$this->argument('name'));
         $lastfileview = app_path() . '\stubs\vuexy\view_add.stub';
         $newviewfile = $fullPathViewTo.'\add.blade.php';
 
