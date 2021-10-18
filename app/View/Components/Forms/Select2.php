@@ -12,9 +12,16 @@ class Select2 extends Component
      * @return void
      */
     public $name;
-    public function __construct($name)
+    public $label;
+    public $cols;
+    public $last;
+
+    public function __construct($name, $label = null, $cols = null, $last = null)
     {
         $this->name = $name;
+        $this->label = $label;
+        $this->cols = $cols;
+        $this->last = $last;
     }
 
     /**

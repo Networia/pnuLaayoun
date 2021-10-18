@@ -5,15 +5,25 @@
     @endonce
 @endpush
 
-{{-- <input type="hidden" name="{{ $name }}_id" value="{{ $last->$name.'_id' }}"> --}}
+@php
+    $lastValue = null;
 
-<div class="form-group col-6">
-    <label class="form-label" for="basic-icon-default-fullname">{{ $name }}</label>
-    <select class="select2-data-ajax-{{ $name }} form-control" data-url="{{ route('test.list_select') }}"
-        id="select2-data-ajax-{{ $name }}" name="{{ $name }}_id" id="">
+    if (isset($last?->$name)) {
+        $lastValue = $last?->$name;
+    }
+@endphp
+
+<input type="hidden" name="{{ $name }}" value="{{ old($name) ?? $lastValue }}">
+
+<div class="form-group {{ $cols }}">
+    <label class="form-label" for="basic-icon-default-fullname">{{ $label ?? $name }}</label>
+    <select 
+        {{ $attributes->merge(['class' => "select2-data-ajax-". $name ." form-control" ]) }}
+        data-url="{{ route($name.'.list_select') }}"
+        id="select2-data-ajax-{{ $name }}" name="{{ $name }}" id="">
     </select>
 
-    @error('{{ $name }}_id')
+    @error( $name )
         <div class="invalid-feedback" style="display:BLOCK">
             {{ $message }}
         </div>

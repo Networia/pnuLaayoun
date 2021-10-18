@@ -11,6 +11,7 @@ class inputController extends Controller
     {
         $last=collect();
         $last->b_n = 'hi';
+        $last->test = 1;
         return view('content.demo.input',['last' => $last]);
     }
 }

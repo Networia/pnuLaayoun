@@ -37,10 +37,10 @@ class TestController extends Controller
         $item = Test::where('f1', 'like', '%'.$data->q.'%')->get();
         $itemCount =  $item->count();
         //? create if not find
-        if ($itemCount == 0) {
-            $item [] = ['id' =>  $data->q,'name' => $data->q];
-            $itemCount = 1;
-        }
+        // if ($itemCount == 0) {
+        //     $item [] = ['id' =>  $data->q,'name' => $data->q];
+        //     $itemCount = 1;
+        // }
 
         return ['total_count' => $itemCount , 'item'=> $item];
     }
