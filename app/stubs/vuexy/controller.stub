@@ -37,7 +37,7 @@ class {{ControllerName}}Controller extends Controller
 
     public function create()
     {
-        return view('content.{{name}}_add');
+        return view('content.{{name}}.add');
     }
 
     public function store({{ControllerName}}Request $data)
@@ -52,7 +52,7 @@ class {{ControllerName}}Controller extends Controller
     {
         $last = {{ControllerName}}::findOrFail($id);
 
-        return view('content.{{name}}_edit',['last' => $last]);
+        return view('content.{{name}}.edit',['last' => $last]);
     }
 
     public function update({{ControllerName}}Request $data)
