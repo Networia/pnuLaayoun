@@ -8,8 +8,10 @@
 @php
     $lastValue = null;
 
-    if (isset($last?->$name)) {
-        $lastValue = $last?->$name;
+    $newName = $name.'_id';
+
+    if (isset($last?->$newName)) {
+        $lastValue = $last?->$newName;
     }
 @endphp
 
