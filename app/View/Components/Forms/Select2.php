@@ -15,13 +15,21 @@ class Select2 extends Component
     public $label;
     public $cols;
     public $last;
+    public $dataname;
+    public $datavalue;
+    public $dataobject;
+    public $htmlname;
 
-    public function __construct($name, $label = null, $cols = null, $last = null)
+    public function __construct($name, $label = null, $cols = null, $last = null, $dataname = null, $dataobject = null, $datavalue = null, $htmlname = null)
     {
         $this->name = $name;
         $this->label = $label;
         $this->cols = $cols;
         $this->last = $last;
+        $this->dataname = $dataname;
+        $this->datavalue = $datavalue;
+        $this->dataobject = $dataobject;
+        $this->htmlname = $htmlname;
     }
 
     /**

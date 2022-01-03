@@ -5,24 +5,32 @@
     @endonce
 @endpush
 
+
 @php
     $lastValue = null;
 
-    $newName = $name.'_id';
+    $dataname = $dataname ?? $name;
+    $dataobject = $dataobject ?? $name;
+    $datavalue = $datavalue ?? $name;
 
-    if (isset($last?->$newName)) {
-        $lastValue = $last?->$newName;
+    if (isset($last?->$dataname)) {
+        $lastValue = $last?->$dataname;
     }
-@endphp
 
-<input type="hidden" name="{{ $name }}" value="{{ old($name) ?? $lastValue }}">
+    $selectedText = ( $last?->$dataobject?->$dataname ?? null );
+    $selecredValue = ( $last?->$dataobject?->$datavalue ?? null );
+@endphp
 
 <div class="form-group {{ $cols }}">
     <label class="form-label" for="basic-icon-default-fullname">{{ $label ?? $name }}</label>
     <select 
         {{ $attributes->merge(['class' => "select2-data-ajax-". $name ." form-control" ]) }}
         data-url="{{ route($name.'.list_select') }}"
-        id="select2-data-ajax-{{ $name }}" name="{{ $name }}" id="">
+        id="select2-data-ajax-{{ $name }}" 
+        name="{{ $htmlname ?? $name }}"
+        data-selected="{{ $selectedText ?? $lastValue }}"
+    >
+        <option value="{{ $selecredValue ?? $lastValue }}" selected="selected">initSelection</option>
     </select>
 
     @error( $name )
@@ -43,8 +51,9 @@
     <script>
         (function(window, document, $) {
             'use strict';
-            var selectAjax{{ $name }} = $('.select2-data-ajax-{{ $name }}'),
-                selectInModal = $('.select2InModal');
+            
+            console.log("Js of select2 : {{ $name }}")
+            var selectAjax{{ $name }} = $('.select2-data-ajax-{{ $name }}');
 
             selectAjax{{ $name }}.wrap('<div class="position-relative"></div>').select2({
                 dropdownAutoWidth: true,
@@ -75,10 +84,16 @@
                     },
                     cache: true
                 },
-                placeholder: 'Search for a client',
+                placeholder: 'Search for a {{ $name }}',
                 escapeMarkup: function(markup) {
                     return markup;
                 }, // let our custom formatter work
+                initSelection: function (element, callback) {
+                    callback($.map(element.val().split(','), function (id) {
+                        var selected = $(element).data('selected');
+                        return { id: selected};
+                    }));
+                },
                 minimumInputLength: 1,
                 templateResult: format{{ $name }},
                 templateSelection: formatSelection{{ $name }}
@@ -92,7 +107,6 @@
             function formatSelection{{ $name }}(repo) {
                 return repo.name || repo.id;
             }
-
         })(window, document, jQuery);
 
     </script>

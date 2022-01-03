@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TestRequest;
+use App\Models\Product;
 use App\Models\Test;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -35,6 +37,19 @@ class TestController extends Controller
     public function list_select(Request $data)
     {
         $item = Test::where('f1', 'like', '%'.$data->q.'%')->get();
+        $itemCount =  $item->count();
+        //? create if not find
+        // if ($itemCount == 0) {
+        //     $item [] = ['id' =>  $data->q,'name' => $data->q];
+        //     $itemCount = 1;
+        // }
+
+        return ['total_count' => $itemCount , 'item'=> $item];
+    }
+
+    public function list_select_product(Request $data)
+    {
+        $item = Product::where('name', 'like', '%'.$data->q.'%')->get();
         $itemCount =  $item->count();
         //? create if not find
         // if ($itemCount == 0) {

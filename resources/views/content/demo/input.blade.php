@@ -9,7 +9,7 @@
             <h4 class="card-title">Input demo 🚀</h4>
         </div>
         <div class="card-body">
-            <div class="card-text row">
+            <form class="card-text row">
                 {{-- Defult Input --}}
                 <x-forms.input />
 
@@ -26,8 +26,13 @@
                 <x-forms.input label="Edit Input (... and Data Name )" :last="$last" dataname="b_n_id" htmlname="b_n" name="b_n" cols="col-3"/>
 
                 {{-- <x-forms.select2 name="test" cols="col-3"/> --}}
-                <x-forms.select2 name="test" cols="col-3" :last="$last"/>
-            </div>
+                {{-- <x-forms.select2 name="test" cols="col-3" :last="$last"/> --}}
+
+                {{-- $last->(dataobject)->(dataname) or $last->(dataname ) --}}
+                <x-forms.select2 name="product" htmlname="product_id" dataobject="product" dataname="name" datavalue="id" cols="col-3" :last="$last"/>
+
+                <button type="submit">test name</button>
+            </form>
         </div>
     </div>
     <!--/ Kick start -->
