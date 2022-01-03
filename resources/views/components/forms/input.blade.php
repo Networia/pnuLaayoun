@@ -1,34 +1,35 @@
 @props(
-    ['type' => 'text', 'id' => null, 'last' => null, 'name' => 'NAME', 'label' => 'LABEL', 'cols' => 'col-md-6 col-12'] 
+    ['type' => 'text', 'id' => null, 'last' => null, 'name' => 'NAME', 'htmlname' => null, 'dataname' => null, 'label' => 'LABEL', 'cols' => 'col-md-6 col-12'] 
 )
 
 @php
     $defClass = 'form-control';
     $lastValue = null;
+    $dataName = ($dataname ?? $name);
 
-    if (isset($last?->$name)) {
-        $lastValue = $last?->$name;
+    if (isset($last?->$dataName)) {
+        $lastValue = $last?->$dataName;
     }
 @endphp
 
-@error($name)
+@error(($htmlname ?? $name))
     @php
         $defClass .= ' is-invalid';
     @endphp
 @enderror
 
 <div class="form-group {{ $cols }}">
-    <label class="form-label" for="{{ $id ?? $name }}">{{ $label ?? $name }}</label>
+    <label class="form-label" for="{{ $id ?? ($htmlname ?? $name) }}">{{ $label ?? ($htmlname ?? $name) }}</label>
     <input
         type="{{ $type }}"
-        name="{{ $name }}"
+        name="{{ $htmlname ?? ($htmlname ?? $name) }}"
         {{ $attributes->merge(['class' => $defClass ]) }}
-        value="{{ old($name) ?? $lastValue }}" 
-        id="{{ $id ?? $name }}"
-        aria-describedby="{{ $id ?? $name }}"
+        value="{{ old(($htmlname ?? $name)) ?? $lastValue }}" 
+        id="{{ $id ?? ($htmlname ?? $name) }}"
+        aria-describedby="{{ $id ?? ($htmlname ?? $name) }}"
         {{ $attributes }}
     />
-    @error($name)
+    @error(($htmlname ?? $name))
         <div class="invalid-feedback" style="display: block">{{ $message }}</div>
     @enderror
 </div>
