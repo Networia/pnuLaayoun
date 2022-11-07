@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\admin\RolePermissionController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\CheckController;
 use App\Http\Controllers\demo\inputController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
@@ -30,6 +32,19 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->middleware('password.confirm')->name('layout-full'); // check password after contue
     Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->middleware('verified')->name('layout-blank');
+    Route::group(['prefix' => 'check'], function () {
+        Route::get('/show-view-add',[CheckController::class,'create'])->name('view-add-check');
+        Route::post('/add',[CheckController::class,'store'])->name('Check.store');
+    });
+    Route::prefix('produits')->group(function () {
+        Route::get('', [ProductController::class, 'index'])->name('Product');
+        Route::get('api', [ProductController::class, 'api'])->name('Product.api');
+        Route::get('select', [ProductController::class, 'list_select'])->name('Product.list_select');
+        Route::get('create', [ProductController::class, 'create'])->name('Product.create');
+        Route::post('store', [ProductController::class, 'store'])->name('Product.store');
+       Route::get('edit/{id}', [ProductController::class, 'edit'])->name('Product.edit');
+        Route::post('update/{id}', [ProductController::class, 'update'])->name('Product.update');
+    });
 });
 
 // locale Route
