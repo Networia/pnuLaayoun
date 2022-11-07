@@ -1,14 +1,11 @@
 <?php
 
 namespace App\Http\Requests;
-use App\Actions\Fortify\PasswordValidationRules;
+
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class CheckRequest extends FormRequest
+class ProductRequest extends FormRequest
 {
-    use PasswordValidationRules;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,8 +24,7 @@ class CheckRequest extends FormRequest
     public function rules()
     {
         return [
-            'num_check' => ['required', 'max:255'],
-            'montent_check' => ['required', 'max:255'],
+            //
         ];
     }
 }

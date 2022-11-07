@@ -13,4 +13,8 @@ class Supplier extends Model
         'phone',
 
     ];
+
+    public function bone(){
+        return $this->hasMany(Bone::class);
+    }
 }

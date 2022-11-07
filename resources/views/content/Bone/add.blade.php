@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Nouveau Check'))
+@section('title', __('Nouveau Bone'))
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -16,11 +16,12 @@
             <div class="card">
     
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('check.store') }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('Bone.store') }}">
                         @csrf
                         <div class="row">
-                            <x-forms.input label="numero de cheque" name="num_check" cols="col-3"/>
-                            <x-forms.input label="montent de cheque" name="montent_check" cols="col-3"/>
+
+                            <x-forms.input label="stub" name="stub" cols="col-3"/>
+
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>

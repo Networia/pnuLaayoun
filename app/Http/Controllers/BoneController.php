@@ -3,28 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CheckRequest;
-use App\Models\Check;
+use App\Http\Requests\BoneRequest;
+use App\Models\Bone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class CheckController extends Controller
+class BoneController extends Controller
 {
     public function index()
     {
-        return view('content.Check.table');
+        return view('content.Bone.table');
     }
 
     public function api()
     {
-        $model = Check::query();
+        $model = Bone::query();
         return \DataTables::eloquent($model)
         ->toJson();
     }
 
     public function list_select(Request $data)
     {
-        $item = Check::where('name', 'like', '%'.$data->q.'%')->get();
+        $item = Bone::where('name', 'like', '%'.$data->q.'%')->get();
         $itemCount =  $item->count();
         //? create if not find
         //if ($itemCount == 0) {
@@ -37,41 +37,31 @@ class CheckController extends Controller
 
     public function create()
     {
-        return view('content.Check.add');
+        return view('content.Bone.add');
     }
 
-    public function store(CheckRequest $data)
+    public function store(BoneRequest $data)
     {
-
-        // Check::create($data->toArray());
-
-        Check::create([
-            'num_check' => $data->num_check,
-            'montent_check' => $data->montent_check,
-            'status_sup' => false,
-            'status_bank' => false,
-        ]);
+        Bone::create($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-        return redirect(route('check'));
+        return redirect(route('Bone'));
     }
 
     public function edit($id)
     {
-        $last = Check::findOrFail($id);
+        $last = Bone::findOrFail($id);
 
-        return view('content.Check.edit',['last' => $last]);
+        return view('content.Bone.edit',['last' => $last]);
     }
 
-    public function update(CheckRequest $data)
+    public function update(BoneRequest $data)
     {
-        $user = Check::findOrFail($data->id);
+        $user = Bone::findOrFail($data->id);
 
         $user->update($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-
-        return redirect(route('check'));
-
+        return redirect(route('Bone'));
     }
 }

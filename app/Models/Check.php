@@ -15,4 +15,7 @@ class Check extends Model
         'status_bank',
 
     ];
+    public function bone(){
+        return $this->hasMany(Bone::class);
+    }
 }

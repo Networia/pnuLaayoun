@@ -136,48 +136,74 @@ class Helper
             }
         }
     }
+
     public static function menu()
     {
-        $test=new \stdClass;
+        $test = new \stdClass;
 
-            $info=$test->menu[]= new \stdClass;
-            $info->url=route('user.list');
-            $info->name="Utilisateur";
-            $info->icon="users";
-            $info->slug=" ";
-            $info->permission=['user_list','user_create']; // hasAnyPermission
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('user.list');
+        $info->name = "Utilisateur";
+        $info->icon = "users";
+        $info->slug = " ";
+        $info->permission = ['user_list', 'user_create']; // hasAnyPermission
 
-            $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+        $info->badgeClass = "badge badge-pill badge-light-danger ml-auto mr-1";
 
-                    $submenu=$info->submenu[]=new \stdClass;
-                    $submenu->url=route("user.list");
-                    $submenu->name=__('List');
-                    $submenu->icon="circle";
-                    $submenu->slug="user.list";
-                    $submenu->permission="user_list";
+        $submenu = $info->submenu[] = new \stdClass;
+        $submenu->url = route("user.list");
+        $submenu->name = __('List');
+        $submenu->icon = "circle";
+        $submenu->slug = "user.list";
+        $submenu->permission = "user_list";
 
-            $info=$test->menu[]= new \stdClass;
-            $info->url=route('user.list');
-            $info->name="Roles";
-            $info->icon="shield";
-            $info->slug=" ";
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('user.list');
+        $info->name = "Roles";
+        $info->icon = "shield";
+        $info->slug = " ";
 
-            $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
-        
-                    $submenu=$info->submenu[]=new \stdClass;
-                    $submenu->url=route("role");
-                    $submenu->name=__('List');
-                    $submenu->icon="circle";
-                    $submenu->slug="role";
+        $info->badgeClass = "badge badge-pill badge-light-danger ml-auto mr-1";
 
-            $info=$test->menu[]= new \stdClass;
-            $info->url=route('settings.account');
-            $info->name=__('Réglage');
-            $info->icon="settings";
-            $info->slug="settings.account";
+        $submenu = $info->submenu[] = new \stdClass;
+        $submenu->url = route("role");
+        $submenu->name = __('List');
+        $submenu->icon = "circle";
+        $submenu->slug = "role";
 
-            $verticalMenuData = $test;
-            
-            return [$verticalMenuData, $verticalMenuData , $test];
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('settings.account');
+        $info->name = __('Réglage');
+        $info->icon = "settings";
+        $info->slug = "settings.account";
+
+
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('Product');
+        $info->name = "Produits";
+        $info->icon = "box";
+        $info->slug = " ";
+        //$info->permission=['product_list','product_create'];
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("Product.create");
+        $submenu->name=__('Nouveau produit');
+        $submenu->icon="circle";
+        $submenu->slug="product.create";
+/*        $submenu->permission="product_create";*/
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("Product");
+        $submenu->name=__('Liste des produits');
+        $submenu->icon="circle";
+        $submenu->slug="product";
+        //$submenu->permission="product_list";
+        $verticalMenuData = $test;
+
+        return [$verticalMenuData, $verticalMenuData, $test];
     }
 }
