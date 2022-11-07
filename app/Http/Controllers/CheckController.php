@@ -42,10 +42,18 @@ class CheckController extends Controller
 
     public function store(CheckRequest $data)
     {
-        Check::create($data->toArray());
+
+        // Check::create($data->toArray());
+
+        Check::create([
+            'num_check' => $data->num_check,
+            'montent_check' => $data->montent_check,
+            'status_sup' => false,
+            'status_bank' => false,
+        ]);
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-        return redirect(route('Check'));
+        return redirect(route('check'));
     }
 
     public function edit($id)
@@ -62,6 +70,8 @@ class CheckController extends Controller
         $user->update($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-        return redirect(route('Check'));
+
+        return redirect(route('check'));
+
     }
 }

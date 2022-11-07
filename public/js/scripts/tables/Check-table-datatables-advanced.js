@@ -51,6 +51,10 @@ $(function () {
         // columns according to JSON
         { data: '' },
         { data: 'id' ,defaultContent:'0' },
+        { data: 'num_check' ,defaultContent:'----' },
+        { data: 'montent_check' ,defaultContent:'----'},
+        { data: 'status_sup' ,defaultContent:'----'},
+        { data: 'status_bank' ,defaultContent:'----'},
         { data: '' }
       ],
       columnDefs: [

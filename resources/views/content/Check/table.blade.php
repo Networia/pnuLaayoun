@@ -31,11 +31,15 @@
           </div>
         </div> --}}
         <div class="card-datatable">
-          <table class="datatables-table table" data-edit="{{ route('Check.edit' ,"") }}" data-api="{{ route('Check.api') }}">
+          <table class="datatables-table table" data-edit="{{ route('check.edit' ,"") }}" data-api="{{ route('check.api') }}">
             <thead>
               <tr>
                 <th class=""></th>
                 <th class="">{{__('id')}}</th>
+                <th class="">{{__('numero de check')}}</th>
+                <th class="">{{__('montent')}}</th>
+                <th class="">{{__('statud supllier')}}</th>
+                <th class="">{{__('status banque')}}</th>
                 <th></th>
               </tr>
             </thead>

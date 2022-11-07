@@ -9,6 +9,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\CheckController;
 use App\Http\Controllers\TestController;
 
 /*
@@ -83,6 +84,19 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store', [ClientController::class , 'store'])->name('client.store');
         Route::get('edit/{id}', [ClientController::class , 'edit'])->name('client.edit');
         Route::post('update/{id}', [ClientController::class , 'update'])->name('client.update');
+        Route::get('profil/{id}', [ClientController::class, 'showProfile'])->name('client.profil');
+    });
+
+    //Cheque
+    Route::prefix('check')->group(function () {
+        Route::get('', [CheckController::class , 'index'])->name('check');
+        Route::get('api', [CheckController::class , 'api'])->name('check.api');
+        // Route::get('select', [CheckController::class , 'list_select'])->name('check.list_select');
+        // Route::get('select/product', [CheckController::class , 'list_select_product'])->name('product.list_select'); // just for check
+        Route::get('create', [CheckController::class , 'create'])->name('check.create');
+        Route::post('store', [CheckController::class , 'store'])->name('check.store');
+        Route::get('edit/{id}', [CheckController::class , 'edit'])->name('check.edit');
+        Route::post('update/{id}', [CheckController::class , 'update'])->name('check.update');
     });
 
     Route::prefix('demos')->group(function () {

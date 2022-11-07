@@ -16,11 +16,12 @@
             <div class="card">
     
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('Check.update',request()->id) }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('check.update',request()->id) }}">
                         @csrf
                         <div class="row">
 
-                            <x-forms.input label="demo" :last="$last" name="demo" cols="col-3"/>
+                            <x-forms.input label="numero de cheque" name="num_check" :last="$last"  cols="col-3"/>
+                            <x-forms.input label="montent de cheque" name="montent_check" :last="$last"  cols="col-3"/>
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Sauvegarder</button>
