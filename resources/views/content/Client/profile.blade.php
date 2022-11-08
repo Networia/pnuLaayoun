@@ -39,26 +39,26 @@
       <!-- /User Card -->
     </div>
 
-    <div class="col-xl-6 col-lg-12 col-md-12">
+    {{-- <div class="col-xl-6 col-lg-12 col-md-12">
       <!-- User Card -->
       @include('user.layouts.client-chart-products-card')
       <!-- /User Card -->
-    </div>
-    <div class="col-xl-6 col-lg-12 col-md-12">
+    </div> --}}
+    {{-- <div class="col-xl-6 col-lg-12 col-md-12">
       <!-- User Card -->
       @include('user.layouts.client-chart-services-card')
       <!-- /User Card -->
-    </div>
+    </div> --}}
     <!--/ User Sidebar -->
 
     <!-- User Content -->
     <div class="col-12 order-0 order-md-1">
       <!-- User Pills -->
-      <div class="card">
+      {{-- <div class="card">
         <ul class="nav nav-pills mb-0">
           @include('content.client.pills')
         </ul>
-      </div>
+      </div> --}}
       <!--/ User Pills -->
 
       <div class="tab-content">
@@ -104,8 +104,9 @@
                   </div>
                 </form>
               </div>
-
-            <table class="datatables-table table table-products" data-edit="{{ route('sale.edit' ,"") }}" data-api="{{ route('client.sale.api', request()->id) }}" data-profile_client="{{route('client.profil',"")}}">
+              {{-- {{ route('sale.edit' ,"") }} --}}
+              {{-- {{ route('client.sale.api', request()->id) }} --}}
+            <table class="datatables-table table table-products" data-edit="" data-api="" data-profile_client="{{route('client.profil',"")}}">
               <thead>
                 <tr>
                     <th class="control"></th>
@@ -152,7 +153,7 @@
   <div hidden class="archive-form" id="down-form" style="margin: auto;"> 
     {{-- <button style="margin: auto;" type="button" data-toggle="modal" id="onshowbtn" data-target="#onshow">Archiver</button> --}}
     <div class="btn-group" class="btn btn-primary">
-        <form action="{{ route('pinvoice.store', $client->id) }}" class="onshowbtnForm" method="post">
+        {{-- <form action="{{ route('pinvoice.store', $client->id) }}" class="onshowbtnForm" method="post">
           @csrf
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-primary waves-effect waves-float waves-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -189,7 +190,7 @@
   </div>
 </div>
          
-        </form>
+        </form> --}}
     </div>
   </div>
 </div>

@@ -10,7 +10,6 @@
           />
           <div class="user-info text-center">
             <h4>{{ $user->name }}</h4>
-            <span class="badge bg-light-secondary">{{ $user->roles[0]->name ?? 'No' }}</span>
           </div>
         </div>
       </div>
@@ -21,24 +20,15 @@
           </span>
           <div class="ms-75">
             <h4 class="mb-0">{{ $user->created_at->format('Y-m-d') }}</h4>
-            <small>Account Created at</small>
-          </div>
-        </div>
-        <div class="d-flex align-items-start">
-          <span class="badge bg-light-primary p-75 rounded">
-            <i data-feather="briefcase" class="font-medium-2"></i>
-          </span>
-          <div class="ms-75">
-            <h4 class="mb-0">568</h4>
-            <small>Projects Done</small>
+            <small>Compte créé à</small>
           </div>
         </div>
       </div>
-      <h4 class="fw-bolder border-bottom pb-50 mb-1">Details</h4>
+      <h4 class="fw-bolder border-bottom pb-50 mb-1">Détails</h4>
       <div class="info-container">
         <ul class="list-unstyled">
           <li class="mb-75">
-            <span class="fw-bolder me-25">Full Name:</span>
+            <span class="fw-bolder me-25">Nom complet:</span>
             <span>{{ $user->username ?? $user->name }}</span>
           </li>
           <li class="mb-75">
@@ -46,23 +36,17 @@
             <span>{{ $user->email }}</span>
           </li>
           <li class="mb-75">
-            <span class="fw-bolder me-25">Status:</span>
+            <span class="fw-bolder me-25">Statut:</span>
             @if ($user->status)
-              <span class="badge bg-light-success">Active</span>
+              <span class="badge bg-light-success">Activé</span>
             @else
-              <span class="badge bg-light-danger">Desactive</span>
+              <span class="badge bg-light-danger">Désactivé</span>
             @endif
-          </li>
-          <li class="mb-75">
-            <span class="fw-bolder me-25">Role:</span>
-            <span>{{ $user->roles[0]->name ?? 'No' }}</span>
           </li>
         </ul>
         <div class="d-flex justify-content-center pt-2">
-          <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">
-            Edit
-          </a>
-          <a href="javascript:;" class="btn btn-outline-danger suspend-user" data-link="{{ route('user.status',$user->id) }}" >Suspended</a>
+          <a href="javascript:;" class="btn btn-primary me-1" data-bs-target="#editUser" data-bs-toggle="modal">Modifier</a>
+          <a href="javascript:;" class="btn btn-outline-danger suspend-user" data-link="{{ route('user.status',$user->id) }}" >Activé / Désactivé</a>
         </div>
       </div>
     </div>

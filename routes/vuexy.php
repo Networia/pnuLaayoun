@@ -99,6 +99,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('update/{id}', [CheckController::class , 'update'])->name('check.update');
     });
 
+    //stati
+    Route::prefix('statistics')->group( function () {
+        Route::get('/', [StatisticController::class , 'index'])->middleware('role:admin')->name('statistic');
+        Route::get('years/db', [StatisticController::class , 'years'])->middleware('role:admin')->name('statistic.years');
+        Route::get('chart/vente/services/{chart_vente_services_year?}', [StatisticController::class , 'chart_vente_services'])->middleware('role:admin')->name('statistic.chart.vente.services');
+        Route::get('chart/vente/produits/{chart_vente_produits_year?}', [StatisticController::class , 'chart_vente_produits'])->middleware('role:admin')->name('statistic.chart.vente.produits');
+    });
+
     Route::prefix('demos')->group(function () {
         Route::get('form/element', [inputController::class , 'index'])->name('demo.input');
 

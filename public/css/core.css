@@ -4817,6 +4817,18 @@ textarea.form-control-lg {
   border-bottom-left-radius: 0.428rem;
 }
 
+.client-profile-numbers-first {
+  margin: auto !important;
+}
+
+.client-profile-numbers-centre {
+  margin: auto !important;
+}
+
+.client-profile-numbers-last {
+  margin: auto !important;
+}
+
 .card-group > .card {
   margin-bottom: 1rem;
 }
@@ -14055,6 +14067,28 @@ select:-webkit-autofill {
   display: flex;
   justify-content: center;
 }
+
+.client-profile-numbers {
+  display: grid;
+  grid-template-columns: 33% 34% 33%;
+  margin: auto;
+  width: 80%;
+}
+
+.ms-75 {
+  margin-left: 0.75rem !important;
+}
+
+.client-profile-numbers small {
+  text-align: center;
+  display: block;
+  margin: auto;
+}
+
+.client-profile-numbers h4 {
+  text-align: center;
+}
+
 .card-profile .card-body .profile-image-wrapper .profile-image {
   position: absolute;
   top: -4rem;
