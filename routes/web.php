@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\CheckController;
 use App\Http\Controllers\demo\inputController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
@@ -33,8 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->middleware('password.confirm')->name('layout-full'); // check password after contue
     Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->middleware('verified')->name('layout-blank');
     Route::group(['prefix' => 'check'], function () {
-        Route::get('/show-view-add',[CheckController::class,'create'])->name('view-add-check');
-        Route::post('/add',[CheckController::class,'store'])->name('Check.store');
+        Route::get('/show-view-add', [CheckController::class, 'create'])->name('view-add-check');
+        Route::post('/add', [CheckController::class, 'store'])->name('Check.store');
     });
 
     //Product
@@ -92,6 +93,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get('years/db', [StatisticController::class , 'years'])->middleware('role:admin')->name('statistic.years');
         Route::get('chart/vente/services/{chart_vente_services_year?}', [StatisticController::class , 'chart_vente_services'])->middleware('role:admin')->name('statistic.chart.vente.services');
         Route::get('chart/vente/produits/{chart_vente_produits_year?}', [StatisticController::class , 'chart_vente_produits'])->middleware('role:admin')->name('statistic.chart.vente.produits');
+    });
+    Route::prefix('stocks')->group(function () {
+        Route::get('', [StockController::class, 'index'])->name('Stock');
+        Route::get('api', [StockController::class, 'api'])->name('Stock.api');
+        Route::get('select', [StockController::class, 'list_select'])->name('Stock.list_select');
+        Route::get('create', [StockController::class, 'create'])->name('Stock.create');
+        Route::post('store', [StockController::class, 'store'])->name('Stock.store');
+        Route::get('edit/{id}', [StockController::class, 'edit'])->name('Stock.edit');
+        Route::post('update/{id}', [StockController::class, 'update'])->name('Stock.update');
     });
 });
 
