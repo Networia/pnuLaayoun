@@ -64,4 +64,9 @@ class ProductController extends Controller
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return redirect(route('Product'));
     }
+
+    //test purchase
+    public function purchase(){
+        return view('content.Product.purchase');
+    }
 }

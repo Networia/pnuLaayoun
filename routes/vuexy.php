@@ -62,50 +62,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('update/{id}', [TestController::class , 'update'])->name('test.update');
     });
 
-    //Supplier
-    Route::prefix('supplier')->group(function () {
-        Route::get('', [SupplierController::class , 'index'])->name('supplier');
-        Route::get('api', [SupplierController::class , 'api'])->name('supplier.api');
-        // Route::get('select', [SupplierController::class , 'list_select'])->name('supplier.list_select');
-        // Route::get('select/product', [SupplierController::class , 'list_select_product'])->name('product.list_select'); // just for supplier
-        Route::get('create', [SupplierController::class , 'create'])->name('supplier.create');
-        Route::post('store', [SupplierController::class , 'store'])->name('supplier.store');
-        Route::get('edit/{id}', [SupplierController::class , 'edit'])->name('supplier.edit');
-        Route::post('update/{id}', [SupplierController::class , 'update'])->name('supplier.update');
-    });
-
-    //Client
-    Route::prefix('client')->group(function () {
-        Route::get('', [ClientController::class , 'index'])->name('client');
-        Route::get('api', [ClientController::class , 'api'])->name('client.api');
-        // Route::get('select', [ClientController::class , 'list_select'])->name('client.list_select');
-        // Route::get('select/product', [ClientController::class , 'list_select_product'])->name('product.list_select'); // just for client
-        Route::get('create', [ClientController::class , 'create'])->name('client.create');
-        Route::post('store', [ClientController::class , 'store'])->name('client.store');
-        Route::get('edit/{id}', [ClientController::class , 'edit'])->name('client.edit');
-        Route::post('update/{id}', [ClientController::class , 'update'])->name('client.update');
-        Route::get('profil/{id}', [ClientController::class, 'showProfile'])->name('client.profil');
-    });
-
-    //Cheque
-    Route::prefix('check')->group(function () {
-        Route::get('', [CheckController::class , 'index'])->name('check');
-        Route::get('api', [CheckController::class , 'api'])->name('check.api');
-        // Route::get('select', [CheckController::class , 'list_select'])->name('check.list_select');
-        // Route::get('select/product', [CheckController::class , 'list_select_product'])->name('product.list_select'); // just for check
-        Route::get('create', [CheckController::class , 'create'])->name('check.create');
-        Route::post('store', [CheckController::class , 'store'])->name('check.store');
-        Route::get('edit/{id}', [CheckController::class , 'edit'])->name('check.edit');
-        Route::post('update/{id}', [CheckController::class , 'update'])->name('check.update');
-    });
-
-    //stati
-    Route::prefix('statistics')->group( function () {
-        Route::get('/', [StatisticController::class , 'index'])->middleware('role:admin')->name('statistic');
-        Route::get('years/db', [StatisticController::class , 'years'])->middleware('role:admin')->name('statistic.years');
-        Route::get('chart/vente/services/{chart_vente_services_year?}', [StatisticController::class , 'chart_vente_services'])->middleware('role:admin')->name('statistic.chart.vente.services');
-        Route::get('chart/vente/produits/{chart_vente_produits_year?}', [StatisticController::class , 'chart_vente_produits'])->middleware('role:admin')->name('statistic.chart.vente.produits');
-    });
+    
 
     Route::prefix('demos')->group(function () {
         Route::get('form/element', [inputController::class , 'index'])->name('demo.input');
