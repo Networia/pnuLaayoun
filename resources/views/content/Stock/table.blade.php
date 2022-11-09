@@ -36,8 +36,8 @@
               <tr>
                 <th class=""></th>
                 <th class="">{{__('id')}}</th>
-                <th class="">{{__('Nom de stock')}}</th>
-               {{-- <th>{{__('Nom de stock')}}</th>--}}
+                <th class="">{{__('name de stock')}}</th>
+                <th></th>
               </tr>
             </thead>
           </table>
