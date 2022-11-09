@@ -224,19 +224,6 @@
                 </div>
             </section>
             <!-- /Horizontal Wizard -->
-
-            
-            
-            
-
-            
-            
-            
-
-            
-            
-            
-
         </div>
     </div>
 </section>
