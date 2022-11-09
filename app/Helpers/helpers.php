@@ -201,6 +201,31 @@ class Helper
         $submenu->name=__('Liste des produits');
         $submenu->icon="circle";
         $submenu->slug="product";
+
+
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('Stock');
+        $info->name = "Stocks";
+        $info->icon = "codepen";
+        $info->slug = " ";
+        //$info->permission=['product_list','product_create'];
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("Stock.create");
+        $submenu->name=__('Nouveau stock');
+        $submenu->icon="circle";
+        $submenu->slug="stock.create";
+/*        $submenu->permission="product_create";*/
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("Stock");
+        $submenu->name=__('Liste des stocks');
+        $submenu->icon="circle";
+        $submenu->slug="stock";
         //$submenu->permission="product_list";
         $verticalMenuData = $test;
 

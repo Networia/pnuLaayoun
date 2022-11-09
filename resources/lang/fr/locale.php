@@ -182,5 +182,6 @@ return [
     "Promotional" => "Promotionnel",
     'Accordion' => 'Accordéon',
     "Offcanvas" => "Hors-toile",
-    "message" => "Gâteau au sésame s'enclenche petit pain au pain d'épices danois J'adore le pain d'épices. Tarte aux pommes jujubes chupa chups  muffin halva sucette. Gateau au chocolat gateau d 'avoine tiramisu prune sucre. Donut tourte sucrée gateau dragée fruit gateau barbe a papa citron gouttes.."
+    "message" => "Gâteau au sésame s'enclenche petit pain au pain d'épices danois J'adore le pain d'épices. Tarte aux pommes jujubes chupa chups  muffin halva sucette. Gateau au chocolat gateau d 'avoine tiramisu prune sucre. Donut tourte sucrée gateau dragée fruit gateau barbe a papa citron gouttes..",
+    "Nom de stock"=>"Nom de stock"
 ];
