@@ -66,18 +66,17 @@ $(function () {
       var $this = $(this);
       $this.validate({
         rules: {
-          username: {
+          numero_bone: {
             required: true
           },
-          email: {
+          supllier: {
             required: true
           },
-          password: {
+          stock: {
             required: true
           },
-          'confirm-password': {
+          total: {
             required: true,
-            equalTo: '#password'
           },
           'first-name': {
             required: true
