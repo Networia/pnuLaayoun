@@ -9,6 +9,7 @@ use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
 
