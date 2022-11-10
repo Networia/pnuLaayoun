@@ -14,13 +14,13 @@
         <div class="row">
             <div class="col-md-12">
             <div class="card">
-    
+
                 <div class="card-body">
                     <form class="auth-register-form mt-2" method="POST" action="{{ route('Stock.store') }}">
                         @csrf
                         <div class="row">
 
-                            <x-forms.input label="stub" name="stub" cols="col-3"/>
+                            <x-forms.input label="name de stock" name="name" cols="col-3"/>
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
