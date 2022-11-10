@@ -20526,6 +20526,11 @@ footer.footer-border {
   border-color: #ebe9f1;
 }
 
+
+.button_center{
+  text-align: center;
+}
+
 .timeline {
   padding: 0;
   margin-bottom: 0;

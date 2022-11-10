@@ -26,4 +26,8 @@ $(function () {
       }
     }
   });
+
+  $('.addrep').click(() => {
+    $("#add_payement").trigger('click');
+  })
 });
