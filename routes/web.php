@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\RolePermissionController;
 use App\Http\Controllers\admin\UserController;
+use App\Http\Controllers\CategorieController;
 use App\Http\Controllers\CheckController;
 use App\Http\Controllers\demo\inputController;
 use App\Http\Controllers\ProductController;
@@ -103,6 +104,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store', [StockController::class, 'store'])->name('Stock.store');
         Route::get('edit/{id}', [StockController::class, 'edit'])->name('Stock.edit');
         Route::post('update/{id}', [StockController::class, 'update'])->name('Stock.update');
+    });
+    Route::prefix('categories')->group(function () {
+        Route::get('select', [CategorieController::class, 'list_select'])->name('categorie.list_select');
     });
 });
 

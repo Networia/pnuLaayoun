@@ -3,28 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
-use App\Models\Product;
+use App\Http\Requests\CategorieRequest;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-class ProductController extends Controller
+class CategorieController extends Controller
 {
     public function index()
     {
-        return view('content.Product.table');
+        return view('content.Categorie.table');
     }
 
     public function api()
     {
-        $model = Product::with(['categories', 'bones','stocks']);;
+        $model = Categorie::query();
         return \DataTables::eloquent($model)
         ->toJson();
     }
 
     public function list_select(Request $data)
     {
-        $item = Product::where('name', 'like', '%'.$data->q.'%')->get();
+        $item = Categorie::where('name', 'like', '%'.$data->q.'%')->get();
         $itemCount =  $item->count();
         //? create if not find
         //if ($itemCount == 0) {
@@ -37,36 +37,31 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('content.Product.add');
+        return view('content.Categorie.add');
     }
 
-    public function store(ProductRequest $data)
+    public function store(CategorieRequest $data)
     {
-        Product::create($data->toArray());
+        Categorie::create($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-        return redirect(route('Product'));
+        return redirect(route('Categorie'));
     }
 
     public function edit($id)
     {
-        $last = Product::findOrFail($id);
+        $last = Categorie::findOrFail($id);
 
-        return view('content.Product.edit',['last' => $last]);
+        return view('content.Categorie.edit',['last' => $last]);
     }
 
-    public function update(ProductRequest $data)
+    public function update(CategorieRequest $data)
     {
-        $user = Product::findOrFail($data->id);
+        $user = Categorie::findOrFail($data->id);
 
         $user->update($data->toArray());
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
-        return redirect(route('Product'));
-    }
-
-    //test purchase
-    public function purchase(){
-        return view('content.Product.purchase');
+        return redirect(route('Categorie'));
     }
 }

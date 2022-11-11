@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Nouveau Product'))
+@section('title', __('Nouveau Categorie'))
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -14,12 +14,12 @@
         <div class="row">
             <div class="col-md-12">
             <div class="card">
-
+    
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.store') }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('Categorie.store') }}">
                         @csrf
                         <div class="row">
-                            <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" />
+
                             <x-forms.input label="stub" name="stub" cols="col-3"/>
 
                             <div class="col-12">

@@ -30,7 +30,7 @@ class CreateProductsTable extends Migration
                 $table->float('prix_vente');
                 $table->integer('quantite_dispo');
                 $table->foreignId('product_categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-                $table->foreignId('product_bone_id')->constrained('bones')->onUpdate('cascade')->onDelete('cascade');
+                $table->foreignId('product_bone_id')->constrained('bones')->onUpdate('cascade')->onDelete('cascade')->nullable();
                 $table->foreignId('product_stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
                 $table->timestamps();
             });
