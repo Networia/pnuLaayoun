@@ -39,6 +39,7 @@
                             {{-- detail achta --}}
                             <x-forms.input label="Prix Achat" name="prix_achat" cols="col-3 "/>
                             <x-forms.input label="Prix vente" name="prix_vente" cols="col-3 "/>
+                            <x-forms.input label="Quantité disponible" name="quantite_dispo" cols="col-3 "/>
                             {{-- Stock --}}
                             <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" />
 

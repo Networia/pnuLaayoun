@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Categorie;
 use App\Models\Product;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -41,9 +42,46 @@ class ProductController extends Controller
         return view('content.Product.add' );
     }
 
-    public function store(ProductRequest $data)
+    public function store(ProductRequest $request)
     {
-        Product::create($data->toArray());
+        $categorie_id = $request->categorie;
+        $categorie =Categorie::find($categorie_id);
+
+        if(!$categorie){
+            $newCategorie = Categorie::create([
+                'name'=>$request->categorie,
+            ]);
+            $categorie_id = $newCategorie->id;
+        }
+
+        $stock_id =$request->stock;
+        $stock = Stock::find($stock_id);
+        if(!$stock){
+            $newStock = Stock::create([
+                'name'=>$request->stock,
+            ]);
+            $stock_id = $newStock->id;
+        }
+
+        Product::create([
+            'serie_peneu'=>$request->serie_peneu,
+            'marque_peneu'=>$request->marque_peneu,
+            'reference_filter'=>$request->reference_filter,
+            'marque_filter'=>$request->marque_filter,
+            'marque_baterie'=>$request->marque_baterie,
+            'num_voltage'=>$request->num_voltage,
+            'serie_chambrere'=>$request->serie_chambrere,
+            'marque_chambrere'=>$request->marque_chambrere,
+            'serie_huile'=>$request->serie_huile,
+            'marque_huile'=>$request->marque_huile,
+            'lettrage_huile'=>$request->lettrage_huile,
+            'prix_achat'=>$request->prix_achat,
+            'prix_vente'=>$request->prix_vente,
+            'quantite_dispo'=>$request->quantite_dispo,
+            'product_categorie_id'=>$categorie_id,
+            'product_stock_id'=>$stock_id,
+            'product_bone_id'=>NULL
+        ]);
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return redirect(route('Product'));

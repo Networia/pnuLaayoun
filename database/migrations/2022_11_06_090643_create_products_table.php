@@ -31,9 +31,9 @@ class CreateProductsTable extends Migration
                 $table->float('lettrage_huile')->nullable();
                 $table->float('prix_achat');
                 $table->float('prix_vente');
-                $table->integer('quantite_dispo');
+                $table->integer('quantite_dispo')->nullable();
                 $table->foreignId('product_categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-                $table->foreignId('product_bone_id')->constrained('bones')->onUpdate('cascade')->onDelete('cascade')->nullable();
+                $table->foreignId('product_bone_id')->constrained('bones')->nullable()->unsigned();
                 $table->foreignId('product_stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
                 $table->timestamps();
             });

@@ -57,14 +57,17 @@ $(function () {
         { data: 'marque_filter'},
         { data: 'marque_baterie'},
         { data: 'num_voltage'},
-        { data: 'serie_chambiere'},
-        { data: 'marque_chambiere'},
+        { data: 'serie_chambrere'},
+        { data: 'marque_chambrere'},
+    /*    { data: 'serie_huile'},
+        { data: 'marque_huile'},
+        { data: 'lettrage_huile'},*/
         { data: 'prix_achat'},
         { data: 'prix_vente'},
         { data: 'quantite_dispo'},
-        { data: 'categories.name'},
+    /*    { data: 'categories.name'},
         { data: 'stocks.name'},
-        { data: 'bones.serie_bone'},
+        { data: 'bones.serie_bone'},*/
         { data: 'created_at'},
       ],
       columnDefs: [
