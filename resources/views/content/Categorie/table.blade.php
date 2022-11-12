@@ -36,6 +36,7 @@
               <tr>
                 <th class=""></th>
                 <th class="">{{__('id')}}</th>
+                <th class="">{{__('name')}}</th>
                 <th></th>
               </tr>
             </thead>

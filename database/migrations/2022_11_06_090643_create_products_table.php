@@ -24,8 +24,11 @@ class CreateProductsTable extends Migration
                 $table->text('marque_filter')->nullable();
                 $table->text('marque_baterie')->nullable();
                 $table->text('num_voltage')->nullable();
-                $table->text('serie_chambiere')->nullable();
-                $table->text('marque_chambiere')->nullable();
+                $table->text('serie_chambrere')->nullable();
+                $table->text('marque_chambrere')->nullable();
+                $table->text('serie_huile')->nullable();
+                $table->text('marque_huile')->nullable();
+                $table->float('lettrage_huile')->nullable();
                 $table->float('prix_achat');
                 $table->float('prix_vente');
                 $table->integer('quantite_dispo');

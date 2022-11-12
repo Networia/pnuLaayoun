@@ -4829,6 +4829,10 @@ textarea.form-control-lg {
   margin: auto !important;
 }
 
+.form-group:has(.hideinput){
+  display: none;
+}
+
 .card-group > .card {
   margin-bottom: 1rem;
 }

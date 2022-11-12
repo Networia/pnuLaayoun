@@ -51,6 +51,7 @@ $(function () {
         // columns according to JSON
         { data: '' },
         { data: 'id' ,defaultContent:'0' },
+        { data: 'name_categorie' ,defaultContent:'0' },
         { data: '' }
       ],
       columnDefs: [

@@ -30,11 +30,11 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('salahhusa9'),
         ]);
         $categories = [
-            ['name_categorie' => 'Pneu'],
-            ['name_categorie' => 'Filter'],
-            ['name_categorie' => 'Batterie'],
-            ['name_categorie' => 'Chambrière'],
-            ['name_categorie' => 'Huile']
+            ['name' => 'Pneu'],
+            ['name' => 'Filter'],
+            ['name' => 'Batterie'],
+            ['name' => 'Chambrière'],
+            ['name' => 'Huile']
         ];
         DB::table('categories')->insert($categories);
 

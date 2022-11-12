@@ -99,14 +99,21 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('stocks')->group(function () {
         Route::get('', [StockController::class, 'index'])->name('Stock');
         Route::get('api', [StockController::class, 'api'])->name('Stock.api');
-        Route::get('select', [StockController::class, 'list_select'])->name('Stock.list_select');
+        Route::get('select', [StockController::class, 'list_select'])->name('stock.list_select');
         Route::get('create', [StockController::class, 'create'])->name('Stock.create');
         Route::post('store', [StockController::class, 'store'])->name('Stock.store');
         Route::get('edit/{id}', [StockController::class, 'edit'])->name('Stock.edit');
         Route::post('update/{id}', [StockController::class, 'update'])->name('Stock.update');
     });
-    Route::prefix('categories')->group(function () {
+
+    Route::prefix('categorie')->group(function () {
+        Route::get('', [CategorieController::class, 'index'])->name('Categorie');
+        Route::get('api', [CategorieController::class, 'api'])->name('Categorie.api');
         Route::get('select', [CategorieController::class, 'list_select'])->name('categorie.list_select');
+        Route::get('create', [CategorieController::class, 'create'])->name('Categorie.create');
+        Route::post('store', [CategorieController::class, 'store'])->name('Categorie.store');
+        Route::get('edit/{id}', [CategorieController::class, 'edit'])->name('Categorie.edit');
+        Route::post('update/{id}', [CategorieController::class, 'update'])->name('Categorie.update');
     });
 });
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
+use App\Models\Categorie;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -37,7 +38,7 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('content.Product.add');
+        return view('content.Product.add' );
     }
 
     public function store(ProductRequest $data)
