@@ -53,12 +53,12 @@ $(function () {
         { data: 'id' ,defaultContent:'0' },
         { data: 'serie_peneu'},
         { data: 'marque_peneu'},
-        { data: 'reference_filter'},
-        { data: 'marque_filter'},
-        { data: 'marque_baterie'},
-        { data: 'num_voltage'},
-        { data: 'serie_chambrere'},
-        { data: 'marque_chambrere'},
+        // { data: 'reference_filter'},
+        // { data: 'marque_filter'},
+        // { data: 'marque_baterie'},
+        // { data: 'num_voltage'},
+        // { data: 'serie_chambrere'},
+        // { data: 'marque_chambrere'},
     /*    { data: 'serie_huile'},
         { data: 'marque_huile'},
         { data: 'lettrage_huile'},*/
@@ -241,4 +241,57 @@ $(function () {
     })
   }
 
-})
+  //IBDA3i
+  
+  //pnu
+  $('#pnu_products').on('click', function(){
+    $("#pnu_products > a").addClass("active");
+  //remove class active if hase
+    $("#filter_products>a").removeClass("active");
+    $("#chambrere_products>a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+
+    
+  });
+
+  //filter
+  $('#filter_products').on('click', function(){
+    $("#filter_products > a").addClass("active");
+  //remove class active if hase
+    $("#pnu_products>a").removeClass("active");
+    $("#chambrere_products>a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+  });
+   
+  //chambrere
+  $('#chambrere_products').on('click', function(){
+    $("#chambrere_products>a").addClass("active");
+  //remove class active if hase
+    $("#pnu_products>a").removeClass("active");
+    $("#filter_products>a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+  });
+
+  //Battrie
+  $('#battrie_products').on('click', function(){
+    $("#battrie_products>a").addClass("active");
+  //remove class active if hase
+    $("#pnu_products>a").removeClass("active");
+    $("#filter_products>a").removeClass("active");
+    $("#chambrere_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+  });
+
+  //Huile
+  $('#huile_products').on('click', function(){
+    $("#huile_products> a").addClass("active");
+  //remove class active if hase
+    $("#pnu_products>a").removeClass("active");
+    $("#filter_products>a").removeClass("active");
+    $("#chambrere_products >a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+  });
+});

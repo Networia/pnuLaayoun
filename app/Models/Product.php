@@ -27,15 +27,15 @@ class Product extends Model
         'product_bone_id',
         'product_stock_id',
     ];
-    public function categorie()
+    public function categories()
     {
         return $this->belongsTo(Categorie::class);
     }
-    public function bone()
+    public function bones()
     {
         return $this->belongsTo(Bone::class);
     }
-    public function stock()
+    public function stocks()
     {
         return $this->belongsTo(Stock::class);
     }

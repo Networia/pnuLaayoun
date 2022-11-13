@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/pickers/flatpickr/flatpickr.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/animate/animate.min.css')) }}">
 
 @endsection
 
@@ -24,12 +25,21 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
+          <ul class="nav nav-pills mb-0">
+            @include('content.product.pills')
+          </ul>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="card">
         {{-- <div class="card-body border-bottom">
           <h4 class="card-title">Search & Filter</h4>
           <div class="row">
             <div class="col-md-4 user_status"></div>
           </div>
         </div> --}}
+        
+        {{-- pnu table --}}
         <div class="card-datatable">
           <table class="datatables-table table" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.api') }}">
             <thead>
@@ -38,11 +48,11 @@
                 <th class="">{{__('id')}}</th>
                 <th class="">{{__('Serie de peneu')}}</th>
                 <th class="">{{__('Marque de peneu')}}</th>
-                <th class="">{{__('Reference de filter')}}</th>
+                {{-- <th class="">{{__('Reference de filter')}}</th>
                 <th class="">{{__('Marque de filter')}}</th>
                 <th class="">{{__('Numero de viltage')}}</th>
                 <th class="">{{__('Série de chmabrier')}}</th>
-                <th class="">{{__('Marque de chmabrier')}}</th>
+                <th class="">{{__('Marque de chmabrier')}}</th> --}}
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
@@ -55,6 +65,7 @@
             </thead>
           </table>
         </div>
+        
       </div>
     </div>
   </div>
