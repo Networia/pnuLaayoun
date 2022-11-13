@@ -23,7 +23,13 @@ class ProductController extends Controller
         return \DataTables::eloquent($model)
         ->toJson();
     }
-
+    //get pneu
+    public function Pnuapi()
+    {
+        $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 1);;;
+        return \DataTables::eloquent($model)
+        ->toJson();
+    }
     public function list_select(Request $data)
     {
         $item = Product::where('name', 'like', '%'.$data->q.'%')->get();

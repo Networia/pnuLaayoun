@@ -252,7 +252,8 @@ $(function () {
     $("#battrie_products>a").removeClass("active");
     $("#huile_products>a").removeClass("active");
 
-    
+
+
   });
 
   //filter

@@ -24,7 +24,7 @@ class StockRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:255|unique:stocks,name,'. $this->id,
         ];
     }
 }
