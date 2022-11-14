@@ -46,7 +46,7 @@ $(function () {
     dtUserTable.DataTable({
       processing: true,
       serverSide: true,
-      ajax: dtUserTable.data('api'), // JSON file to add data
+      ajax: dtUserTable.data('pnu'), // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -244,55 +244,55 @@ $(function () {
   //IBDA3i
   
   //pnu
-  $('#pnu_products').on('click', function(){
-    $("#pnu_products > a").addClass("active");
-  //remove class active if hase
-    $("#filter_products>a").removeClass("active");
-    $("#chambrere_products>a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
+  // $('#pnu_products').on('click', function(){
+  //   $("#pnu_products > a").addClass("active");
+  // //remove class active if hase
+  //   $("#filter_products>a").removeClass("active");
+  //   $("#chambrere_products>a").removeClass("active");
+  //   $("#battrie_products>a").removeClass("active");
+  //   $("#huile_products>a").removeClass("active");
 
 
 
-  });
+  // });
 
   //filter
-  $('#filter_products').on('click', function(){
-    $("#filter_products > a").addClass("active");
-  //remove class active if hase
-    $("#pnu_products>a").removeClass("active");
-    $("#chambrere_products>a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
-  });
+  // $('#filter_products').on('click', function(){
+  //   $("#filter_products > a").addClass("active");
+  // //remove class active if hase
+  //   $("#pnu_products>a").removeClass("active");
+  //   $("#chambrere_products>a").removeClass("active");
+  //   $("#battrie_products>a").removeClass("active");
+  //   $("#huile_products>a").removeClass("active");
+  // });
    
-  //chambrere
-  $('#chambrere_products').on('click', function(){
-    $("#chambrere_products>a").addClass("active");
-  //remove class active if hase
-    $("#pnu_products>a").removeClass("active");
-    $("#filter_products>a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
-  });
+  // //chambrere
+  // $('#chambrere_products').on('click', function(){
+  //   $("#chambrere_products>a").addClass("active");
+  // //remove class active if hase
+  //   $("#pnu_products>a").removeClass("active");
+  //   $("#filter_products>a").removeClass("active");
+  //   $("#battrie_products>a").removeClass("active");
+  //   $("#huile_products>a").removeClass("active");
+  // });
 
-  //Battrie
-  $('#battrie_products').on('click', function(){
-    $("#battrie_products>a").addClass("active");
-  //remove class active if hase
-    $("#pnu_products>a").removeClass("active");
-    $("#filter_products>a").removeClass("active");
-    $("#chambrere_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
-  });
+  // //Battrie
+  // $('#battrie_products').on('click', function(){
+  //   $("#battrie_products>a").addClass("active");
+  // //remove class active if hase
+  //   $("#pnu_products>a").removeClass("active");
+  //   $("#filter_products>a").removeClass("active");
+  //   $("#chambrere_products>a").removeClass("active");
+  //   $("#huile_products>a").removeClass("active");
+  // });
 
-  //Huile
-  $('#huile_products').on('click', function(){
-    $("#huile_products> a").addClass("active");
-  //remove class active if hase
-    $("#pnu_products>a").removeClass("active");
-    $("#filter_products>a").removeClass("active");
-    $("#chambrere_products >a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-  });
+  // //Huile
+  // $('#huile_products').on('click', function(){
+  //   $("#huile_products> a").addClass("active");
+  // //remove class active if hase
+  //   $("#pnu_products>a").removeClass("active");
+  //   $("#filter_products>a").removeClass("active");
+  //   $("#chambrere_products >a").removeClass("active");
+  //   $("#battrie_products>a").removeClass("active");
+  // });
 });

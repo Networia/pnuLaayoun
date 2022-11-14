@@ -24,12 +24,45 @@ class ProductController extends Controller
         ->toJson();
     }
     //get pneu
-    public function Pnuapi()
+    public function pnu()
     {
         $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 1);;;
         return \DataTables::eloquent($model)
         ->toJson();
     }
+
+    //get filter
+    public function filterapi()
+    {
+        $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 2);;;
+        return \DataTables::eloquent($model)
+        ->toJson();
+    }
+
+    //get Battrie
+    public function battrieapi()
+    {
+        $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 3);;;
+        return \DataTables::eloquent($model)
+        ->toJson();
+    }
+
+    //get Chambrière
+    public function chambriereapi()
+    {
+        $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 4);;;
+        return \DataTables::eloquent($model)
+        ->toJson();
+    }
+
+     //get huile
+     public function huileapi()
+     {
+         $model = Product::with(['categories', 'bones','stocks'])->where('product_categorie_id', 5);;;
+         return \DataTables::eloquent($model)
+         ->toJson();
+     }
+
     public function list_select(Request $data)
     {
         $item = Product::where('name', 'like', '%'.$data->q.'%')->get();
@@ -50,6 +83,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
+        // dd($request);
         $categorie_id = $request->categorie;
         $categorie =Categorie::find($categorie_id);
 

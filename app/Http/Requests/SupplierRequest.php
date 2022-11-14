@@ -29,7 +29,7 @@ class SupplierRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255' , 'unique:suppliers,name'],
-            'phone' => ['required', 'max:255' , 'unique:suppliers,phone'],
+            'phone' => ['required', 'integer', 'unique:suppliers,phone'],
             
         ];
     }

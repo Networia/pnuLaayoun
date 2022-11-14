@@ -18,19 +18,19 @@ class CreateProductsTable extends Migration
         if (!Schema::hasTable('products')) {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->text('serie_peneu')->nullable();
-                $table->text('marque_peneu')->nullable();
-                $table->text('reference_filter')->nullable();
-                $table->text('marque_filter')->nullable();
-                $table->text('marque_baterie')->nullable();
-                $table->text('num_voltage')->nullable();
-                $table->text('serie_chambrere')->nullable();
-                $table->text('marque_chambrere')->nullable();
-                $table->text('serie_huile')->nullable();
-                $table->text('marque_huile')->nullable();
-                $table->float('lettrage_huile')->nullable();
-                $table->float('prix_achat');
-                $table->float('prix_vente');
+                $table->string('serie_peneu')->nullable();
+                $table->string('marque_peneu')->nullable();
+                $table->string('reference_filter')->nullable();
+                $table->string('marque_filter')->nullable();
+                $table->string('marque_baterie')->nullable();
+                $table->string('num_voltage')->nullable();
+                $table->string('serie_chambrere')->nullable();
+                $table->string('marque_chambrere')->nullable();
+                $table->string('serie_huile')->nullable();
+                $table->string('marque_huile')->nullable();
+                $table->decimal('lettrage_huile')->nullable();
+                $table->decimal('prix_achat');
+                $table->decimal('prix_vente');
                 $table->integer('quantite_dispo')->nullable();
                 $table->foreignId('product_categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
                 $table->foreignId('product_bone_id')->constrained('bones')->nullable()->unsigned();

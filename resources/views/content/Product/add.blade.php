@@ -37,9 +37,9 @@
                             <x-forms.input  label="Mark Huile" name="marque_huile" cols="col-3 marque_huile input_collection hidden"/>
                             <x-forms.input  label="Lettrage Huile" name="lettrage_huile" cols="col-3 lettrage_huile input_collection hidden"/>
                             {{-- detail achta --}}
-                            <x-forms.input label="Prix Achat" name="prix_achat" cols="col-3 "/>
-                            <x-forms.input label="Prix vente" name="prix_vente" cols="col-3 "/>
-                            <x-forms.input label="Quantité disponible" name="quantite_dispo" cols="col-3 "/>
+                            <x-forms.input label="Prix Achat" name="prix_achat"  type='number' min="0" step=".01" cols="col-3 "/>
+                            <x-forms.input label="Prix vente" name="prix_vente"  type='number' min="0" step=".01" cols="col-3 "/>
+                            <x-forms.input label="Quantité disponible" type='number' name="quantite_dispo" cols="col-3 "/>
                             {{-- Stock --}}
                             <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" />
 
@@ -47,6 +47,15 @@
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>
                             </div>
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>

@@ -36,14 +36,19 @@ Route::middleware(['auth'])->group(function () {
     Route::get('layouts/full', [StaterkitController::class, 'layout_full'])->middleware('password.confirm')->name('layout-full'); // check password after contue
     Route::get('layouts/blank', [StaterkitController::class, 'layout_blank'])->middleware('verified')->name('layout-blank');
     Route::group(['prefix' => 'check'], function () {
-        Route::get('/show-view-add', [CheckController::class, 'create'])->name('view-add-check');
-        Route::post('/add', [CheckController::class, 'store'])->name('Check.store');
-    });
+    Route::get('/show-view-add', [CheckController::class, 'create'])->name('view-add-check');
+    Route::post('/add', [CheckController::class, 'store'])->name('Check.store');
+});
 
     //Product
     Route::prefix('produits')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('Product');
         Route::get('api', [ProductController::class, 'api'])->name('Product.api');
+        // Route::get('', [ProductController::class, 'pnu'])->name('Product.pnuapi');
+        // Route::get('filter', [ProductController::class, 'filterapi'])->name('Product.filterapi');
+        // Route::get('battrie', [ProductController::class, 'battrieapi'])->name('Product.battrieapi');
+        // Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
+        // Route::get('huile', [ProductController::class, 'huileapi'])->name('Product.huileapi');
         Route::get('select', [ProductController::class, 'list_select'])->name('Product.list_select');
         Route::get('create', [ProductController::class, 'create'])->name('Product.create');
         Route::post('store', [ProductController::class, 'store'])->name('Product.store');
