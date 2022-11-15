@@ -1,5 +1,5 @@
 <li class="nav-item " id="pnu_products">
-    <a class="nav-link">
+    <a class="nav-link active">
         <i data-feather="box" class="font-medium-3 me-50"></i>
         <span class="fw-bold">Pne</span>
     </a>

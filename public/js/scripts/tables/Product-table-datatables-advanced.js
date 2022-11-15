@@ -259,6 +259,7 @@ $(function () {
         processing: true,
         serverSide: true,
         ajax: dtPnuTable.data('pnu'), // JSON file to add data
+        
         columns: [
           // columns according to JSON
           { data: '' },
@@ -268,7 +269,6 @@ $(function () {
           { data: 'prix_achat'},
           { data: 'prix_vente'},
           { data: 'quantite_dispo'},
-          { data: 'stocks.name'},
           { data: 'created_at'},
         ],
         columnDefs: [
@@ -462,7 +462,7 @@ $(function () {
     dtFilterable.DataTable({
       processing: true,
       serverSide: true,
-      ajax: dtFilterable.data('api'), // JSON file to add data
+      ajax: dtFilterable.data('filter'), // JSON file to add data
       columns: [
         // columns according to JSON
         { data: '' },
@@ -472,7 +472,6 @@ $(function () {
         { data: 'prix_achat'},
         { data: 'prix_vente'},
         { data: 'quantite_dispo'},
-        { data: 'stocks.name'},
         { data: 'created_at'},
       ],
       columnDefs: [

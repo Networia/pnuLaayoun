@@ -40,18 +40,16 @@
         </div> --}}
         
         {{-- pnu table --}}
-        <div class="card-datatable hidden" id="table_pnu">
+        <div class="card-datatable" id="table_pnu">
           <table class="datatables-table table tablepnu" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.pnu') }}">
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('id')}}</th>
                 <th class="">{{__('Serie de peneu')}}</th>
                 <th class="">{{__('Marque de peneu')}}</th>
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
-                <th class="">{{__('Quentite')}}</th>
-                <th class="">{{__('Stock')}}</th>
+                <th class="">{{__('Quantite')}}</th>
                 <th class="">{{__('Date')}}</th>
                 <th></th>
               </tr>
@@ -60,12 +58,11 @@
         </div>
 
         {{-- filter table --}}
-        {{-- <div class="card-datatable hidden" id="table_filter">
-          <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.api') }}">
+        <div class="card-datatable hidden" id="table_filter">
+          <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.filter') }}">
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('id')}}</th>
                 <th class="">{{__('Reference de filter')}}</th>
                 <th class="">{{__('Marque de filter')}}
                 <th class="">{{__('Prix d\'achat')}}</th>
@@ -76,7 +73,7 @@
               </tr>
             </thead>
           </table>
-        </div> --}}
+        </div>
       </div>
     </div>
   </div>
@@ -105,5 +102,45 @@
 
 @section('page-script')
   {{-- Page js files --}}
-  <script src="{{ asset(('js/scripts/tables/Product-table-datatables-advanced.js')) }}"></script>
+  {{-- <script src="{{ asset(('js/scripts/tables/Product-table-datatables-advanced.js')) }}"></script> --}}
+  <script src="{{ asset(('js/scripts/tables/pneu-table.js')) }}"></script>
+  <script src="{{ asset(('js/scripts/tables/tablefilter-table.js')) }}"></script>
+
+
+  <script>
+
+function hideAll() {
+    $('.card-datatable').each( (i,e) => {
+        $(e).hide();
+    })
+  }
+
+  $('#pnu_products').on('click', function(){
+    $("#pnu_products > a").addClass("active");
+  //remove class active if hase
+    $("#filter_products>a").removeClass("active");
+    $("#chambrere_products>a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+
+    hideAll();
+    $("#table_pnu").removeClass("hidden");
+    $("#table_pnu").show();
+
+  });
+
+    //filter
+    $('#filter_products').on('click', function(){
+       $("#filter_products > a").addClass("active");
+       //remove class active if hase
+      $("#pnu_products>a").removeClass("active");
+     $("#chambrere_products>a").removeClass("active");
+    $("#battrie_products>a").removeClass("active");
+    $("#huile_products>a").removeClass("active");
+    hideAll();
+    $("#table_filter").removeClass("hidden");
+    $("#table_filter").show();
+
+  });
+  </script>
 @endsection
