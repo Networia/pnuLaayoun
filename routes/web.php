@@ -43,8 +43,8 @@ Route::middleware(['auth'])->group(function () {
     //Product
     Route::prefix('produits')->group(function () {
         Route::get('', [ProductController::class, 'index'])->name('Product');
-        Route::get('api', [ProductController::class, 'api'])->name('Product.api');
-        // Route::get('', [ProductController::class, 'pnu'])->name('Product.pnuapi');
+        // Route::get('api', [ProductController::class, 'api'])->name('Product.api');
+        Route::get('pnu', [ProductController::class, 'pnu'])->name('Product.pnu');
         // Route::get('filter', [ProductController::class, 'filterapi'])->name('Product.filterapi');
         // Route::get('battrie', [ProductController::class, 'battrieapi'])->name('Product.battrieapi');
         // Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
