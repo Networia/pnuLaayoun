@@ -10,7 +10,7 @@
 $(function () {
     ;('use strict')
   
-    var dtUserTable = $('.tablepnu')
+    var dtUserTable = $('.tablehuile')
     // ,
     //   newUserSidebar = $('.new-user-modal'),
     //   newUserForm = $('.add-new-user'),
@@ -50,8 +50,9 @@ $(function () {
         columns: [
           // columns according to JSON
           { data: '' },
-          { data: 'serie_peneu' ,defaultContent:'----' },
-          { data: 'marque_peneu' ,defaultContent:'----' },
+          { data: 'serie_huile' ,defaultContent:'----' },
+          { data: 'marque_huile' ,defaultContent:'----' },
+          { data: 'lettrage_huile' ,defaultContent:'----' },
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },

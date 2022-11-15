@@ -55,7 +55,6 @@ $(function () {
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },
-          { data: 'created_at' ,defaultContent:'----' },
           { data: '' }
         ],
         columnDefs: [

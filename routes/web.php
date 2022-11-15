@@ -46,9 +46,9 @@ Route::middleware(['auth'])->group(function () {
         //Route::get('api', [ProductController::class, 'api'])->name('Product.api');
         Route::get('pnu', [ProductController::class, 'pnu'])->name('Product.pnu');
         Route::get('filter', [ProductController::class, 'filterapi'])->name('Product.filter');
-        // Route::get('battrie', [ProductController::class, 'battrieapi'])->name('Product.battrieapi');
-        // Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
-        // Route::get('huile', [ProductController::class, 'huileapi'])->name('Product.huileapi');
+        Route::get('battrie', [ProductController::class, 'battrieapi'])->name('Product.battrieapi');
+        Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
+        Route::get('huile', [ProductController::class, 'huileapi'])->name('Product.huileapi');
         Route::get('select', [ProductController::class, 'list_select'])->name('Product.list_select');
         Route::get('create', [ProductController::class, 'create'])->name('Product.create');
         Route::post('store', [ProductController::class, 'store'])->name('Product.store');

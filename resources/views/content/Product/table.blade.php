@@ -50,7 +50,6 @@
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quantite')}}</th>
-                <th class="">{{__('Date')}}</th>
                 <th></th>
               </tr>
             </thead>
@@ -68,7 +67,58 @@
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
-                <th class="">{{__('Date')}}</th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {{-- chamberer table --}}
+        <div class="card-datatable hidden" id="table_chambrere">
+          <table class="datatables-table table tablechambrere" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.chambriereapi') }}">
+            <thead>
+              <tr>
+                <th class=""></th>
+                <th class="">{{__('Serie chambrere')}}</th>
+                <th class="">{{__('Marque de chambrere')}}
+                <th class="">{{__('Prix d\'achat')}}</th>
+                <th class="">{{__('Prix de vente')}}</th>
+                <th class="">{{__('Quentite')}}</th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {{-- battrie table --}}
+        <div class="card-datatable hidden" id="table_battrie">
+          <table class="datatables-table table tablebattrie" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.battrieapi') }}">
+            <thead>
+              <tr>
+                <th class=""></th>
+                <th class="">{{__('Marque de battrie')}}</th>
+                <th class="">{{__('Volltage')}}
+                <th class="">{{__('Prix d\'achat')}}</th>
+                <th class="">{{__('Prix de vente')}}</th>
+                <th class="">{{__('Quentite')}}</th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+
+        {{-- huile table --}}
+        <div class="card-datatable hidden" id="table_huile">
+          <table class="datatables-table table tablehuile" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.huileapi') }}">
+            <thead>
+              <tr>
+                <th class=""></th>
+                <th class="">{{__('Serie d\'huile')}}</th>
+                <th class="">{{__('Marque d\'huile')}}</th>
+                <th class="">{{__('Lettrage d\'huile')}}</th>
+                <th class="">{{__('Prix d\'achat')}}</th>
+                <th class="">{{__('Prix de vente')}}</th>
+                <th class="">{{__('Quentite')}}</th>
                 <th></th>
               </tr>
             </thead>
@@ -105,6 +155,9 @@
   {{-- <script src="{{ asset(('js/scripts/tables/Product-table-datatables-advanced.js')) }}"></script> --}}
   <script src="{{ asset(('js/scripts/tables/pneu-table.js')) }}"></script>
   <script src="{{ asset(('js/scripts/tables/tablefilter-table.js')) }}"></script>
+  <script src="{{ asset(('js/scripts/tables/chambrere-table.js')) }}"></script>
+  <script src="{{ asset(('js/scripts/tables/battrie-table.js')) }}"></script>
+  <script src="{{ asset(('js/scripts/tables/huile-table.js')) }}"></script>
 
 
   <script>
@@ -115,32 +168,69 @@ function hideAll() {
     })
   }
 
-  $('#pnu_products').on('click', function(){
-    $("#pnu_products > a").addClass("active");
-  //remove class active if hase
-    $("#filter_products>a").removeClass("active");
-    $("#chambrere_products>a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
+    $('#pnu_products').on('click', function(){
+      $("#pnu_products > a").addClass("active");
+    //remove class active if hase
+      $("#filter_products>a").removeClass("active");
+      $("#chambrere_products>a").removeClass("active");
+      $("#battrie_products>a").removeClass("active");
+      $("#huile_products>a").removeClass("active");
 
-    hideAll();
-    $("#table_pnu").removeClass("hidden");
-    $("#table_pnu").show();
+      hideAll();
+      $("#table_pnu").removeClass("hidden");
+      $("#table_pnu").show();
+    });
 
-  });
-
-    //filter
+      //filter
     $('#filter_products').on('click', function(){
-       $("#filter_products > a").addClass("active");
-       //remove class active if hase
+      $("#filter_products > a").addClass("active");
+        //remove class active if hase
       $("#pnu_products>a").removeClass("active");
-     $("#chambrere_products>a").removeClass("active");
-    $("#battrie_products>a").removeClass("active");
-    $("#huile_products>a").removeClass("active");
-    hideAll();
-    $("#table_filter").removeClass("hidden");
-    $("#table_filter").show();
+      $("#chambrere_products>a").removeClass("active");
+      $("#battrie_products>a").removeClass("active");
+      $("#huile_products>a").removeClass("active");
+      hideAll();
+      $("#table_filter").removeClass("hidden");
+      $("#table_filter").show();
+    });
 
-  });
+    //chambrere
+    $('#chambrere_products').on('click', function(){
+      $("#chambrere_products>a").addClass("active");
+      //remove class active if hase
+      $("#pnu_products>a").removeClass("active");
+      $("#filter_products>a").removeClass("active");
+      $("#battrie_products>a").removeClass("active");
+      $("#huile_products>a").removeClass("active");
+      hideAll();
+      $("#table_chambrere").removeClass("hidden");
+      $("#table_chambrere").show();
+    });
+
+    //battrie
+    $('#battrie_products').on('click', function(){
+        $("#battrie_products>a").addClass("active");
+      //remove class active if hase
+        $("#pnu_products>a").removeClass("active");
+        $("#filter_products>a").removeClass("active");
+        $("#chambrere_products>a").removeClass("active");
+        $("#huile_products>a").removeClass("active");
+        hideAll();
+        $("#table_battrie").removeClass("hidden");
+        $("#table_battrie").show();
+    });
+
+      //Huile
+    $('#huile_products').on('click', function(){
+      $("#huile_products> a").addClass("active");
+    //remove class active if hase
+      $("#pnu_products>a").removeClass("active");
+      $("#filter_products>a").removeClass("active");
+      $("#chambrere_products >a").removeClass("active");
+      $("#battrie_products>a").removeClass("active");
+      hideAll();
+      $("#table_huile").removeClass("hidden");
+      $("#table_huile").show();
+    });
   </script>
 @endsection
