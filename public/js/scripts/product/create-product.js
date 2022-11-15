@@ -1,7 +1,7 @@
 $(function () {
     'use strict';
     
-    $('select').on('change', function() {
+    $('.select2-data-ajax-categorie').on('change', function() {
         var categorie = this.value;
         if(categorie == 1){
             console.log(categorie);

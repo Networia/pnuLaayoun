@@ -19,7 +19,7 @@
                     <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.store') }}">
                         @csrf
                         <div class="row">
-                            <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" />
+                            <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
                             {{-- Pnu --}}
                             <x-forms.input  label="Serie pnu" name="serie_peneu" cols="col-3 serie_peneu input_collection hidden" />
                             <x-forms.input  label="Mark Pnu" name="marque_peneu" cols="col-3 marque_peneu input_collection hidden" />
