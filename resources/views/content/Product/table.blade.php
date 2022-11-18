@@ -45,8 +45,8 @@
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('Serie de peneu')}}</th>
-                <th class="">{{__('Marque de peneu')}}</th>
+                <th class="">{{__('reference de peneu')}}</th>
+                <th class="">{{__('designation de peneu')}}</th>
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quantite')}}</th>
@@ -63,7 +63,7 @@
               <tr>
                 <th class=""></th>
                 <th class="">{{__('Reference de filter')}}</th>
-                <th class="">{{__('Marque de filter')}}
+                <th class="">{{__('designation de filter')}}
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
@@ -79,8 +79,8 @@
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('Serie chambrere')}}</th>
-                <th class="">{{__('Marque de chambrere')}}
+                <th class="">{{__('reference chambrere')}}</th>
+                <th class="">{{__('designation de chambrere')}}
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
@@ -96,8 +96,8 @@
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('Marque de battrie')}}</th>
-                <th class="">{{__('Volltage')}}
+                <th class="">{{__('reference de battrie')}}</th>
+                <th class="">{{__('designation de battrie')}}
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
@@ -113,9 +113,8 @@
             <thead>
               <tr>
                 <th class=""></th>
-                <th class="">{{__('Serie d\'huile')}}</th>
-                <th class="">{{__('Marque d\'huile')}}</th>
-                <th class="">{{__('Lettrage d\'huile')}}</th>
+                <th class="">{{__('reference d\'huile')}}</th>
+                <th class="">{{__('designation d\'huile')}}</th>
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>

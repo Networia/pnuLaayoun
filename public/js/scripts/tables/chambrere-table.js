@@ -50,8 +50,8 @@ $(function () {
         columns: [
           // columns according to JSON
           { data: '' },
-          { data: 'serie_chambrere' ,defaultContent:'----' },
-          { data: 'marque_chambrere' ,defaultContent:'----' },
+          { data: 'reference' ,defaultContent:'----' },
+          { data: 'designation' ,defaultContent:'----' },
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },

@@ -24,20 +24,21 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'serie_peneu' => ['string', 'max:255' , 'nullable' ],
-            'marque_peneu' => ['string', 'max:255' , 'nullable' ],
-            'reference_filter' => ['string', 'max:255' , 'nullable' ],
-            'marque_filter' => ['string', 'max:255' , 'nullable' ],
-            'marque_baterie' => ['string', 'max:255' , 'nullable'  ],
-            'num_voltage' => ['string', 'max:255' , 'nullable'  ],
-            'serie_chambrere' => ['string', 'max:255' , 'nullable'  ],
-            'marque_chambrere' => ['string', 'max:255' , 'nullable'  ],
-            'serie_huile' => ['string', 'max:255' , 'nullable'  ],
-            'marque_huile' => ['string', 'max:255' , 'nullable'  ],
-            'lettrage_huile' => ['numeric', 'max:255' , 'nullable'  ],
+            'categorie' => ['required'],
+            'reference' => ['string', 'max:255'  ],
+            'designation' => ['string', 'max:255'  ],
+            // 'reference_filter' => ['string', 'max:255' , 'nullable' ],
+            // 'marque_filter' => ['string', 'max:255' , 'nullable' ],
+            // 'marque_baterie' => ['string', 'max:255' , 'nullable'  ],
+            // 'num_voltage' => ['string', 'max:255' , 'nullable'  ],
+            // 'serie_chambrere' => ['string', 'max:255' , 'nullable'  ],
+            // 'marque_chambrere' => ['string', 'max:255' , 'nullable'  ],
+            // 'serie_huile' => ['string', 'max:255' , 'nullable'  ],
+            // 'marque_huile' => ['string', 'max:255' , 'nullable'  ],
+            // 'lettrage_huile' => ['numeric', 'max:255' , 'nullable'  ],
             'prix_achat' => ['required', 'numeric'],
             'prix_vente' => ['required' , 'numeric'],
-            'quantite_dispo' => ['numeric'],
+            'stock'  => ['required'],
         ];
 
     }

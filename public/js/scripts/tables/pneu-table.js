@@ -50,8 +50,8 @@ $(function () {
         columns: [
           // columns according to JSON
           { data: '' },
-          { data: 'serie_peneu' ,defaultContent:'----' },
-          { data: 'marque_peneu' ,defaultContent:'----' },
+          { data: 'reference' ,defaultContent:'----' },
+          { data: 'designation' ,defaultContent:'----' },
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },

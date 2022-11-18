@@ -18,17 +18,19 @@ class CreateProductsTable extends Migration
         if (!Schema::hasTable('products')) {
             Schema::create('products', function (Blueprint $table) {
                 $table->id();
-                $table->string('serie_peneu')->nullable();
-                $table->string('marque_peneu')->nullable();
-                $table->string('reference_filter')->nullable();
-                $table->string('marque_filter')->nullable();
-                $table->string('marque_baterie')->nullable();
-                $table->string('num_voltage')->nullable();
-                $table->string('serie_chambrere')->nullable();
-                $table->string('marque_chambrere')->nullable();
-                $table->string('serie_huile')->nullable();
-                $table->string('marque_huile')->nullable();
-                $table->decimal('lettrage_huile')->nullable();
+                // $table->string('serie_peneu')->nullable();
+                // $table->string('marque_peneu')->nullable();
+                // $table->string('reference_filter')->nullable();
+                // $table->string('marque_filter')->nullable();
+                // $table->string('marque_baterie')->nullable();
+                // $table->string('num_voltage')->nullable();
+                // $table->string('serie_chambrere')->nullable();
+                // $table->string('marque_chambrere')->nullable();
+                // $table->string('serie_huile')->nullable();
+                // $table->string('marque_huile')->nullable();
+                // $table->decimal('lettrage_huile')->nullable();
+                $table->string('reference');
+                $table->string('designation');
                 $table->decimal('prix_achat');
                 $table->decimal('prix_vente');
                 $table->integer('quantite_dispo')->nullable();

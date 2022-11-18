@@ -50,9 +50,8 @@ $(function () {
         columns: [
           // columns according to JSON
           { data: '' },
-          { data: 'serie_huile' ,defaultContent:'----' },
-          { data: 'marque_huile' ,defaultContent:'----' },
-          { data: 'lettrage_huile' ,defaultContent:'----' },
+          { data: 'reference' ,defaultContent:'----' },
+          { data: 'designation' ,defaultContent:'----' },
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },

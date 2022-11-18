@@ -50,8 +50,8 @@ $(function () {
         columns: [
           // columns according to JSON
           { data: '' },
-          { data: 'reference_filter' ,defaultContent:'----' },
-          { data: 'marque_filter' ,defaultContent:'----' },
+          { data: 'reference' ,defaultContent:'----' },
+          { data: 'designation' ,defaultContent:'----' },
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },
