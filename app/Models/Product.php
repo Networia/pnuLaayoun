@@ -9,17 +9,6 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'serie_peneu',
-        // 'marque_peneu',
-        // 'reference_filter',
-        // 'marque_filter',
-        // 'marque_baterie',
-        // 'num_voltage',
-        // 'serie_chambrere',
-        // 'marque_chambrere',
-        // 'serie_huile',
-        // 'marque_huile',
-        // 'lettrage_huile',
         'reference',
         'designation',
         'prix_achat',

@@ -78,6 +78,11 @@ class ProductController extends Controller
         return ['total_count' => $itemCount , 'item'=> $item];
     }
 
+    public function getAllreferance(){
+        $references = Product::all();
+        return $references;
+    }
+
     public function create()
     {
         return view('content.Product.add' );
@@ -89,117 +94,6 @@ class ProductController extends Controller
         $categorie_id = $request->categorie;
         // $categorie =Categorie::find($categorie_id);
 
-        // if($categorie_id == 1){
-        //     $validator = Validator::make($request->all(), [
-        //         'serie_peneu' => 'required|string|max:255',
-        //         'marque_peneu' => 'required|string|max:255',
-        //         'reference_filter' => 'nullable|string|max:255',
-        //         'marque_filter' => 'nullable|string|max:255',
-        //         'marque_baterie' => 'nullable|string|max:255',
-        //         'num_voltage' => 'nullable|string|max:255',
-        //         'serie_chambrere' => 'nullable|string|max:255',
-        //         'marque_chambrere' => 'nullable|string|max:255',
-        //         'serie_huile' => 'nullable|string|max:255',
-        //         'marque_huile' => 'nullable|string|max:255',
-        //         'lettrage_huile' => 'nullable|string|max:255',
-        //         'prix_achat' => 'required|numeric',
-        //         'prix_vente' => 'required|numeric',
-        //         'quantite_dispo' => 'numeric',
-        //         'stock'  => 'required',
-        //     ]);
-        // }else if($categorie_id == 2){
-        //     $validator = Validator::make($request->all(), [
-        //         'serie_peneu' => 'nullable|string|max:255',
-        //         'marque_peneu' => 'nullable|string|max:255',
-        //         'reference_filter' => 'required|string|max:255',
-        //         'marque_filter' => 'required|string|max:255',
-        //         'marque_baterie' => 'nullable|string|max:255',
-        //         'num_voltage' => 'nullable|string|max:255',
-        //         'serie_chambrere' => 'nullable|string|max:255',
-        //         'marque_chambrere' => 'nullable|string|max:255',
-        //         'serie_huile' => 'nullable|string|max:255',
-        //         'marque_huile' => 'nullable|string|max:255',
-        //         'lettrage_huile' => 'nullable|string|max:255',
-        //         'prix_achat' => 'required|numeric',
-        //         'prix_vente' => 'required|numeric',
-        //         'quantite_dispo' => 'numeric',
-        //         'stock'  => 'required',
-        //     ]);
-        // }else if($categorie_id == 3){
-        //     $validator = Validator::make($request->all(), [
-        //         'serie_peneu' => 'nullable|string|max:255',
-        //         'marque_peneu' => 'nullable|string|max:255',
-        //         'reference_filter' => 'nullable|string|max:255',
-        //         'marque_filter' => 'nullable|string|max:255',
-        //         'marque_baterie' => 'required|string|max:255',
-        //         'num_voltage' => 'required|string|max:255',
-        //         'serie_chambrere' => 'nullable|string|max:255',
-        //         'marque_chambrere' => 'nullable|string|max:255',
-        //         'serie_huile' => 'nullable|string|max:255',
-        //         'marque_huile' => 'nullable|string|max:255',
-        //         'lettrage_huile' => 'nullable|string|max:255',
-        //         'prix_achat' => 'required|numeric',
-        //         'prix_vente' => 'required|numeric',
-        //         'quantite_dispo' => 'numeric',
-        //         'stock'  => 'required',
-        //     ]);
-        // }else if($categorie_id == 4){
-        //     $validator = Validator::make($request->all(), [
-        //         'serie_peneu' => 'nullable|string|max:255',
-        //         'marque_peneu' => 'nullable|string|max:255',
-        //         'reference_filter' => 'nullable|string|max:255',
-        //         'marque_filter' => 'nullable|string|max:255',
-        //         'marque_baterie' => 'nullable|string|max:255',
-        //         'num_voltage' => 'nullable|string|max:255',
-        //         'serie_chambrere' => 'required|string|max:255',
-        //         'marque_chambrere' => 'required|string|max:255',
-        //         'serie_huile' => 'nullable|string|max:255',
-        //         'marque_huile' => 'nullable|string|max:255',
-        //         'lettrage_huile' => 'nullable|string|max:255',
-        //         'prix_achat' => 'required|numeric',
-        //         'prix_vente' => 'required|numeric',
-        //         'quantite_dispo' => 'numeric',
-        //         'stock'  => 'required',
-        //     ]);
-        // }else if($categorie_id == 5){
-        //     $validator = Validator::make($request->all(), [
-        //         'serie_peneu' => 'nullable|string|max:255',
-        //         'marque_peneu' => 'nullable|string|max:255',
-        //         'reference_filter' => 'nullable|string|max:255',
-        //         'marque_filter' => 'nullable|string|max:255',
-        //         'marque_baterie' => 'nullable|string|max:255',
-        //         'num_voltage' => 'nullable|string|max:255',
-        //         'serie_chambrere' => 'nullable|string|max:255',
-        //         'marque_chambrere' => 'nullable|string|max:255',
-        //         'serie_huile' => 'required|string|max:255',
-        //         'marque_huile' => 'required|string|max:255',
-        //         'lettrage_huile' => 'required|string|max:255',
-        //         'prix_achat' => 'required|numeric',
-        //         'prix_vente' => 'required|numeric',
-        //         'quantite_dispo' => 'numeric',
-        //         'stock'  => 'required',
-        //     ]);
-        // }else if($categorie_id == null){
-        //     $validator = Validator::make($request->all(), [
-        //         'categorie' => 'required',
-        //     ]);
-        // }
-
-        // if ($validator->fails()) {
-        //     return redirect('produits/create')
-        //                 ->withErrors($validator)
-        //                 ->withInput();
-        // }
-
-        // if(!$categorie){
-        //     $newCategorie = Categorie::create([
-        //         'name'=>$request->categorie,
-        //     ]);
-        //     $categorie_id = $newCategorie->id;
-        // }
-
-        // $validated = $validator->validated();
-
         $stock_id =$request->stock;
         $stock = Stock::find($stock_id);
         if(!$stock){
@@ -210,17 +104,8 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'reference'=>$request->reference,
+            'name'=>$request->reference,
             'designation'=>$request->designation,
-            // 'reference_filter'=>$request->reference_filter,
-            // 'marque_filter'=>$request->marque_filter,
-            // 'marque_baterie'=>$request->marque_baterie,
-            // 'num_voltage'=>$request->num_voltage,
-            // 'serie_chambrere'=>$request->serie_chambrere,
-            // 'marque_chambrere'=>$request->marque_chambrere,
-            // 'serie_huile'=>$request->serie_huile,
-            // 'marque_huile'=>$request->marque_huile,
-            // 'lettrage_huile'=>$request->lettrage_huile,
             'prix_achat'=>$request->prix_achat,
             'prix_vente'=>$request->prix_vente,
             'quantite_dispo'=> 0,
