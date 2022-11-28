@@ -4,6 +4,10 @@
 
 @section('vendor-style')
   {{-- vendor css files --}}
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
+  <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
@@ -22,7 +26,7 @@
 @section('content')
 <!-- Ajax Sourced Server-side -->
 <section id="ajax-datatable">
-  
+
       <div class="row card">
         {{-- <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.store') }}">
           @csrf --}}
@@ -48,7 +52,7 @@
               </div>
             </div>
           </form>
-          
+
         {{-- </form> --}}
         <div class="col-12">
           <div class="card">
@@ -58,13 +62,12 @@
                 <div class="col-md-4 user_status"></div>
               </div>
             </div> --}}
-            
+
             {{-- pnu table --}}
             <div class="card-datatable" id="tablePurchase">
-              <table class="datatables-table table tablepnu" id="tablePurchaseproduct">
+              <table class="datatables-table table" id="tablePurchaseproduct">
                 <thead>
                   <tr>
-                    <th class=""></th>
                     <th class="">{{__('reference de peneu')}}</th>
                     <th class="">{{__('designation de peneu')}}</th>
                     <th class="">{{__('Prix d\'achat')}}</th>
@@ -87,6 +90,20 @@
     <script src="{{ asset(mix('vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script> --}}
     <script src="{{ asset(mix('vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/jquery.dataTables.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.bootstrap5.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.responsive.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/pickers/flatpickr/flatpickr.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/responsive.bootstrap5.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.checkboxes.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/datatables.buttons.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/jszip.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/pdfmake.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/vfs_fonts.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.html5.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/buttons.print.min.js')) }}"></script>
+    <script src="{{ asset(mix('vendors/js/tables/datatable/dataTables.rowGroup.min.js')) }}"></script>
     <!-- vendor files -->
 @endsection
 
@@ -96,7 +113,7 @@
     {{-- <script src="{{ asset(mix('js/scripts/forms/form-number-input.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-wizard.js')) }}"></script> --}}
-    
+
     {{-- <script src="{{ asset(mix('js/scripts/forms/form-repeater.js')) }}"></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -121,13 +138,11 @@
             },
             select: function (event, ui) {
               var trHTML = '';
-                $('#product').val(ui.item.label); 
+                $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                console.log(resultProduct.prix_vente);
                 console.log(resultProduct);
-                // responseProduct = $.parseJSON(resultProduct);
-                trHTML += '<tr><td>' + resultProduct.value + '</td><td>' + resultProduct.designation + '</td><td>' + resultProduct.prix_achat + '</td><td>'+ resultProduct.prix_vente + '</td><td>' + 0 + '</td></tr>';
-                $('#tablePurchaseproduct').append(trHTML);
+                var t = $('#tablePurchaseproduct').DataTable();
+                t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_achat, resultProduct.prix_vente,0]).draw(false);
                 return false;
             }
         });
