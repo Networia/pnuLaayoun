@@ -78,15 +78,9 @@ Route::middleware(['auth'])->group(function () {
 
     //Supplier
     Route::prefix('supplier')->group(function () {
-<<<<<<< Updated upstream
         Route::get('', [SupplierController::class , 'index'])->name('supplier');
         Route::get('api', [SupplierController::class , 'api'])->name('supplier.api');
         Route::get('select', [SupplierController::class , 'list_select'])->name('supplier.list_select');
-=======
-        Route::get('', [SupplierController::class, 'index'])->name('supplier');
-        Route::get('api', [SupplierController::class, 'api'])->name('supplier.api');
-        // Route::get('select', [SupplierController::class , 'list_select'])->name('supplier.list_select');
->>>>>>> Stashed changes
         // Route::get('select/product', [SupplierController::class , 'list_select_product'])->name('product.list_select'); // just for supplier
         Route::get('create', [SupplierController::class, 'create'])->name('supplier.create');
         Route::post('store', [SupplierController::class, 'store'])->name('supplier.store');
