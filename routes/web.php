@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
         Route::get('huile', [ProductController::class, 'huileapi'])->name('Product.huileapi');
         Route::get('select', [ProductController::class, 'list_select'])->name('Product.list_select');
+        Route::get('autocomplete', [ProductController::class, 'autocomplete'])->name('Product.autocomplete');
         Route::get('create', [ProductController::class, 'create'])->name('Product.create');
         Route::post('store', [ProductController::class, 'store'])->name('Product.store');
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('Product.edit');

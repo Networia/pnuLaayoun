@@ -78,6 +78,15 @@ class ProductController extends Controller
         return ['total_count' => $itemCount , 'item'=> $item];
     }
 
+    public function autocomplete(Request $request)
+    {
+        $data = Product::select("reference as value" , "designation as designation", "prix_achat as prix_achat" , "prix_vente as prix_vente", "id")
+            ->where('reference', 'LIKE', '%'. $request->get('product'). '%')
+            ->get();
+
+        return response()->json($data);
+    }
+
     public function getAllreferance(){
         $references = Product::all();
         return $references;
@@ -104,7 +113,7 @@ class ProductController extends Controller
         }
 
         Product::create([
-            'name'=>$request->reference,
+            'reference'=>$request->reference,
             'designation'=>$request->designation,
             'prix_achat'=>$request->prix_achat,
             'prix_vente'=>$request->prix_vente,

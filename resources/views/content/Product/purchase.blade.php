@@ -26,29 +26,29 @@
       <div class="row card">
         {{-- <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.store') }}">
           @csrf --}}
-          <div class="col-12">
-            <div class="card">
-              <div class="row">
-                <div class="form-group col-md-4">
-                  <label class="form-label" for="modern-username">serie de bone</label>
-                  <input type="text" id="modern-username" class="form-control" placeholder="johndoe" />
+          <form id="add_productPurchase">
+            <div class="col-12">
+              <div class="card">
+                <div class="row">
+                  <div class="form-group col-md-4">
+                    <label class="form-label" for="modern-username">serie de bone</label>
+                    <input type="text" id="modern-username" class="form-control" placeholder="johndoe" />
+                  </div>
+                  <x-forms.select2 label="Supplier" name="supplier" htmlname="supplier" dataobject="supplier" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
+                  <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
+                  {{-- <x-forms.select2 label="Procut" name="product" htmlname="product" dataobject="product" dataname="name" datavalue="id" cols="col-xl-12 col-md-6 mb-1" /> --}}
+                  <div class="form-group col-md-12">
+                    <label class="form-label" for="modern-username">Product</label>
+                    <input type="text" id="product" class="form-control" placeholder="johndoe" />
+                  </div>
+                  <div class="col-12">
+                    <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
                 </div>
-                <x-forms.select2 label="Supplier" name="supplier" htmlname="supplier" dataobject="supplier" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
-                <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
-                {{-- <x-forms.select2 label="Procut" name="product" htmlname="product" dataobject="product" dataname="name" datavalue="id" cols="col-xl-12 col-md-6 mb-1" /> --}}
-                <div class="form-group col-md-4">
-                  <label class="form-label" for="modern-username">serie de bone</label>
-                  {{-- <input type="text" id="modern-username" class="form-control" placeholder="johndoe" /> --}}
-                  <select class="select2 w-100 " name="language" id="product" multiple>
-                    <option>English</option>
-                    <option>French</option>
-                    <option>Spanish</option>
-                  </select>
-                  </select>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
+          
         {{-- </form> --}}
         <div class="col-12">
           <div class="card">
@@ -60,8 +60,8 @@
             </div> --}}
             
             {{-- pnu table --}}
-            <div class="card-datatable" id="table_pnu">
-              <table class="datatables-table table tablepnu">
+            <div class="card-datatable" id="tablePurchase">
+              <table class="datatables-table table tablepnu" id="tablePurchaseproduct">
                 <thead>
                   <tr>
                     <th class=""></th>
@@ -97,7 +97,42 @@
     {{-- <script src="{{ asset(mix('js/scripts/forms/form-number-input.js')) }}"></script>
     <script src="{{ asset(mix('vendors/js/forms/wizard/bs-stepper.min.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-wizard.js')) }}"></script> --}}
-    <script src="{{ asset(mix('js/scripts/forms/form-tooltip-valid.js')) }}"></script>
-    <script src="{{ asset(mix('js/scripts/forms/form-number-input.js')) }}"></script>
+    
     {{-- <script src="{{ asset(mix('js/scripts/forms/form-repeater.js')) }}"></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        var path = "{{ route('Product.autocomplete') }}";
+        var responseProduct;
+        $( "#product" ).autocomplete({
+            source: function( request, response ) {
+                ;$.ajax({
+                    url: path,
+                    type: 'GET',
+                    dataType: "json",
+                    data: {
+                        search: request.term
+                    },
+                    success: function( data ) {
+                        response( data );
+                    }
+                })
+                console.log("testttttttt");
+                console.log(response);
+            },
+            select: function (event, ui) {
+              var trHTML = '';
+                $('#product').val(ui.item.label);
+                
+                var resultProduct = ui.item;
+                console.log(resultProduct.designation);
+                // responseProduct = $.parseJSON(resultProduct);
+                trHTML += '<tbody><tr><td>' + resultProduct.label + '</td><td>' + resultProduct.designation + '</td><td>' + resultProduct.prix_achat + '</td></td>'+ resultProduct.prix_vente + '</td><td>' + 0 + '</td></tr></tbody>';
+                $('#tablePurchaseproduct').append(trHTML);
+                return false;
+            }
+        });
+    </script>
+
+
 @endsection
