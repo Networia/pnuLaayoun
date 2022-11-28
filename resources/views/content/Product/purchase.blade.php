@@ -70,7 +70,6 @@
                     <th class="">{{__('Prix d\'achat')}}</th>
                     <th class="">{{__('Prix de vente')}}</th>
                     <th class="">{{__('Quantite')}}</th>
-                    <th></th>
                   </tr>
                 </thead>
               </table>
@@ -122,12 +121,12 @@
             },
             select: function (event, ui) {
               var trHTML = '';
-                $('#product').val(ui.item.label);
-                
+                $('#product').val(ui.item.label); 
                 var resultProduct = ui.item;
-                console.log(resultProduct.designation);
+                console.log(resultProduct.prix_vente);
+                console.log(resultProduct);
                 // responseProduct = $.parseJSON(resultProduct);
-                trHTML += '<tbody><tr><td>' + resultProduct.label + '</td><td>' + resultProduct.designation + '</td><td>' + resultProduct.prix_achat + '</td></td>'+ resultProduct.prix_vente + '</td><td>' + 0 + '</td></tr></tbody>';
+                trHTML += '<tr><td>' + resultProduct.value + '</td><td>' + resultProduct.designation + '</td><td>' + resultProduct.prix_achat + '</td><td>'+ resultProduct.prix_vente + '</td><td>' + 0 + '</td></tr>';
                 $('#tablePurchaseproduct').append(trHTML);
                 return false;
             }
