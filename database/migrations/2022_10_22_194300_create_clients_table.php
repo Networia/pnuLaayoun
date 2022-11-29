@@ -18,6 +18,7 @@ class CreateClientsTable extends Migration
             $table->text('name');
             $table->integer('number_phone');
             $table->text('adress');
+            $table->foreignId('client_stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }

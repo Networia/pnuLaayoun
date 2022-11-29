@@ -227,6 +227,32 @@ class Helper
         $submenu->icon="circle";
         $submenu->slug="stock";
         //$submenu->permission="product_list";
+
+
+        $info = $test->menu[] = new \stdClass;
+        $info->url = route('client');
+        $info->name = "Clients";
+        $info->icon = "user-check";
+        $info->slug = " ";
+        //$info->permission=['product_list','product_create'];
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("client.create");
+        $submenu->name=__('Nouveau client');
+        $submenu->icon="circle";
+        $submenu->slug="client.create";
+        /*        $submenu->permission="product_create";*/
+
+        $info->badgeClass="badge badge-pill badge-light-danger ml-auto mr-1";
+
+        $submenu=$info->submenu[]=new \stdClass;
+        $submenu->url=route("client");
+        $submenu->name=__('Liste des clients');
+        $submenu->icon="circle";
+        $submenu->slug="client";
+        //$submenu->permission="product_list";
         $verticalMenuData = $test;
 
         return [$verticalMenuData, $verticalMenuData, $test];

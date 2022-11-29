@@ -18,4 +18,8 @@ class Stock extends Model
     public function bone(){
         return $this->hasMany(Bone::class);
     }
+
+    public function clients(){
+        return $this->hasMany(Client::class);
+    }
 }

@@ -23,10 +23,10 @@
 
 <div class="form-group {{ $cols }}">
     <label class="form-label" for="basic-icon-default-fullname">{{ $label ?? $name }}</label>
-    <select 
+    <select
         {{ $attributes->merge(['class' => "select2-data-ajax-". $name ." form-control" ]) }}
         data-url="{{ route($name.'.list_select') }}"
-        id="select2-data-ajax-{{ $name }}" 
+        id="select2-data-ajax-{{ $name }}"
         name="{{ $htmlname ?? $name }}"
         data-selected="{{ $selectedText ?? $lastValue }}"
     >
@@ -51,7 +51,7 @@
     <script>
         (function(window, document, $) {
             'use strict';
-            
+
             console.log("Js of select2 : {{ $name }}")
             var selectAjax{{ $name }} = $('.select2-data-ajax-{{ $name }}');
 

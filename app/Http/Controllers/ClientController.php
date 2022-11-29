@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -19,20 +20,20 @@ class ClientController extends Controller
     {
         $model = Client::query();
         return \DataTables::eloquent($model)
-        ->toJson();
+            ->toJson();
     }
 
     public function list_select(Request $data)
     {
-        $item = Client::where('name', 'like', '%'.$data->q.'%')->get();
-        $itemCount =  $item->count();
+        $item = Client::where('name', 'like', '%' . $data->q . '%')->get();
+        $itemCount = $item->count();
         //? create if not find
         //if ($itemCount == 0) {
         //    $item [] = ['id' =>  $data->q,'name' => $data->q];
         //    $itemCount = 1;
         //}
 
-        return ['total_count' => $itemCount , 'item'=> $item];
+        return ['total_count' => $itemCount, 'item' => $item];
     }
 
     public function create()
@@ -40,34 +41,62 @@ class ClientController extends Controller
         return view('content.Client.add');
     }
 
-    public function store(ClientRequest $data)
+    public function store(ClientRequest $request)
     {
-        //dd($data);
-        Client::create($data->toArray());
-        // Client::create([
-        //     'name' => $data->count,
-        //     'number_phone' => $data->number_phone,
-        //     'adress' => $data->adress,
-        // ]);;
+        $stock_id = $request->stock;
+        $stock = Stock::find($stock_id);
+        if (!$stock) {
+            $newStock = Stock::create([
+                'name' => $request->stock,
+            ]);
+            $stock_id = $newStock->id;
+        }
+        Client::create([
+            'name' => $request->name,
+            'number_phone' => $request->number_phone,
+            'adress' => $request->adress,
+            'client_stock_id' => $stock_id,
+        ]);
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' => __('toastr.contant.success')]);
         return redirect(route('client'));
     }
 
     public function edit($id)
     {
         $last = Client::findOrFail($id);
-
-        return view('content.Client.edit',['last' => $last]);
+        $stock = Stock::findOrFail($last->client_stock_id);
+        return view('content.Client.edit', ['last' => $last, 'stock' => $stock]);
     }
 
-    public function update(ClientRequest $data)
+    public function update(ClientRequest $request)
     {
-        $user = Client::findOrFail($data->id);
+        $client = Client::findOrFail($request->id);
+        $stock_id = $request->stock;
+        if (!is_int($stock_id)){
+            $stock_id = $client->client_stock_id;
+        }
+        $stock = Stock::find($stock_id);
+        if (!$stock) {
+            $newStock = Stock::create([
+                'name' => $request->stock,
+            ]);
+            $stock_id = $newStock->id;
+        }
 
-        $user->update($data->toArray());
+       /* $client->update([
+            'name' => $request->name,
+            'number_phone' => $request->number_phone,
+            'adress' => $request->adress,
+            'client_stock_id' => $stock_id
+        ]);*/
+        $client->name = $request->name;
+        $client->number_phone = $request->number_phone;
+        $client->adress = $request->adress;
+        $client->client_stock_id = $stock_id;
+        $client->save();
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' => __('toastr.contant.success')]);
         return redirect(route('client'));
     }
 

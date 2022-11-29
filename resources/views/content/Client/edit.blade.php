@@ -14,16 +14,16 @@
         <div class="row">
             <div class="col-md-12">
             <div class="card">
-    
+
                 <div class="card-body">
                     <form class="auth-register-form mt-2" method="POST" action="{{ route('client.update',request()->id) }}">
                         @csrf
                         <div class="row">
-
+                            {{$stock}}
                             <x-forms.input label="name" name="name" :last="$last" cols="col-3"/>
                             <x-forms.input label="phone" name="number_phone" :last="$last" cols="col-3"/>
                             <x-forms.input label="Adress" name="adress" :last="$last" cols="col-3"/>
-
+                            <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" :last="$stock"  cols="col-xl-3" />
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Sauvegarder</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>

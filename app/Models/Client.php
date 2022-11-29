@@ -12,6 +12,11 @@ class Client extends Model
         'name',
         'number_phone',
         'adress',
+        'client_stock_id'
 
     ];
+    public function stock()
+    {
+        return $this->belongsTo(Stock::class);
+    }
 }

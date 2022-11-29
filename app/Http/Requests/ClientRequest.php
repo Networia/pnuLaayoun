@@ -31,6 +31,7 @@ class ClientRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'number_phone' => ['required', 'max:255'],
             'adress' => ['string', 'max:255'],
+            'stock'  => ['required'],
         ];
     }
 }
