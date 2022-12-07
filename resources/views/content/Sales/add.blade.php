@@ -131,6 +131,7 @@
     <script type="text/javascript">
         var path = "{{ route('autocomplete') }}";
         var responseProduct;
+        var t = $('#tableSalesproduct').DataTable();
         $("#product").autocomplete({
             source: function (request, response) {
                 $.ajax({
@@ -149,11 +150,8 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                  var resultProduct  = ui.item;
-                var t = $('#tableSalesproduct').DataTable();
-
                   t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_vente,resultProduct.quantite_dispo]).draw(false);
                   return false;
-                   
             }
         });
     </script>
