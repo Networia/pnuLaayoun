@@ -101,6 +101,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('edit/{id}', [ClientController::class, 'edit'])->name('client.edit');
         Route::post('update/{id}', [ClientController::class, 'update'])->name('client.update');
         Route::get('profil/{id}', [ClientController::class, 'showProfile'])->name('client.profil');
+        Route::get('clients-by-stock-id', [ClientController::class, 'getClientByStockId'])->name('client.byStock');
     });
 
     //Cheque

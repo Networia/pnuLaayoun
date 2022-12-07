@@ -153,4 +153,11 @@ class ClientController extends Controller
             //'years' => $this->years()
         ];
     }
+
+    public function getClientByStockId(Request $request){
+        $clients = Client::where('client_stock_id','=',$request->get('client_stock_id'))
+            ->get();
+        return $clients->toJson();
+
+    }
 }
