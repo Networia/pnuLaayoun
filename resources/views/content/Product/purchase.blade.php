@@ -3,6 +3,7 @@
 @section('title', 'Liste des Products')
 
 @section('vendor-style')
+
   {{-- vendor css files --}}
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/dataTables.bootstrap5.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
@@ -12,6 +13,11 @@
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
+  
+<!-- FONT AWESOME CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<!-- AJAX JQUERY SCRIPT -->
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
@@ -36,7 +42,7 @@
                 <div class="row">
                   <div class="form-group col-md-4">
                     <label class="form-label" for="modern-username">serie de bone</label>
-                    <input type="text" id="modern-username" class="form-control" placeholder="johndoe" />
+                    <input type="text" id="serie_bone" class="form-control" placeholder="johndoe" />
                   </div>
                   <x-forms.select2 label="Supplier" name="supplier" htmlname="supplier" dataobject="supplier" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
                   <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
@@ -71,11 +77,12 @@
                     <th class="">{{__('reference de peneu')}}</th>
                     <th class="">{{__('designation de peneu')}}</th>
                     <th class="">{{__('Prix d\'achat')}}</th>
-                    <th class="">{{__('Prix de vente')}}</th>
+                    {{-- <th class="">{{__('Prix de vente')}}</th> --}}
                     <th class="">{{__('Quantite')}}</th>
                   </tr>
                 </thead>
               </table>
+              <button class="increment-btn">testk</button>
             </div>
           </div>
         </div>
@@ -120,6 +127,7 @@
     <script type="text/javascript">
         var path = "{{ route('Product.autocomplete') }}";
         var responseProduct;
+        var t = $('#tablePurchaseproduct').DataTable();
         $( "#product" ).autocomplete({
             source: function( request, response ) {
                 ;$.ajax({
@@ -141,12 +149,36 @@
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
                 console.log(resultProduct);
-                var t = $('#tablePurchaseproduct').DataTable();
-                t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_achat, resultProduct.prix_vente,0]).draw(false);
+                t.row.add($('<tr><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td>'+[resultProduct.prix_achat]+'</td><td><div class="d-flex flex-row justify-content-between align-items-center px-3 rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td></tr>')).draw(false);
                 return false;
-            }
+            }      
+        });
+
+        $('.increment-btn').click(function () {
+          // var inc_value = $(this).closest('.product_data').find('.qty-input').val();
+          // var value = parseInt(inc_value, 10);
+          // value = isNaN(value) ? 0 : value;
+          // if (value < 10) {
+          //     value++;
+          //     $(this).closest('.product_data').find('.qty-input').val(value);
+          // }
+          console.log('kkfkf');
         });
     </script>
+    
+<script>
+  $(document).ready(function () {
+        
 
-
+      $('.decrement-btn').click(function () {
+          var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+          var value = parseInt(dec_value, 10);
+          value = isNaN(value) ? 0 : value;
+          if (value > 1) {
+              value--;
+              $(this).closest('.product_data').find('.qty-input').val(value);
+          }
+      });
+  });
+</script>
 @endsection
