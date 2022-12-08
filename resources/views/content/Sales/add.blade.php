@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/responsive.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/buttons.bootstrap5.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/tables/datatable/rowGroup.bootstrap5.min.css')) }}">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
@@ -36,12 +36,23 @@
                         <div class="row">
                             <div class="form-group col-md-4">
                                 <label class="form-label" for="modern-username">Serie de bone</label>
-                                <input type="text" id="modern-username" class="form-control" placeholder="Serie de bone" />
+                                <input type="text" id="modern-username" class="form-control"
+                                       placeholder="Serie de bone"/>
                             </div>
-                            <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
+                            <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock"
+                                             dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1"
+                                             id="stock_id"/>
+                            <div class="form-group col-xl-4 col-md-6 mb-1">
+                                <label class="form-label" for="basic-icon-default-fullname">Client</label>
+                                <select class="client-by-stock" id="client_data">
+                                    {{--
+                                                                        <option value="0">Animal ?</option>
+                                    --}}
+                                </select>
+                            </div>
                             <div class="form-group col-md-12">
                                 <label class="form-label" for="modern-username">Product</label>
-                                <input type="text" id="product" class="form-control" placeholder="produit" />
+                                <input type="text" id="product" class="form-control" placeholder="produit"/>
                             </div>
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
@@ -54,7 +65,7 @@
             {{-- </form> --}}
             <div class="col-12">
                 <div class="card">
-                    <div class="card-datatable" id="tablePurchase">
+                    <div class="card-datatable">
                         <table class="datatables-table table" id="tableSalesproduct">
                             <thead>
                             <tr>
@@ -96,34 +107,53 @@
 @section('page-script')
     <!-- Page js files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.client-by-stock').select2();
+            $(document).delegate("#stock_id", "change", function () {
+                var stock_id = $('#stock_id').val();
+                $.get('/client/clients-by-stock-id', {client_stock_id: stock_id}, function (data, textStatus, jqXHR) {
+                    $('#client_data').select2({
+                        data: $.map(JSON.parse(data), function (a) {
+                            return {
+                                "id": a.id,
+                                "text": a.name
+                            }
+                        })
+                    });
+                });
+
+            });
+
+        });
+
+    </script>
     <script type="text/javascript">
         var path = "{{ route('autocomplete') }}";
         var responseProduct;
-        $( "#product" ).autocomplete({
-            source: function( request, response ) {
-                ;$.ajax({
+        var t = $('#tableSalesproduct').DataTable();
+        $("#product").autocomplete({
+            source: function (request, response) {
+                $.ajax({
                     url: path,
                     type: 'GET',
                     dataType: "json",
                     data: {
                         search: request.term
                     },
-                    success: function( data ) {
-                        response( data );
+                    success: function (data) {
+                        response(data);
                     }
                 })
             },
             select: function (event, ui) {
                 var trHTML = '';
                 $('#product').val(ui.item.label);
-                var resultProduct = ui.item;
-                console.log(resultProduct);
-                var t = $('#tableSalesproduct').DataTable();
-                t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_achat, resultProduct.prix_vente,resultProduct.quantite_dispo]).draw(false);
-                return false;
+                 var resultProduct  = ui.item;
+                  t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_vente,resultProduct.quantite_dispo]).draw(false);
+                  return false;
             }
         });
     </script>
-
 
 @endsection

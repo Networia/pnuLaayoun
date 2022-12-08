@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-12">
             <div class="card">
-    
+
                 <div class="card-body">
                     <form class="auth-register-form mt-2" method="POST" action="{{ route('Categorie.store') }}">
                         @csrf
@@ -47,4 +47,6 @@
     <!-- Page js files -->
     <script src="{{ asset(mix('js/scripts/forms/form-tooltip-valid.js')) }}"></script>
     <script src="{{ asset(mix('js/scripts/forms/form-number-input.js')) }}"></script>
+    <script src="{{ asset(mix('js/scripts/pages/sales.js')) }}"></script>
+
 @endsection
