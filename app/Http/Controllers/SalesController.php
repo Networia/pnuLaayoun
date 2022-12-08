@@ -15,7 +15,7 @@ class SalesController extends Controller
     public function autocomplete(Request $request)
     {
         $data = Product::select("reference as value" , "designation as designation", "prix_achat as prix_achat" , "prix_vente as prix_vente", "id","quantite_dispo")
-            ->where('reference', 'LIKE', '%'. $request->get('product'). '%')
+            ->where('reference', 'LIKE', '%'. $request->get('search'). '%')
             ->get();
 
         return response()->json($data);

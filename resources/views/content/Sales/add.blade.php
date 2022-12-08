@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
+    <!-- FONT AWESOME CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- AJAX JQUERY SCRIPT -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
@@ -73,6 +77,7 @@
                                 <th class="">{{__('designation')}}</th>
                                 <th class="">{{__('Prix de vente')}}</th>
                                 <th class="">{{__('Quantite')}}</th>
+                                <th class="">{{__('Total')}}</th>
                             </tr>
                             </thead>
                         </table>
@@ -108,6 +113,45 @@
     <!-- Page js files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
+        function incremet_decrement(prix) {
+            var total = 0;
+            table = $('#tableSalesproduct').DataTable();
+
+            $('.increment-btn').each(function (i, obj) {
+                $(this).unbind('click');
+                $(this).click(function () {
+                    var inc_value = $(this).parent().find('.qty-input').val();
+                    var value = parseInt(inc_value, 10);
+                    value = isNaN(value) ? 0 : value;
+                    value++;
+                    $(this).parent().find('.qty-input').val(value);
+                    total = prix * value;
+                    var row = table.row( i );
+                    t.cell(row, 4).data(total).draw();
+                });
+
+            });
+
+
+            $('.decrement-btn').each(function (i, obj) {
+                $(this).unbind('click');
+                $(this).click(function () {
+                    var dec_value = $(this).closest('.product_data').find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    value = isNaN(value) ? 0 : value;
+                    if (value > 1) {
+                        value--;
+                        $(this).closest('.product_data').find('.qty-input').val(value);
+                    }
+                    total = prix * value;
+                    var row = table.row( i );
+                    t.cell(row, 4).data(total).draw();
+                });
+            });
+
+        }
+    </script>
+    <script>
         $(document).ready(function () {
             $('.client-by-stock').select2();
             $(document).delegate("#stock_id", "change", function () {
@@ -126,7 +170,6 @@
             });
 
         });
-
     </script>
     <script type="text/javascript">
         var path = "{{ route('autocomplete') }}";
@@ -149,9 +192,11 @@
             select: function (event, ui) {
                 var trHTML = '';
                 $('#product').val(ui.item.label);
-                 var resultProduct  = ui.item;
-                  t.row.add([resultProduct.label , resultProduct.designation, resultProduct.prix_vente,resultProduct.quantite_dispo]).draw(false);
-                  return false;
+                var resultProduct = ui.item;
+                t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] + '</td><td>' + [resultProduct.prix_vente] + '</td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                    + '<td>' + 0 + '</td></tr>')).draw(false);
+                incremet_decrement(resultProduct.prix_vente);
+                return false;
             }
         });
     </script>
