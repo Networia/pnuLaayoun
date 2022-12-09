@@ -194,7 +194,7 @@
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
                 t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] + '</td><td>' + [resultProduct.prix_vente] + '</td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                + '<td>' + 0 + '</td></tr>')).draw(false);
+                + '<td>' + [resultProduct.prix_vente]+ '</td></tr>')).draw(false);
                 incremet_decrement(resultProduct.prix_vente);
                 return false;
             }
