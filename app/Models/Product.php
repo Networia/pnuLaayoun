@@ -15,16 +15,11 @@ class Product extends Model
         'prix_vente',
         'quantite_dispo',
         'product_categorie_id',
-        'product_bone_id',
         'product_stock_id',
     ];
     public function categories()
     {
         return $this->belongsTo(Categorie::class);
-    }
-    public function bones()
-    {
-        return $this->belongsTo(Bone::class);
     }
     public function stocks()
     {
