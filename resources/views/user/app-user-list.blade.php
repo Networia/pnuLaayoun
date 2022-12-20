@@ -104,6 +104,14 @@
                 @endforeach
               </select>
             </div>
+            <div class="mb-1">
+                <label class="form-label" for="user-stock">Assigner un stock</label>
+                <select class="select2 form-control"  name="equivalences[]" multiple>
+                    @foreach ($stocks as $stock)
+                    <option value="{{$stock->id}}">{{$stock->name}}</option>
+                    @endforeach
+                </select>
+              </div>
             <button type="submit" class="btn btn-primary me-1 mt-1">Ajouter</button>
             <button type="reset" class="btn btn-outline-secondary mt-1" data-bs-dismiss="modal">Annuler</button>
           </div>

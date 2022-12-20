@@ -52,7 +52,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function stocks()
     {
-        return $this->belongsToMany(Stock::class);
+        return $this->belongsToMany(Stock::class, 'user_stock');
     }
 }
-
