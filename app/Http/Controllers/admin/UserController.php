@@ -37,6 +37,7 @@ class UserController extends Controller
 
     public function store(UserRequest $input)
     {
+
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
@@ -157,4 +158,10 @@ class UserController extends Controller
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
+     public function create_stock($id)
+     {
+        $user = User::findOrFail($id);
+        $stocks_of_user = $user->stocks();
+        return view('user.edit-user-stock',['last' => $user, 'stocks'=> $stocks_of_user]);
+     }
 }

@@ -22,4 +22,9 @@ class Stock extends Model
     public function clients(){
         return $this->hasMany(Client::class);
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
 }
