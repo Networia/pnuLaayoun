@@ -16,13 +16,12 @@
             <div class="card">
     
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('',request()->id) }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('user.update.stock',request()->id) }}">
                         @csrf
                         <div class="row">
-
-                            <select class="select2 form-control"  name="equivalences[]" multiple>
+                            <select class="select2 form-control"   name="stocks_ids[]" multiple>
                                 @foreach ($stocks as $stock)
-                                <option value="{{$stock->id}}">{{$stock->name}}</option>
+                                <option value="{{$stock->id}}" {{ in_array($stock->id,$stocks_by_user) ? 'selected' : '' }}>{{$stock->name}}</option>
                                 @endforeach
                             </select>
                             <div class="col-12">
@@ -30,7 +29,6 @@
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>
                             </div>
                         </div>
-
                     </form>
                 </div>
             </div>

@@ -47,7 +47,7 @@ class UserController extends Controller
             'password' => Hash::make($input['password']),
         ]);
 
-        $ids_stocks = $input->input('equivalences', []);
+        $ids_stocks = $input->input('stocks_ids', []);
         $user->assignRole($input->role);
 
         $user->stocks()->attach($ids_stocks);
@@ -164,10 +164,23 @@ class UserController extends Controller
         session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
-    public function create_stock($id)
+
+    public function edit_user_stock($id)
     {
         $user = User::findOrFail($id);
-        $stocks_of_user = $user->stocks();
-        return view('user.edit-user-stock', ['last' => $user, 'stocks' => $stocks_of_user]);
+        $stocks_by_user = $user->stocks->pluck('id')->toArray();
+        $stocks = Stock::all();
+        return view('user.edit-user-stock', ['last' => $user, 'stocks_by_user' => $stocks_by_user, 'stocks' => $stocks]);
+    }
+
+    public function update_user_stock($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $ids_stocks = $request->input('stocks_ids', []);
+
+        $user->stocks()->sync($ids_stocks);
+
+        return back();
+        
     }
 }

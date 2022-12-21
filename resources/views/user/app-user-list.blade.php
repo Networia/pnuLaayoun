@@ -29,7 +29,7 @@
       </div>
     </div>
     <div class="card-datatable table-responsive pt-0">
-      <table class="user-list-table table" data-api="{{ route('user.api') }}" data-status="{{ route('user.status','') }}" data-detail="{{ route('user.security','') }}">
+      <table class="user-list-table table" data-api="{{ route('user.api') }}" data-status="{{ route('user.status','') }}" data-detail="{{ route('user.security','') }}" data-stock="{{ route('user.edit.stock','')}}">
         <thead class="table-light">
           <tr>
             <th></th>
@@ -106,7 +106,7 @@
             </div>
             <div class="mb-1">
                 <label class="form-label" for="user-stock">Assigner un stock</label>
-                <select class="select2 form-control"  name="equivalences[]" multiple>
+                <select class="select2 form-control"  name="stocks_ids[]" multiple>
                     @foreach ($stocks as $stock)
                     <option value="{{$stock->id}}">{{$stock->name}}</option>
                     @endforeach
