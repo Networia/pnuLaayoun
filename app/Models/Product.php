@@ -14,13 +14,15 @@ class Product extends Model
         'prix_achat',
         'prix_vente',
         'quantite_dispo',
-        'product_categorie_id',
-        'product_stock_id',
+        'categorie_id',
+        'stock_id',
     ];
+
     public function categories()
     {
         return $this->belongsTo(Categorie::class);
     }
+
     public function stocks()
     {
         return $this->belongsTo(Stock::class);
