@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockRequest;
 use App\Models\Stock;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -17,8 +18,10 @@ class StockController extends Controller
 
     public function api()
     {
-        $model = Stock::query();
-        return \DataTables::eloquent($model)
+        $model = Stock::with('users');
+        return \DataTables::eloquent($model)->with([
+            'users' => User::all(),
+        ])
         ->toJson();
     }
 

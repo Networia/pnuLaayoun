@@ -180,7 +180,7 @@ class UserController extends Controller
 
         $user->stocks()->sync($ids_stocks);
 
-        return back();
-        
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
+        return redirect(route("user.list"));
     }
 }
