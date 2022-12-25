@@ -20,7 +20,7 @@ class ProductController extends Controller
 
     public function api()
     {
-        $model = Product::with(['categories','stocks']);
+        $model = Product::with(['categories', 'stocks']);
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -28,11 +28,7 @@ class ProductController extends Controller
     //get pneu
     public function pnu()
     {
-        $model = Product::with(['categories','stocks'])->where('product_categorie_id', 1)->whereHas('stocks', function($q){
-            $q->whereHas('users' ,function($query){
-                $query->where('id', auth()->user()->id);
-            });
-        });
+        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 1);
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -40,7 +36,7 @@ class ProductController extends Controller
     //get filter
     public function filterapi()
     {
-        $model = Product::with(['categories','stocks'])->where('product_categorie_id', 2);
+        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 2);
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -48,7 +44,7 @@ class ProductController extends Controller
     //get Battrie
     public function battrieapi()
     {
-        $model = Product::with(['categories','stocks'])->where('product_categorie_id', 3);
+        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 3);
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -56,7 +52,7 @@ class ProductController extends Controller
     //get Chambrière
     public function chambriereapi()
     {
-        $model = Product::with(['categories','stocks'])->where('product_categorie_id', 4);
+        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 4);
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -64,7 +60,7 @@ class ProductController extends Controller
      //get huile
      public function huileapi()
      {
-         $model = Product::with(['categories','stocks'])->where('product_categorie_id', 5);
+         $model = Product::with(['categories', 'stocks'])->where('categorie_id', 5);
          return \DataTables::eloquent($model)
          ->toJson();
      }
@@ -122,9 +118,8 @@ class ProductController extends Controller
             'prix_achat'=>$request->prix_achat,
             'prix_vente'=>$request->prix_vente,
             'quantite_dispo'=> 0,
-            'product_categorie_id'=>$categorie_id,
-            'product_stock_id'=>$stock_id,
-            'product_bone_id'=>NULL
+            'categorie_id'=>$categorie_id,
+            'stock_id'=>$stock_id,
         ]);
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
