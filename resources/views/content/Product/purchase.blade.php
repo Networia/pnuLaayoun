@@ -142,11 +142,12 @@
     </script>
 
     <script type="text/javascript">
-      function deleteProduct(){
+      function deleteProduct(produitRemove){
         table = $('#tablePurchaseproduct').DataTable();
         $('.removeProductPurchase').each(function(i, obj){
           $(this).click(function(){
               $(this).unbind('click');
+              console.log("mpppp "+produitRemove);
               table.row( $(this).parents('tr')).remove().draw();
           })
         })
@@ -184,7 +185,7 @@
                 t.row.add($('<tr><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
                 +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
                 incremet_decrement(resultProduct.prix_achat);
-                deleteProduct();
+                deleteProduct(resultProduct.id);
                 return false;
             }      
         });  
