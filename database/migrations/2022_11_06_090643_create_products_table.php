@@ -23,8 +23,8 @@ class CreateProductsTable extends Migration
                 $table->decimal('prix_achat');
                 $table->decimal('prix_vente');
                 $table->integer('quantite_dispo')->nullable();
-                $table->foreignId('product_categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-                $table->foreignId('product_stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
+                $table->foreignId('categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
+                $table->foreignId('stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
                 $table->timestamps();
             });
         }

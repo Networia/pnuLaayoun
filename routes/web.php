@@ -12,6 +12,7 @@ use App\Http\Controllers\StockController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StaterkitController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\PurchaseController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\TestController;
@@ -61,21 +62,16 @@ Route::middleware(['auth'])->group(function () {
     });
 
     //Purchase
-    // Route::prefix('produits')->group(function () {
-    //     Route::get('', [ProductController::class, 'index'])->name('Product');
-    //     //Route::get('api', [ProductController::class, 'api'])->name('Product.api');
-    //     Route::get('pnu', [ProductController::class, 'pnu'])->name('Product.pnu');
-    //     Route::get('filter', [ProductController::class, 'filterapi'])->name('Product.filter');
-    //     Route::get('battrie', [ProductController::class, 'battrieapi'])->name('Product.battrieapi');
-    //     Route::get('chambriere', [ProductController::class, 'chambriereapi'])->name('Product.chambriereapi');
-    //     Route::get('huile', [ProductController::class, 'huileapi'])->name('Product.huileapi');
-    //     Route::get('select', [ProductController::class, 'list_select'])->name('Product.list_select');
-    //     Route::get('create', [ProductController::class, 'create'])->name('Product.create');
-    //     Route::post('store', [ProductController::class, 'store'])->name('Product.store');
-    //     Route::get('edit/{id}', [ProductController::class, 'edit'])->name('Product.edit');
-    //     Route::post('update/{id}', [ProductController::class, 'update'])->name('Product.update');
-    //     Route::get('purchase', [ProductController::class, 'purchase'])->name('Product.purchase');
-    // });
+    Route::prefix('purchase')->group(function () {
+        Route::get('', [PurchaseController::class, 'index'])->name('Purchase');
+        //Route::get('api', [PurchaseController::class, 'api'])->name('Purchase.api');
+        // Route::get('select', [PurchaseController::class, 'list_select'])->name('Purchase.list_select');
+        // Route::get('create', [PurchaseController::class, 'create'])->name('Purchase.create');
+        Route::post('store', [PurchaseController::class, 'store'])->name('Purchase.store');
+        // Route::get('edit/{id}', [PurchaseController::class, 'edit'])->name('Purchase.edit');
+        // Route::post('update/{id}', [PurchaseController::class, 'update'])->name('Purchase.update');
+        // Route::get('purchase', [PurchaseController::class, 'purchase'])->name('Purchase.purchase');
+    });
 
 
     //Supplier
