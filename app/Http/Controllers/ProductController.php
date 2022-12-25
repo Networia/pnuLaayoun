@@ -30,7 +30,7 @@ class ProductController extends Controller
     {
         $model = Product::with(['categories','stocks'])->where('product_categorie_id', 1)->whereHas('stocks', function($q){
             $q->whereHas('users' ,function($query){
-                $query->where('user_id', auth()->user()->id);
+                $query->where('id', auth()->user()->id);
             });
         });
         return \DataTables::eloquent($model)
