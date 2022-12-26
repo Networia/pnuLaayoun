@@ -142,13 +142,24 @@
     </script>
 
     <script type="text/javascript">
-      function deleteProduct(produitRemove){
+      function deleteProduct(allproduitts){
         table = $('#tablePurchaseproduct').DataTable();
         $('.removeProductPurchase').each(function(i, obj){
+          $(this).unbind('click');
           $(this).click(function(){
-              $(this).unbind('click');
-              console.log("mpppp "+produitRemove);
-              table.row( $(this).parents('tr')).remove().draw();
+              console.log("dlll" + allproduitts);
+              var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
+              console.log("selelelele "+idProductRemove);
+              if(jQuery.inArray(idProductRemove, allproduitts)){
+                var insss = allproduitts.indexOf(parseInt(idProductRemove));
+                var x = allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
+                console.log('index '+insss);
+                table.row( $(this).parents('tr')).remove().draw();
+              }else{
+                console.log("elsss");
+              }
+              console.log(allproduitts);
+              
           })
         })
       }
@@ -182,10 +193,10 @@
                 AllproductSelect.push(resultProduct.id);
                 console.log(resultProduct);
                 console.log(AllproductSelect);
-                t.row.add($('<tr><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                t.row.add($('<tr id="'+resultProduct.id +'"><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
                 +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
                 incremet_decrement(resultProduct.prix_achat);
-                deleteProduct(resultProduct.id);
+                deleteProduct(AllproductSelect);
                 return false;
             }      
         });  
