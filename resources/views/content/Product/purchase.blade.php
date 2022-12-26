@@ -136,6 +136,31 @@
                       var row = table.row( i );
                       t.cell(row, 4).data(total).draw();
                 });
+
+              $('.cell-datatable').each(function (i, obj) {
+                $('.cell-datatable').bind("enterKey",function(e){
+                    prixVente = $('.cell-datatable').val();
+                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    total = prixVente * value;
+                    var row = table.row(i );
+                    t.cell(row, 4).data(total).draw();
+                });
+                $('.cell-datatable').keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        $(this).trigger("enterKey");
+                    }
+                });
+               /* $('.cell-datatable').keyup(function() {
+                    prixVente = $('.cell-datatable').val();
+                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    total = prixVente * value;
+                    var row = table.row(i );
+                    t.cell(row, 4).data(total).draw();
+                });*/
+              });
               });
 
         }
@@ -151,9 +176,9 @@
               var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
               console.log("selelelele "+idProductRemove);
               if(jQuery.inArray(idProductRemove, allproduitts)){
-                var insss = allproduitts.indexOf(parseInt(idProductRemove));
-                var x = allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
-                console.log('index '+insss);
+                // var insss = allproduitts.indexOf(parseInt(idProductRemove));
+                allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
+                // console.log('index '+insss);
                 table.row( $(this).parents('tr')).remove().draw();
               }else{
                 console.log("elsss");
