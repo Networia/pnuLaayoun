@@ -78,6 +78,7 @@
                                 <th class="">{{__('Prix de vente')}}</th>
                                 <th class="">{{__('Quantite')}}</th>
                                 <th class="">{{__('Total')}}</th>
+                                <th class="">{{__('Supprimer')}}</th>
                             </tr>
                             </thead>
                         </table>
@@ -113,19 +114,21 @@
     <!-- Page js files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script>
-        function incremet_decrement(prix) {
+        function incremet_decrement(prixVente) {
             var total = 0;
             table = $('#tableSalesproduct').DataTable();
 
             $('.increment-btn').each(function (i, obj) {
                 $(this).unbind('click');
                 $(this).click(function () {
+                    var price = $(this).parent().parent().parent().parent().parent().find('.cell-datatable').val();
+                    prixVente = price;
                     var inc_value = $(this).parent().find('.qty-input').val();
                     var value = parseInt(inc_value, 10);
                     value = isNaN(value) ? 0 : value;
                     value++;
                     $(this).parent().find('.qty-input').val(value);
-                    total = prix * value;
+                    total = prixVente * value;
                     var row = table.row( i );
                     t.cell(row, 4).data(total).draw();
                 });
@@ -136,6 +139,8 @@
             $('.decrement-btn').each(function (i, obj) {
                 $(this).unbind('click');
                 $(this).click(function () {
+                    var price = $(this).parent().parent().parent().parent().parent().find('.cell-datatable').val();
+                    prixVente = price;
                     var dec_value = $(this).closest('.product_data').find('.qty-input').val();
                     var value = parseInt(dec_value, 10);
                     value = isNaN(value) ? 0 : value;
@@ -143,12 +148,48 @@
                         value--;
                         $(this).closest('.product_data').find('.qty-input').val(value);
                     }
-                    total = prix * value;
+                    total = prixVente * value;
                     var row = table.row( i );
                     t.cell(row, 4).data(total).draw();
                 });
             });
+            $('.cell-datatable').each(function (i, obj) {
+                $('.cell-datatable').bind("enterKey",function(e){
+                    prixVente = $('.cell-datatable').val();
+                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    total = prixVente * value;
+                    var row = table.row(i );
+                    t.cell(row, 4).data(total).draw();
+                });
+                $('.cell-datatable').keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        $(this).trigger("enterKey");
+                    }
+                });
+               /* $('.cell-datatable').keyup(function() {
+                    prixVente = $('.cell-datatable').val();
+                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    total = prixVente * value;
+                    var row = table.row(i );
+                    t.cell(row, 4).data(total).draw();
+                });*/
+            });
 
+
+        }
+    </script>
+    <script type="text/javascript">
+        function deleteProduct(){
+            table = $('#tableSalesproduct').DataTable();
+            $('.removeProductSales').each(function(i, obj){
+                $(this).click(function(){
+                    $(this).unbind('click');
+                    table.row( $(this).parents('tr')).remove().draw();
+                })
+            })
         }
     </script>
     <script>
@@ -193,9 +234,10 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] + '</td><td>' + [resultProduct.prix_vente] + '</td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                + '<td>' + [resultProduct.prix_vente]+ '</td></tr>')).draw(false);
+                t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] +'</td><td class="prixVente"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="number"  value = ' + resultProduct.prix_vente + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                + '<td>' + [resultProduct.prix_vente]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductSales">Supprimer</button></td></tr>')).draw(false);
                 incremet_decrement(resultProduct.prix_vente);
+                deleteProduct();
                 return false;
             }
         });
