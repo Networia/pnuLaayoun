@@ -82,7 +82,7 @@
                         <div class="invoice-total-wrapper">
                             <div class="invoice-total-item">
                                 <p class="invoice-total-title">Total:</p>
-                                <p class="invoice-total-amount">$1690</p>
+                                <p id="totalpurchase" class="invoice-total-amount">$1690</p>
                             </div>
                         </div>
                     </div>
@@ -127,6 +127,8 @@
         for (var i = 0; i < oneSelectedColumn.length; i++) {
           Total = Total + parseInt(oneSelectedColumn[i]);
         }
+
+        $('#totalpurchase').text(Total);
         console.log(Total);
       }
     </script>
