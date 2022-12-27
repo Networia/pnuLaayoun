@@ -41,6 +41,8 @@ Route::middleware(['auth'])->group(function () {
         Route::get('security/{id}', [UserController::class , 'security'])->middleware('can:user_password')->name('user.security');
         Route::post('security/password/{id}', [UserController::class , 'password'])->middleware('can:user_password')->name('user.security.password');
         Route::get('security/tsv/{id}', [UserController::class , 'tsv'])->middleware('can:user_2fa')->name('user.security.tsv');
+        Route::get('stock/edit/{id}', [UserController::class,'edit_user_stock'])->name('user.edit.stock');
+        Route::post('stock/update/{id}', [UserController::class,'update_user_stock'])->name('user.update.stock');
 
     });
 

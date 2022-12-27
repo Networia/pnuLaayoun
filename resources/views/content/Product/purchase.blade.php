@@ -68,7 +68,24 @@
                     </tr>
                   </thead>
                 </table>
-                <div>
+                
+              </div>
+              
+              <div class="card-body invoice-padding pb-0">
+                <div class="row invoice-sales-total-wrapper">
+                    <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
+                        <p class="card-text mb-0">
+                            <span class="font-weight-bold">Salesperson:</span> <span class="ml-75">Alfie Solomons</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
+                        <div class="invoice-total-wrapper">
+                            <div class="invoice-total-item">
+                                <p class="invoice-total-title">Total:</p>
+                                <p id="totalpurchase" class="invoice-total-amount">$1690</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -100,6 +117,22 @@
 
 @section('page-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    
+
+    <script type="text/javascript">
+      function totalProduct(){
+        var Total = 0;
+        var oneSelectedColumn = table.column(4).data();
+        for (var i = 0; i < oneSelectedColumn.length; i++) {
+          Total = Total + parseInt(oneSelectedColumn[i]);
+        }
+
+        $('#totalpurchase').text(Total);
+        console.log(Total);
+      }
+    </script>
+
     <script>
         function incremet_decrement(prixAchat) {
               var total = 0;
@@ -117,6 +150,7 @@
                     total = prixAchat * value;
                     var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    totalProduct();
                   });
 
               });
@@ -135,6 +169,7 @@
                       total = prixAchat * value;
                       var row =  table.row( $(this).parents('tr'));
                       t.cell(row, 4).data(total).draw();
+                      totalProduct();
                 });
 
               $('.cell-datatable').each(function (i, obj) {
@@ -145,21 +180,15 @@
                     total = prixVente * value;
                     var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    
                 });
                 $('.cell-datatable').keyup(function(e){
                     if(e.keyCode == 13)
                     {
                         $(this).trigger("enterKey");
+                        totalProduct();
                     }
                 });
-               /* $('.cell-datatable').keyup(function() {
-                    prixVente = $('.cell-datatable').val();
-                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
-                    var value = parseInt(dec_value, 10);
-                    total = prixVente * value;
-                    var row = table.row(i );
-                    t.cell(row, 4).data(total).draw();
-                });*/
               });
               });
 
@@ -176,10 +205,9 @@
               var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
               console.log("selelelele "+idProductRemove);
               if(jQuery.inArray(idProductRemove, allproduitts)){
-                // var insss = allproduitts.indexOf(parseInt(idProductRemove));
                 allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
-                // console.log('index '+insss);
                 table.row( $(this).parents('tr')).remove().draw();
+                totalProduct();
               }else{
                 console.log("elsss");
               }
@@ -215,17 +243,22 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                AllproductSelect.push(resultProduct.id);
-                console.log(resultProduct);
-                console.log(AllproductSelect);
-                t.row.add($('<tr id="'+resultProduct.id +'"><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+                if(jQuery.inArray(resultProduct.id, AllproductSelect) === -1){
+                  AllproductSelect.push(resultProduct.id);
+                  console.log(resultProduct);
+                  console.log(AllproductSelect);
+                  t.row.add($('<tr id="'+resultProduct.id +'"><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                  +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+                }
                 incremet_decrement(resultProduct.prix_achat);
                 deleteProduct(AllproductSelect);
+                totalProduct();
                 return false;
             }
         });
     </script>
+
+    
 
 
 

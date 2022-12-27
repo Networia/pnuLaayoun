@@ -13,7 +13,7 @@ class Stock extends Model
     ];
 
     public function products(){
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class );
     }
     public function bone(){
         return $this->hasMany(Bone::class);
@@ -21,5 +21,10 @@ class Stock extends Model
 
     public function clients(){
         return $this->hasMany(Client::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_stock');
     }
 }
