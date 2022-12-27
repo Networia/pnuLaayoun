@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
-  
+
 <!-- FONT AWESOME CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- AJAX JQUERY SCRIPT -->
@@ -36,7 +36,7 @@
       <div class="row card">
         <form class="auth-register-form mt-2" method="POST" action="{{ route('Purchase.store') }}">
           @csrf
-          
+
             <div class="col-12">
               <div class="card">
                 <div class="row">
@@ -115,10 +115,10 @@
                     value++;
                     $(this).parent().find('.qty-input').val(value);
                     total = prixAchat * value;
-                    var row = table.row( i );
+                    var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
                   });
-                  
+
               });
               $('.decrement-btn').each(function(i, obj) {
                 $(this).unbind('click');
@@ -133,17 +133,17 @@
                           $(this).closest('.product_data').find('.qty-input').val(value);
                       }
                       total = prixAchat * value;
-                      var row = table.row( i );
+                      var row =  table.row( $(this).parents('tr'));
                       t.cell(row, 4).data(total).draw();
                 });
 
               $('.cell-datatable').each(function (i, obj) {
                 $('.cell-datatable').bind("enterKey",function(e){
-                    prixVente = $('.cell-datatable').val();
+                    prixVente = $(this).val();
                     var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
                     var value = parseInt(dec_value, 10);
                     total = prixVente * value;
-                    var row = table.row(i );
+                    var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
                 });
                 $('.cell-datatable').keyup(function(e){
@@ -184,12 +184,12 @@
                 console.log("elsss");
               }
               console.log(allproduitts);
-              
+
           })
         })
       }
     </script>
-    
+
     <script type="text/javascript">
         var path = "{{ route('Product.autocomplete') }}";
         var responseProduct;
@@ -223,11 +223,11 @@
                 incremet_decrement(resultProduct.prix_achat);
                 deleteProduct(AllproductSelect);
                 return false;
-            }      
-        });  
+            }
+        });
     </script>
 
 
-    
+
 
 @endsection
