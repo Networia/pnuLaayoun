@@ -68,7 +68,24 @@
                     </tr>
                   </thead>
                 </table>
-                <div>
+                
+              </div>
+              
+              <div class="card-body invoice-padding pb-0">
+                <div class="row invoice-sales-total-wrapper">
+                    <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
+                        <p class="card-text mb-0">
+                            <span class="font-weight-bold">Salesperson:</span> <span class="ml-75">Alfie Solomons</span>
+                        </p>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
+                        <div class="invoice-total-wrapper">
+                            <div class="invoice-total-item">
+                                <p class="invoice-total-title">Total:</p>
+                                <p class="invoice-total-amount">$1690</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
               </div>
             </div>
@@ -100,6 +117,20 @@
 
 @section('page-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    
+
+    <script type="text/javascript">
+      function totalProduct(){
+        var Total = 0;
+        var oneSelectedColumn = table.column(4).data();
+        for (var i = 0; i < oneSelectedColumn.length; i++) {
+          Total = Total + parseInt(oneSelectedColumn[i]);
+        }
+        console.log(Total);
+      }
+    </script>
+
     <script>
         function incremet_decrement(prixAchat) {
               var total = 0;
@@ -117,6 +148,7 @@
                     total = prixAchat * value;
                     var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    totalProduct();
                   });
 
               });
@@ -135,6 +167,7 @@
                       total = prixAchat * value;
                       var row =  table.row( $(this).parents('tr'));
                       t.cell(row, 4).data(total).draw();
+                      totalProduct();
                 });
 
               $('.cell-datatable').each(function (i, obj) {
@@ -145,11 +178,13 @@
                     total = prixVente * value;
                     var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    
                 });
                 $('.cell-datatable').keyup(function(e){
                     if(e.keyCode == 13)
                     {
                         $(this).trigger("enterKey");
+                        totalProduct();
                     }
                 });
               });
@@ -168,10 +203,9 @@
               var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
               console.log("selelelele "+idProductRemove);
               if(jQuery.inArray(idProductRemove, allproduitts)){
-                // var insss = allproduitts.indexOf(parseInt(idProductRemove));
                 allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
-                // console.log('index '+insss);
                 table.row( $(this).parents('tr')).remove().draw();
+                totalProduct();
               }else{
                 console.log("elsss");
               }
@@ -216,10 +250,13 @@
                 }
                 incremet_decrement(resultProduct.prix_achat);
                 deleteProduct(AllproductSelect);
+                totalProduct();
                 return false;
             }
         });
     </script>
+
+    
 
 
 
