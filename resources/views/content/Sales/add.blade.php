@@ -13,7 +13,9 @@
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
     <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
     <!-- FONT AWESOME CDN -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+          integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
     <!-- AJAX JQUERY SCRIPT -->
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -58,9 +60,6 @@
                                 <label class="form-label" for="modern-username">Product</label>
                                 <input type="text" id="product" class="form-control" placeholder="produit"/>
                             </div>
-                            <div class="col-12">
-                                <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -83,6 +82,52 @@
                             </thead>
                         </table>
                     </div>
+                    <div class="row mt-3">
+                        <div class="col-6">
+                            <span>
+                                <b>
+                                    Client:
+                                </b>
+                            </span>
+                            <span id="name_client" class="float-right">
+                            </span>
+                        </div>
+                        <div class="col-6">
+                            <span style="float: right !important;">
+                                 <span>
+                                    <b>
+                                        Grand Total:
+                                    </b>
+                                </span>
+                                <span id="totalsales" class="float-right">
+                                  0
+                                </span>
+                            </span>
+
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
+                        </div>
+                    </div>
+                    {{-- <div class="card-body invoice-padding pb-0">
+                         <div class="row invoice-sales-total-wrapper">
+                             <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
+                                 <p class="card-text mb-0">
+                                     <span class="font-weight-bold">Client :</span> <span id="name_client" class="ml-75"></span>
+                                 </p>
+                             </div>
+                             <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
+                                 <div class="invoice-total-wrapper">
+                                     <div class="invoice-total-item">
+                                         <p class="invoice-total-title">Grand Total:</p>
+                                         <p id="totalsales" class="invoice-total-amount">$1690</p>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>--}}
                 </div>
             </div>
         </div>
@@ -113,6 +158,17 @@
 @section('page-script')
     <!-- Page js files -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript">
+        function totalProduct() {
+            var Total = 0;
+            var oneSelectedColumn = table.column(4).data();
+            for (var i = 0; i < oneSelectedColumn.length; i++) {
+                Total = Total + parseInt(oneSelectedColumn[i]);
+            }
+
+            $('#totalsales').text(Total);
+        }
+    </script>
     <script>
         function incremet_decrement(prixVente) {
             var total = 0;
@@ -124,15 +180,15 @@
                     console.log(prixVente);
                     var price = $(this).parent().parent().parent().parent().parent().find('.cell-datatable').val();
                     prixVente = price;
-                    console.log(price);
                     var inc_value = $(this).parent().find('.qty-input').val();
                     var value = parseInt(inc_value, 10);
                     value = isNaN(value) ? 0 : value;
                     value++;
                     $(this).parent().find('.qty-input').val(value);
                     total = prixVente * value;
-                    var row =  table.row( $(this).parents('tr'));
+                    var row = table.row($(this).parents('tr'));
                     table.cell(row, 4).data(total).draw();
+                    totalProduct();
                 });
 
             });
@@ -151,39 +207,40 @@
                         $(this).closest('.product_data').find('.qty-input').val(value);
                     }
                     total = prixVente * value;
-                    var row =  table.row( $(this).parents('tr'));
+                    var row = table.row($(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    totalProduct();
                 });
             });
 
             $('.cell-datatable').each(function (i, obj) {
-                $('.cell-datatable').bind("enterKey",function(e){
+                $('.cell-datatable').bind("enterKey", function (e) {
                     prixVente = $(this).val();
                     var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
                     var value = parseInt(dec_value, 10);
                     total = prixVente * value;
-                    var row =  table.row( $(this).parents('tr'));
+                    var row = table.row($(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
                 });
-                $('.cell-datatable').keyup(function(e){
-                    if(e.keyCode == 13)
-                    {
+                $('.cell-datatable').keyup(function (e) {
+                    if (e.keyCode == 13) {
                         $(this).trigger("enterKey");
+                        totalProduct();
                     }
                 });
             });
         }
     </script>
     <script type="text/javascript">
-        function deleteProduct(ArrayProducts){
+        function deleteProduct(ArrayProducts) {
             table = $('#tableSalesproduct').DataTable();
-            $('.removeProductSales').each(function(i, obj){
+            $('.removeProductSales').each(function (i, obj) {
                 $(this).unbind('click');
-                $(this).click(function(){
+                $(this).click(function () {
                     var idProductRemove = $(this).parent().parent().find(".prixVente").find('.cell-datatable').attr('id');
-                    if(jQuery.inArray(idProductRemove, ArrayProducts)){
+                    if (jQuery.inArray(idProductRemove, ArrayProducts)) {
                         ArrayProducts.splice(ArrayProducts.indexOf(parseInt(idProductRemove)), 1);
-                        table.row( $(this).parents('tr')).remove().draw();
+                        table.row($(this).parents('tr')).remove().draw();
                     }
                 })
             })
@@ -202,6 +259,9 @@
                                 "text": a.name
                             }
                         })
+                    });
+                    $.map(JSON.parse(data), function (a) {
+                        $('#name_client').text(a.name);
                     });
                 });
 
@@ -232,11 +292,14 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                arrayProducts.push(resultProduct.id);
-                t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] +'</td><td class="prixVente"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="number"  value = ' + resultProduct.prix_vente + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                + '<td>' + [resultProduct.prix_vente]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductSales">Supprimer</button></td></tr>')).draw(false);
+                if (jQuery.inArray(resultProduct.id, arrayProducts) === -1) {
+                    arrayProducts.push(resultProduct.id);
+                    t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] + '</td><td class="prixVente"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="number"  value = ' + resultProduct.prix_vente + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                        + '<td>' + [resultProduct.prix_vente] + '</td><td><button type="button" class="btn btn-gradient-danger removeProductSales">Supprimer</button></td></tr>')).draw(false);
+                }
                 incremet_decrement(resultProduct.prix_vente);
                 deleteProduct(arrayProducts);
+                totalProduct();
                 return false;
             }
         });
