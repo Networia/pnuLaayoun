@@ -82,7 +82,7 @@
                         <div class="invoice-total-wrapper">
                             <div class="invoice-total-item">
                                 <p class="invoice-total-title">Total:</p>
-                                <p id="totalpurchase" class="invoice-total-amount">$1690</p>
+                                <p id="totalpurchase" class="invoice-total-amount">0</p>
                             </div>
                         </div>
                     </div>
