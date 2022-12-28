@@ -71,23 +71,30 @@
                 
               </div>
               
-              <div class="card-body invoice-padding pb-0">
-                <div class="row invoice-sales-total-wrapper">
-                    <div class="col-md-6 order-md-1 order-2 mt-md-0 mt-3">
-                        <p class="card-text mb-0">
-                            <span class="font-weight-bold">Salesperson:</span> <span class="ml-75">Alfie Solomons</span>
-                        </p>
-                    </div>
-                    <div class="col-md-6 d-flex justify-content-end order-md-2 order-1">
-                        <div class="invoice-total-wrapper">
-                            <div class="invoice-total-item">
-                                <p class="invoice-total-title">Total:</p>
-                                <p id="totalpurchase" class="invoice-total-amount">0</p>
-                            </div>
-                        </div>
-                    </div>
+              <div class="row mt-3">
+                <div class="col-6">
+                    <span>
+                        <b>
+                            
+                        </b>
+                    </span>
+                    <span id="name_client" class="float-right">
+                    </span>
                 </div>
-              </div>
+                <div class="col-6">
+                    <span style="float: right !important;">
+                         <span>
+                            <b>
+                                Grand Total:
+                            </b>
+                        </span>
+                        <span id="totalpurchase" name="totalAchat" class="float-right">
+                          0
+                        </span>
+                    </span>
+
+                </div>
+            </div>
             </div>
           </div>
       </form>
@@ -195,24 +202,45 @@
         }
     </script>
 
+    <script>
+      var AllproductSelect = [];
+      function stockProductSelected(idProduct){
+        var table = $('#tablePurchaseproduct').DataTable();
+        if(jQuery.inArray(idProduct.id, AllproductSelect) === -1){
+          AllproductSelect.push(idProduct.id);
+          // console.log(resultProduct);
+          table.row.add($('<tr id="'+idProduct.id +'"><td>'+[idProduct.label]+'</td><td>'+[idProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+          +'<td>'+[idProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+        }
+        deleteProduct(AllproductSelect);
+        console.log(AllproductSelect);
+        $.ajax({
+        type: "POST",
+        url: "{{ route('Purchase.store') }}",
+        data: AllproductSelect,
+        success: function( result ) {
+            console.log( result ); //please post output of this
+        }
+    });
+      }
+
+
+    </script>
+
     <script type="text/javascript">
       function deleteProduct(allproduitts){
         table = $('#tablePurchaseproduct').DataTable();
         $('.removeProductPurchase').each(function(i, obj){
           $(this).unbind('click');
           $(this).click(function(){
-              console.log("dlll" + allproduitts);
               var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
               console.log("selelelele "+idProductRemove);
               if(jQuery.inArray(idProductRemove, allproduitts)){
                 allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
                 table.row( $(this).parents('tr')).remove().draw();
                 totalProduct();
-              }else{
-                console.log("elsss");
               }
               console.log(allproduitts);
-
           })
         })
       }
@@ -222,7 +250,6 @@
         var path = "{{ route('Product.autocomplete') }}";
         var responseProduct;
         var t = $('#tablePurchaseproduct').DataTable();
-        var AllproductSelect = [];
         $( "#product" ).autocomplete({
             source: function( request, response ) {
                 ;$.ajax({
@@ -243,15 +270,8 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                if(jQuery.inArray(resultProduct.id, AllproductSelect) === -1){
-                  AllproductSelect.push(resultProduct.id);
-                  console.log(resultProduct);
-                  console.log(AllproductSelect);
-                  t.row.add($('<tr id="'+resultProduct.id +'"><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                  +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
-                }
+                stockProductSelected( resultProduct);
                 incremet_decrement(resultProduct.prix_achat);
-                deleteProduct(AllproductSelect);
                 totalProduct();
                 return false;
             }
