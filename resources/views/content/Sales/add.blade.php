@@ -41,8 +41,8 @@
                     <div class="card">
                         <div class="row">
                             <div class="form-group col-md-4">
-                                <label class="form-label" for="modern-username">Serie de bone</label>
-                                <input type="text" id="modern-username" class="form-control"
+                                <label class="form-label" for="serie_bone">Serie de bone</label>
+                                <input type="text" id="serie_bone" class="form-control"
                                        placeholder="Serie de bone"/>
                             </div>
                             <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock"
@@ -108,7 +108,7 @@
                     </div>
                     <div class="row mt-3">
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
+                            <button type="submit" class="btn btn-primary mt-1 me-1 submit">Créer</button>
                         </div>
                     </div>
                     {{-- <div class="card-body invoice-padding pb-0">
@@ -247,6 +247,40 @@
         }
     </script>
     <script>
+        function submiteSale(AllproductSelect){
+            $('.submit').click(function(){
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route('sales.store') }}",
+                    data:{
+                        '_token': "{{csrf_token()}}",
+                        'productsArray':AllproductSelect,
+                        'serie_bone':$('#serie_bone').val(),
+                        'client_id':$('#client_data').val(),
+                        'stock_id':$('#stock_id').val()
+                    } ,
+                    success: function( result ) {
+                        console.log( result ); //please post output of this
+                    }
+                });
+            });
+        }
+    </script>
+    <script>
+        var AllproductSelect = [];
+        function stockProductSelected(idProduct){
+            var table = $('#tablePurchaseproduct').DataTable();
+            if(jQuery.inArray(idProduct.id, AllproductSelect) === -1){
+                AllproductSelect.push(idProduct.id);
+                // console.log(resultProduct);
+                table.row.add($('<tr id="'+idProduct.id +'"><td>'+[idProduct.label]+'</td><td>'+[idProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                    +'<td>'+[idProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+            }
+            deleteProduct(AllproductSelect);
+            submiteSale(AllproductSelect)
+        }
+    </script>
+    <script>
         $(document).ready(function () {
             $('.client-by-stock').select2();
             $(document).delegate("#stock_id", "change", function () {
@@ -297,6 +331,7 @@
                     t.row.add($('<tr><td>' + [resultProduct.label] + '</td><td>' + [resultProduct.designation] + '</td><td class="prixVente"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="number"  value = ' + resultProduct.prix_vente + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
                         + '<td>' + [resultProduct.prix_vente] + '</td><td><button type="button" class="btn btn-gradient-danger removeProductSales">Supprimer</button></td></tr>')).draw(false);
                 }
+                stockProductSelected(resultProduct);
                 incremet_decrement(resultProduct.prix_vente);
                 deleteProduct(arrayProducts);
                 totalProduct();
