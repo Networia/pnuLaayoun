@@ -52,6 +52,7 @@ $(function () {
         { data: '' },
         { data: 'id' ,defaultContent:'0' },
         { data: 'name' ,defaultContent:'0' },
+        { data: 'users.name' ,defaultContent:'0' },
         { data: '' }
       ],
       columnDefs: [
@@ -64,6 +65,16 @@ $(function () {
           targets: 0,
           render: function (data, type, full, meta) {
             return ''
+          }
+        },
+        {
+          targets: 3,
+          
+          render: function ( data, type, full, meta ,row ) {
+            const users = full['users'];
+            const names = users.map(user => user.name)
+            console.log(names.join('-'));
+            return names.join(' - ');
           }
         },
         {

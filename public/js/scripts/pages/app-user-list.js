@@ -160,9 +160,12 @@ $(function () {
               '<a href="'+ dtUserTable.data('detail') + '/' + full.id +'" class="dropdown-item">' +
               feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
               'Details</a>' +
-              '<a href="'+ dtUserTable.data('status') + '/' + full.id +'" class="dropdown-item delete-record">' +
-              feather.icons['toggle-right'].toSvg({ class: 'font-small-4 me-50' }) +
-              'Status</a></div>' +
+              '<a href="'+ dtUserTable.data('stock') + '/' + full.id +'" class="dropdown-item">' +
+              feather.icons['edit'].toSvg({ class: 'font-small-4 me-50' }) +
+              'add in stock</a>' +
+              // '<a href="'+ dtUserTable.data('status') + '/' + full.id +'" class="dropdown-item delete-record">' +
+              // feather.icons['toggle-right'].toSvg({ class: 'font-small-4 me-50' }) +
+              // 'Status</a></div>' +
               '</div>' +
               '</div>'
             )

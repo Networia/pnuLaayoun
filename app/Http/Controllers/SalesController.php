@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BoneSales;
+use App\Http\Requests\BoneSalesRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -19,5 +21,9 @@ class SalesController extends Controller
             ->get();
 
         return response()->json($data);
+    }
+
+    public function store(BoneSalesRequest $data){
+
     }
 }

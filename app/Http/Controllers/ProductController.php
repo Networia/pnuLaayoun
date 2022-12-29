@@ -28,7 +28,9 @@ class ProductController extends Controller
     //get pneu
     public function pnu()
     {
-        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 1);
+        $model = Product::with(['categories'])->where('categorie_id', 1)->whereHas('stock.users', function($query){
+            $query->where('users.id', '=', auth()->user()->id);
+        });
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -36,7 +38,9 @@ class ProductController extends Controller
     //get filter
     public function filterapi()
     {
-        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 2);
+        $model = Product::with(['categories'])->where('categorie_id', 2)->whereHas('stock.users', function($query){
+            $query->where('users.id', '=', auth()->user()->id);
+        });
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -44,7 +48,9 @@ class ProductController extends Controller
     //get Battrie
     public function battrieapi()
     {
-        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 3);
+        $model = Product::with(['categories'])->where('categorie_id', 3)->whereHas('stock.users', function($query){
+            $query->where('users.id', '=', auth()->user()->id);
+        });
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -52,7 +58,9 @@ class ProductController extends Controller
     //get Chambrière
     public function chambriereapi()
     {
-        $model = Product::with(['categories', 'stocks'])->where('categorie_id', 4);
+        $model = Product::with(['categories'])->where('categorie_id', 4)->whereHas('stock.users', function($query){
+            $query->where('users.id', '=', auth()->user()->id);
+        });
         return \DataTables::eloquent($model)
         ->toJson();
     }
@@ -60,7 +68,9 @@ class ProductController extends Controller
      //get huile
      public function huileapi()
      {
-         $model = Product::with(['categories', 'stocks'])->where('categorie_id', 5);
+         $model = Product::with(['categories'])->where('categorie_id', 5)->whereHas('stock.users', function($query){
+            $query->where('users.id', '=', auth()->user()->id);
+        });
          return \DataTables::eloquent($model)
          ->toJson();
      }

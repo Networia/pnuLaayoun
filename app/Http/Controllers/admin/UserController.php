@@ -5,7 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Actions\Fortify\PasswordValidationRules;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Models\Stock;
 use App\Models\User;
+use App\Models\UserStock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -22,8 +24,9 @@ class UserController extends Controller
     {
         $pageConfigs = ['pageHeader' => false];
         $roles = Role::all();
+        $stocks = Stock::all();
 
-        return view('user.app-user-list', ['pageConfigs' => $pageConfigs,'roles' => $roles]);
+        return view('user.app-user-list', ['pageConfigs' => $pageConfigs, 'roles' => $roles, 'stocks' => $stocks]);
     }
 
     public function api()
@@ -32,20 +35,24 @@ class UserController extends Controller
         return \DataTables::eloquent($model)->with([
             'filter_status' => User::select('status as value')->groupBy('status')->get(),
         ])
-        ->toJson();
+            ->toJson();
     }
 
     public function store(UserRequest $input)
     {
+
         $user = User::create([
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
 
+        $ids_stocks = $input->input('stocks_ids', []);
         $user->assignRole($input->role);
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        $user->stocks()->attach($ids_stocks);
+
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
 
@@ -58,7 +65,7 @@ class UserController extends Controller
                 'status' => 0
             ]);
 
-            session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+            session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
             return back();
         }
 
@@ -67,7 +74,7 @@ class UserController extends Controller
                 'status' => 1
             ]);
 
-            session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+            session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
             return back();
         }
 
@@ -78,7 +85,7 @@ class UserController extends Controller
     {
         $user = User::with('roles')->findOrFail($id);
 
-        return view('user.app-user-view-account',['user' => $user]);
+        return view('user.app-user-view-account', ['user' => $user]);
     }
 
     public function update(Request $input)
@@ -93,7 +100,7 @@ class UserController extends Controller
                 'string',
                 'email',
                 'max:255',
-                'unique:users,email,'.$input->id
+                'unique:users,email,' . $input->id
             ],
         ])->validate();
 
@@ -103,7 +110,7 @@ class UserController extends Controller
                 'email' => $input['email'],
                 'email_verified_at' => null,
             ])->save();
-    
+
             $user->sendEmailVerificationNotification();
         } else {
             $user->forceFill([
@@ -112,7 +119,7 @@ class UserController extends Controller
             ])->save();
         }
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
         return back();
     }
 
@@ -123,7 +130,7 @@ class UserController extends Controller
             ->where('user_id', $user->id)
             ->get()->reverse();
 
-        return view('user.app-user-view-security',['user' => $user , 'devices' => $devices]);
+        return view('user.app-user-view-security', ['user' => $user, 'devices' => $devices]);
     }
 
     public function password(Request $data)
@@ -138,7 +145,7 @@ class UserController extends Controller
             'password' => Hash::make($data->password)
         ]);
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
 
         return back();
     }
@@ -154,7 +161,26 @@ class UserController extends Controller
             'two_factor_recovery_codes' => null,
         ])->save();
 
-        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
         return back();
+    }
+
+    public function edit_user_stock($id)
+    {
+        $user = User::findOrFail($id);
+        $stocks_by_user = $user->stocks->pluck('id')->toArray();
+        $stocks = Stock::all();
+        return view('user.edit-user-stock', ['last' => $user, 'stocks_by_user' => $stocks_by_user, 'stocks' => $stocks]);
+    }
+
+    public function update_user_stock($id, Request $request)
+    {
+        $user = User::findOrFail($id);
+        $ids_stocks = $request->input('stocks_ids', []);
+
+        $user->stocks()->sync($ids_stocks);
+
+        session()->flash('toastr', ['type' => 'success', 'title' => __('toastr.title.success'), 'contant' =>  __('toastr.contant.success')]);
+        return redirect(route("user.list"));
     }
 }

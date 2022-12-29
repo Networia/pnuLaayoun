@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/wizard/bs-stepper.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/select/select2.min.css')) }}">
   <link rel="stylesheet" href="{{ asset(mix('vendors/css/forms/spinner/jquery.bootstrap-touchspin.css')) }}">
-  
+
 <!-- FONT AWESOME CDN -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <!-- AJAX JQUERY SCRIPT -->
@@ -36,7 +36,7 @@
       <div class="row card">
         <form class="auth-register-form mt-2" method="POST" action="{{ route('Purchase.store') }}">
           @csrf
-          
+
             <div class="col-12">
               <div class="card">
                 <div class="row">
@@ -68,9 +68,33 @@
                     </tr>
                   </thead>
                 </table>
-                <div>
-                </div>
+                
               </div>
+              
+              <div class="row mt-3">
+                <div class="col-6">
+                    <span>
+                        <b>
+                            
+                        </b>
+                    </span>
+                    <span id="name_client" class="float-right">
+                    </span>
+                </div>
+                <div class="col-6">
+                    <span style="float: right !important;">
+                         <span>
+                            <b>
+                                Grand Total:
+                            </b>
+                        </span>
+                        <span id="totalpurchase" name="totalAchat" class="float-right">
+                          0
+                        </span>
+                    </span>
+
+                </div>
+            </div>
             </div>
           </div>
       </form>
@@ -100,6 +124,22 @@
 
 @section('page-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    
+
+    <script type="text/javascript">
+      function totalProduct(){
+        var Total = 0;
+        var oneSelectedColumn = table.column(4).data();
+        for (var i = 0; i < oneSelectedColumn.length; i++) {
+          Total = Total + parseInt(oneSelectedColumn[i]);
+        }
+
+        $('#totalpurchase').text(Total);
+        console.log(Total);
+      }
+    </script>
+
     <script>
         function incremet_decrement(prixAchat) {
               var total = 0;
@@ -115,10 +155,11 @@
                     value++;
                     $(this).parent().find('.qty-input').val(value);
                     total = prixAchat * value;
-                    var row = table.row( i );
+                    var row =  table.row( $(this).parents('tr'));
                     t.cell(row, 4).data(total).draw();
+                    totalProduct();
                   });
-                  
+
               });
               $('.decrement-btn').each(function(i, obj) {
                 $(this).unbind('click');
@@ -133,32 +174,82 @@
                           $(this).closest('.product_data').find('.qty-input').val(value);
                       }
                       total = prixAchat * value;
-                      var row = table.row( i );
+                      var row =  table.row( $(this).parents('tr'));
                       t.cell(row, 4).data(total).draw();
+                      totalProduct();
                 });
+
+              $('.cell-datatable').each(function (i, obj) {
+                $('.cell-datatable').bind("enterKey",function(e){
+                    prixVente = $(this).val();
+                    var dec_value = $(this).parent().parent().parent().parent().parent().find('.qty-input').val();
+                    var value = parseInt(dec_value, 10);
+                    total = prixVente * value;
+                    var row =  table.row( $(this).parents('tr'));
+                    t.cell(row, 4).data(total).draw();
+                    
+                });
+                $('.cell-datatable').keyup(function(e){
+                    if(e.keyCode == 13)
+                    {
+                        $(this).trigger("enterKey");
+                        totalProduct();
+                    }
+                });
+              });
               });
 
         }
     </script>
 
+    <script>
+      var AllproductSelect = [];
+      function stockProductSelected(idProduct){
+        var table = $('#tablePurchaseproduct').DataTable();
+        if(jQuery.inArray(idProduct.id, AllproductSelect) === -1){
+          AllproductSelect.push(idProduct.id);
+          // console.log(resultProduct);
+          table.row.add($('<tr id="'+idProduct.id +'"><td>'+[idProduct.label]+'</td><td>'+[idProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+          +'<td>'+[idProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+        }
+        deleteProduct(AllproductSelect);
+        console.log(AllproductSelect);
+        $.ajax({
+        type: "POST",
+        url: "{{ route('Purchase.store') }}",
+        data: AllproductSelect,
+        success: function( result ) {
+            console.log( result ); //please post output of this
+        }
+    });
+      }
+
+
+    </script>
+
     <script type="text/javascript">
-      function deleteProduct(produitRemove){
+      function deleteProduct(allproduitts){
         table = $('#tablePurchaseproduct').DataTable();
         $('.removeProductPurchase').each(function(i, obj){
+          $(this).unbind('click');
           $(this).click(function(){
-              $(this).unbind('click');
-              console.log("mpppp "+produitRemove);
-              table.row( $(this).parents('tr')).remove().draw();
+              var idProductRemove = $(this).parent().parent().find(".prixAchaat").find('.cell-datatable').attr('id');
+              console.log("selelelele "+idProductRemove);
+              if(jQuery.inArray(idProductRemove, allproduitts)){
+                allproduitts.splice(allproduitts.indexOf(parseInt(idProductRemove)), 1);
+                table.row( $(this).parents('tr')).remove().draw();
+                totalProduct();
+              }
+              console.log(allproduitts);
           })
         })
       }
     </script>
-    
+
     <script type="text/javascript">
         var path = "{{ route('Product.autocomplete') }}";
         var responseProduct;
         var t = $('#tablePurchaseproduct').DataTable();
-        var AllproductSelect = [];
         $( "#product" ).autocomplete({
             source: function( request, response ) {
                 ;$.ajax({
@@ -179,19 +270,17 @@
                 var trHTML = '';
                 $('#product').val(ui.item.label);
                 var resultProduct = ui.item;
-                AllproductSelect.push(resultProduct.id);
-                console.log(resultProduct);
-                console.log(AllproductSelect);
-                t.row.add($('<tr><td>'+[resultProduct.label]+'</td><td>'+[resultProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + resultProduct.id + '" type="text"  value = ' + resultProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                +'<td>'+[resultProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+                stockProductSelected( resultProduct);
                 incremet_decrement(resultProduct.prix_achat);
-                deleteProduct(resultProduct.id);
+                totalProduct();
                 return false;
-            }      
-        });  
+            }
+        });
     </script>
 
-
     
+
+
+
 
 @endsection

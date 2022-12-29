@@ -37,6 +37,7 @@
                 <th class=""></th>
                 <th class="">{{__('id')}}</th>
                 <th class="">{{__('name de stock')}}</th>
+                <th class="">{{__('users')}}</th>
                 <th></th>
               </tr>
             </thead>
