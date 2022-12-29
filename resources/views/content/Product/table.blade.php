@@ -38,9 +38,12 @@
             <div class="col-md-4 user_status"></div>
           </div>
         </div> --}}
-        
+
         {{-- pnu table --}}
         <div class="card-datatable" id="table_pnu">
+            <div class="row">
+                <div class="col-md-4 stock1_status"></div>
+            </div>
           <table class="datatables-table table tablepnu" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.pnu') }}">
             <thead>
               <tr>
@@ -50,6 +53,7 @@
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quantite')}}</th>
+                <th class="never">{{__('Quantite')}}</th>
                 <th></th>
               </tr>
             </thead>
@@ -58,6 +62,9 @@
 
         {{-- filter table --}}
         <div class="card-datatable hidden" id="table_filter">
+            <div class="row">
+                <div class="col-md-4 stock_status"></div>
+            </div>
           <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.filter') }}">
             <thead>
               <tr>
