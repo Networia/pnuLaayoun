@@ -142,6 +142,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('sales')->group(function () {
         Route::get('create', [SalesController::class, 'create'])->name('sales.create');
         Route::get('autocomplete', [SalesController::class, 'autocomplete'])->name('autocomplete');
+       // Route::post('store', [SalesController::class, 'store'])->name('sales.store');
 
     });
 });
