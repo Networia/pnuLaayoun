@@ -124,9 +124,6 @@
 
 @section('page-script')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-
-    
-
     <script type="text/javascript">
       function totalProduct(){
         var Total = 0;
@@ -134,10 +131,9 @@
         for (var i = 0; i < oneSelectedColumn.length; i++) {
           Total = Total + parseInt(oneSelectedColumn[i]);
         }
-
         $('#totalpurchase').text(Total);
-        console.log(Total);
-      }
+          console.log(Total);
+        }
     </script>
 
     <script>
@@ -208,23 +204,23 @@
         var table = $('#tablePurchaseproduct').DataTable();
         if(jQuery.inArray(idProduct.id, AllproductSelect) === -1){
           AllproductSelect.push(idProduct.id);
-          // console.log(resultProduct);
           table.row.add($('<tr id="'+idProduct.id +'"><td>'+[idProduct.label]+'</td><td>'+[idProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
           +'<td>'+[idProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
         }
         deleteProduct(AllproductSelect);
         console.log(AllproductSelect);
         $.ajax({
-        type: "POST",
-        url: "{{ route('Purchase.store') }}",
-        data: AllproductSelect,
-        success: function( result ) {
-            console.log( result ); //please post output of this
-        }
-    });
+            type: "POST",
+            url: "{{ route('Purchase.store') }}",
+            data:{
+              '_token': "{{csrf_token()}}",
+              'productsArray':AllproductSelect
+            } ,
+            success: function( result ) {
+              console.log( result ); 
+            }
+        });
       }
-
-
     </script>
 
     <script type="text/javascript">
@@ -252,17 +248,17 @@
         var t = $('#tablePurchaseproduct').DataTable();
         $( "#product" ).autocomplete({
             source: function( request, response ) {
-                ;$.ajax({
-                    url: path,
-                    type: 'GET',
-                    dataType: "json",
-                    data: {
-                        search: request.term
-                    },
-                    success: function( data ) {
-                        response( data );
-                    }
-                })
+              $.ajax({
+                url: path,
+                type: 'GET',
+                dataType: "json",
+                data: {
+                  search: request.term
+                },
+                success: function( data ) {
+                  response( data );
+                }
+              })
                 console.log("testttttttt");
                 console.log(response);
             },

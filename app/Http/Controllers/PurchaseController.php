@@ -27,6 +27,7 @@ class PurchaseController extends Controller
             'stock_id'=>$$stock_id,
             'status'=>1,
         ]);
+        // $request->productsArray;
         BoneProduit::create([
 
         ]);
