@@ -274,6 +274,16 @@
         });
     </script>
 
+    <script>
+      $(".submit").click(function(){
+        var infoProduct = {};
+        var arrInfoProducts=[];
+        $(".prixAchaat").find("inpute").attr("id").each(function() {
+          $( this ).toggleClass( "example" );
+        });
+      })
+
+    </script>
     
 
 
