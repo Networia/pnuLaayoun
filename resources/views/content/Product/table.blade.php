@@ -104,40 +104,48 @@
 
         {{-- battrie table --}}
         <div class="card-datatable hidden" id="table_battrie">
-          <table class="datatables-table table tablebattrie" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.battrieapi') }}">
-            <thead>
-              <tr>
-                <th class=""></th>
-                <th class="">{{__('reference de battrie')}}</th>
-                <th class="">{{__('designation de battrie')}}
-                <th class="">{{__('Prix d\'achat')}}</th>
-                <th class="">{{__('Prix de vente')}}</th>
-                <th class="">{{__('Quentite')}}</th>
-                <th></th>
-              </tr>
-            </thead>
-          </table>
+            <div class="row m-2">
+                <div class="col-md-4 stock4_status"></div>
+            </div>
+            <table class="datatables-table table tablebattrie" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.battrieapi') }}">
+                <thead>
+                <tr>
+                    <th class=""></th>
+                    <th class="">{{__('reference de battrie')}}</th>
+                    <th class="">{{__('designation de battrie')}}
+                    <th class="">{{__('Prix d\'achat')}}</th>
+                    <th class="">{{__('Prix de vente')}}</th>
+                    <th class="">{{__('Quentite')}}</th>
+                    <th class="never">{{__('stock_id')}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
         </div>
 
         {{-- huile table --}}
         <div class="card-datatable hidden" id="table_huile">
-          <table class="datatables-table table tablehuile" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.huileapi') }}">
-            <thead>
-              <tr>
-                <th class=""></th>
-                <th class="">{{__('reference d\'huile')}}</th>
-                <th class="">{{__('designation d\'huile')}}</th>
-                <th class="">{{__('Prix d\'achat')}}</th>
-                <th class="">{{__('Prix de vente')}}</th>
-                <th class="">{{__('Quentite')}}</th>
-                <th></th>
-              </tr>
-            </thead>
-          </table>
+            <div class="row m-2">
+                <div class="col-md-4 stock5_status"></div>
+            </div>
+            <table class="datatables-table table tablehuile" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.huileapi') }}">
+                <thead>
+                <tr>
+                    <th class=""></th>
+                    <th class="">{{__('reference d\'huile')}}</th>
+                    <th class="">{{__('designation d\'huile')}}</th>
+                    <th class="">{{__('Prix d\'achat')}}</th>
+                    <th class="">{{__('Prix de vente')}}</th>
+                    <th class="">{{__('Quentite')}}</th>
+                    <th class="never">{{__('stock_id')}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
+            </div>
         </div>
-      </div>
+        </div>
     </div>
-  </div>
 </section>
 @endsection
 
