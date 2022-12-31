@@ -65,37 +65,41 @@
             <div class="row m-2">
                 <div class="col-md-4 stock2_status"></div>
             </div>
-          <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.filter') }}">
-            <thead>
-              <tr>
-                <th class="control"></th>
-                <th class="">{{__('Reference de filter')}}</th>
-                <th class="">{{__('designation de filter')}}
-                <th class="">{{__('Prix d\'achat')}}</th>
-                <th class="">{{__('Prix de vente')}}</th>
-                <th class="">{{__('Quentite')}}</th>
-                <th class="never">{{__('stock_id')}}</th>
-                <th></th>
-              </tr>
-            </thead>
-          </table>
+            <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.filter') }}">
+                <thead>
+                    <tr>
+                        <th class="control"></th>
+                        <th class="">{{__('Reference de filter')}}</th>
+                        <th class="">{{__('designation de filter')}}
+                        <th class="">{{__('Prix d\'achat')}}</th>
+                        <th class="">{{__('Prix de vente')}}</th>
+                        <th class="">{{__('Quentite')}}</th>
+                        <th class="never">{{__('stock_id')}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+            </table>
         </div>
 
         {{-- chamberer table --}}
         <div class="card-datatable hidden" id="table_chambrere">
-          <table class="datatables-table table tablechambrere" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.chambriereapi') }}">
-            <thead>
-              <tr>
-                <th class=""></th>
-                <th class="">{{__('reference chambrere')}}</th>
-                <th class="">{{__('designation de chambrere')}}
-                <th class="">{{__('Prix d\'achat')}}</th>
-                <th class="">{{__('Prix de vente')}}</th>
-                <th class="">{{__('Quentite')}}</th>
-                <th></th>
-              </tr>
-            </thead>
-          </table>
+            <div class="row m-2">
+                <div class="col-md-4 stock3_status"></div>
+            </div>
+            <table class="datatables-table table tablechambrere" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.chambriereapi') }}">
+                <thead>
+                <tr>
+                    <th class=""></th>
+                    <th class="">{{__('reference chambrere')}}</th>
+                    <th class="">{{__('designation de chambrere')}}
+                    <th class="">{{__('Prix d\'achat')}}</th>
+                    <th class="">{{__('Prix de vente')}}</th>
+                    <th class="">{{__('Quentite')}}</th>
+                    <th class="never">{{__('stock_id')}}</th>
+                    <th></th>
+                </tr>
+                </thead>
+            </table>
         </div>
 
         {{-- battrie table --}}

@@ -51,30 +51,30 @@ class ProductController extends Controller
     //get Battrie
     public function battrieapi()
     {
-        $model = Product::with(['categories'])->where('categorie_id', 3)->whereHas('stock.users', function($query){
-            $query->where('users.id', '=', auth()->user()->id);
-        });
-        return \DataTables::eloquent($model)
+        $model = Product::with(['categories', 'stock'])->where('categorie_id', 3);
+        return \DataTables::eloquent($model)->with([
+            'stock_filter' => Stock::select("id as value", "name")->get(),
+        ])
         ->toJson();
     }
 
     //get Chambrière
     public function chambriereapi()
     {
-        $model = Product::with(['categories'])->where('categorie_id', 4)->whereHas('stock.users', function($query){
-            $query->where('users.id', '=', auth()->user()->id);
-        });
-        return \DataTables::eloquent($model)
+        $model = Product::with(['categories', 'stock'])->where('categorie_id', 4);
+        return \DataTables::eloquent($model)->with([
+            'stock_filter' => Stock::select("id as value", "name")->get(),
+        ])
         ->toJson();
     }
 
      //get huile
      public function huileapi()
      {
-         $model = Product::with(['categories'])->where('categorie_id', 5)->whereHas('stock.users', function($query){
-            $query->where('users.id', '=', auth()->user()->id);
-        });
-         return \DataTables::eloquent($model)
+         $model = Product::with(['categories', 'stock'])->where('categorie_id', 5);
+         return \DataTables::eloquent($model)->with([
+            'stock_filter' => Stock::select("id as value", "name")->get(),
+        ])
          ->toJson();
      }
 
