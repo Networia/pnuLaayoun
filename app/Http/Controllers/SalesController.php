@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BoneSalesRequest;
 use App\Models\BoneSales;
+use App\Models\BoneSalesProducts;
 use App\Models\Credit;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use PHPUnit\Exception;
 
@@ -29,21 +31,43 @@ class SalesController extends Controller
     public function addBoneSale(BoneSalesRequest $request)
     {
         try {
-
+            DB::beginTransaction();
             $req = $request->all();
             $dataProducts = $req['productsArray'];
+            $dataProductBone = null;
                $resultInsert = BoneSales::create([
                    'serie_bone'=>$req['serie_bone'],
-                   'prix_total'=> 2222,
+                   'prix_total'=> $req['prix_total'],
                    'client_id'=>$req['client_id'],
                    'stock_id'=>$req['stock_id'],
                    'status'=>1,
                ]);
+               if ($resultInsert){
+                   collect($dataProducts)->each(function ($product) use (&$dataProductBone,$resultInsert) {
+                       DB::table('products')
+                           ->where('id', json_decode($product['id']))
+                           ->update(['prix_vente' => json_decode($product['prix'])]);
+
+                       $dataProductBone =  BoneSalesProducts::create([
+                           'prix_vente'=>json_decode($product['prix']),
+                           'produit_id'=> json_decode($product['id']),
+                           'quantity'=> json_decode($product['quantity']),
+                           'boneSales_id'=>$resultInsert['id'],
+                           'status'=>1,
+                       ]);
+                   });
+               }else
+               {
+                   DB::rollBack();
+                   return false;
+               }
+
+            DB::commit();
 
             return response()->json(
                 [
                     'result' => 'success',
-                    'data' => $resultInsert,
+                    'data' => $dataProductBone,
                     'length' => 0,
                     'message' => __('operation_success'),
                     'date' => date("Y-m-d H:i:s"),

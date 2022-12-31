@@ -16,9 +16,9 @@ class CreateBoneSalesProductsTable extends Migration
         Schema::create('bone_sales_products', function (Blueprint $table) {
             $table->id();
             $table->integer('quantity');
-            $table->float('prix_achat');
+            $table->float('prix_vente');
             $table->integer('statut')->default(1);;
-            $table->foreignId('prouduit_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('produit_id')->constrained('products')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('boneSales_id')->constrained('bone_sales')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

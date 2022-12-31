@@ -247,37 +247,45 @@
         }
     </script>
     <script>
-        function submiteSale(AllproductSelect){
-            $('.submit').click(function(){
-                $.ajax({
-                    type: "POST",
-                    url: "{{ route('sales.store') }}",
-                    data:{
-                        '_token': "{{csrf_token()}}",
-                        'productsArray':AllproductSelect,
-                        'serie_bone':$('#serie_bone').val(),
-                        'client_id':$('#client_data').val(),
-                        'stock_id':$('#stock_id').val()
-                    } ,
-                    success: function( result ) {
-                        console.log( result ); //please post output of this
-                    }
-                });
+        $('.submit').unbind('click');
+        $('.submit').click(function () {
+            var arrInfoProducts=[];
+            $(".prixVente").find("input").each(function() {
+                var idprosduits = $(this).attr("id");
+                var newPrixProduct =  $(this).val();
+                var quantity = $(this).parent().parent().find('.qty-input').val();
+                var dataProduct = {id: idprosduits , prix:newPrixProduct , quantity:quantity};
+                arrInfoProducts.push(dataProduct);
             });
-        }
+            $.ajax({
+                type: "POST",
+                url: "{{ route('sales.store') }}",
+                data: {
+                    '_token': "{{csrf_token()}}",
+                    'productsArray': arrInfoProducts,
+                    'serie_bone': $('#serie_bone').val(),
+                    'prix_total': $('#totalsales').text(),
+                    'client_id': $('#client_data').val(),
+                    'stock_id': $('#stock_id').val()
+                },
+                success: function (result) {
+                    console.log(result); //please post output of this
+                }
+            });
+        });
     </script>
     <script>
         var AllproductSelect = [];
-        function stockProductSelected(idProduct){
+
+        function stockProductSelected(idProduct) {
             var table = $('#tablePurchaseproduct').DataTable();
-            if(jQuery.inArray(idProduct.id, AllproductSelect) === -1){
+            if (jQuery.inArray(idProduct.id, AllproductSelect) === -1) {
                 AllproductSelect.push(idProduct.id);
                 // console.log(resultProduct);
-                table.row.add($('<tr id="'+idProduct.id +'"><td>'+[idProduct.label]+'</td><td>'+[idProduct.designation]+'</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
-                    +'<td>'+[idProduct.prix_achat]+'</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
+                table.row.add($('<tr id="' + idProduct.id + '"><td>' + [idProduct.label] + '</td><td>' + [idProduct.designation] + '</td><td class="prixAchaat"><input class="form-control cell-datatable" id="' + idProduct.id + '" type="text"  value = ' + idProduct.prix_achat + ' ></td><td><div class="d-flex flex-row justify-content-between align-items-center rounded"><div class="d-flex flex-row align-self-center product_data"  id="qty_select"><input type="hidden" value=" 1 " class="prod_id"><div class="input-group text-center" id="qty_selector"><a class="decrement-btn"><i class="fa fa-minus" style="padding-left:9px"></i></a><input type="text" readonly="readonly" id="qty_display" class="qty-input text-center" value="1"/><a class="increment-btn"><i class="fa fa-plus" ></i></a></div></div></div></td>'
+                    + '<td>' + [idProduct.prix_achat] + '</td><td><button type="button" class="btn btn-gradient-danger removeProductPurchase">Remove</button></td></tr>')).draw(false);
             }
             deleteProduct(AllproductSelect);
-            submiteSale(AllproductSelect)
         }
     </script>
     <script>

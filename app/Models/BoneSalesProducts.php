@@ -10,8 +10,8 @@ class BoneSalesProducts extends Model
     use HasFactory;
     protected $fillable = [
         'quantity',
-        'prix_achat',
-        'prouduit_id',
+        'prix_vente',
+        'produit_id',
         'boneSales_id',
     ];
 
