@@ -9,7 +9,7 @@
 ==========================================================================================*/
 $(function () {
     ;('use strict')
-  
+
     var dtUserTable = $('.tablefilter')
     // ,
     //   newUserSidebar = $('.new-user-modal'),
@@ -20,15 +20,15 @@ $(function () {
     //     0: { title: 'Desactive', class: 'badge-light-danger' },
     //     1: { title: 'Active', class: 'badge-light-success' },
     //   }
-  
+
     var assetPath = '../../../app-assets/',
       userView = 'app-user-view-account.html'
-  
+
     if ($('body').attr('data-framework') === 'laravel') {
       assetPath = $('body').attr('data-asset-path')
       userView = assetPath + 'app/user/view/account'
     }
-  
+
     // select.each(function () {
     //   var $this = $(this)
     //   $this.wrap('<div class="position-relative"></div>')
@@ -40,7 +40,7 @@ $(function () {
     //     dropdownParent: $this.parent()
     //   })
     // })
-  
+
     // Users List datatable
     if (dtUserTable.length) {
       dtUserTable.DataTable({
@@ -55,6 +55,7 @@ $(function () {
           { data: 'prix_achat' ,defaultContent:'----' },
           { data: 'prix_vente' ,defaultContent:'----' },
           { data: 'quantite_dispo' ,defaultContent:'----' },
+          { data: 'stock_id' ,defaultContent:'----' },
           { data: '' }
         ],
         columnDefs: [
@@ -206,27 +207,25 @@ $(function () {
         initComplete: function (settings, json) {
           // Adding role filter once table initialized
           //! filere
-          // this.api()
-          //   .columns(3)
-          //   .every(function () {
-          //     var column = this
-          //     var label = $('<label class="form-label" for="UserStatus">Status</label>').appendTo('.user_status')
-          //     var select = $(
-          //       '<select id="UserStatus" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Select Status </option></select>'
-          //     )
-          //       .appendTo('.user_status')
-          //       .on('change', function () {
-          //         var val = $.fn.dataTable.util.escapeRegex($(this).val())
-          //         column.search(val ? '^' + val + '$' : '', true, false).draw()
-          //       })
-  
-          //       json.filter_status.forEach(element => {
-          //         select.append('<option value="' + element.value + '" class="text-capitalize">' + statusObj[element.value].title + '</option>');
-          //       });
-          //   })
-        }
+          this.api()
+            .columns(6)
+            .every(function () {
+              var column = this
+              var label = $('<label class="form-label" for="UserStatus">Filter par stock</label>').appendTo('.stock2_status')
+              var select = $(
+                '<select id="UserStatus" class="form-select text-capitalize mb-md-0 mb-2"><option value=""> Selectionnez un stock </option></select>'
+              )
+                .appendTo('.stock2_status')
+                .on('change', function () {
+                  var val = $.fn.dataTable.util.escapeRegex($(this).val())
+                  column.search(val ? '^' + val + '$' : '', true, false).draw()
+                })
+
+                json.stock_filter.forEach(element => {
+                  select.append('<option value="' + element.value + '" class="text-capitalize">' + element.name + '</option>');
+                });
+            })        }
       })
     }
-  
+
   })
-  

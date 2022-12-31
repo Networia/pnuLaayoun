@@ -41,10 +41,10 @@ class ProductController extends Controller
     //get filter
     public function filterapi()
     {
-        $model = Product::with(['categories'])->where('categorie_id', 2)->whereHas('stock.users', function($query){
-            $query->where('users.id', '=', auth()->user()->id);
-        });
-        return \DataTables::eloquent($model)
+        $model = Product::with(['categories', 'stock'])->where('categorie_id', 2);
+        return \DataTables::eloquent($model)->with([
+            'stock_filter' => Stock::select("id as value", "name")->get(),
+        ])
         ->toJson();
     }
 

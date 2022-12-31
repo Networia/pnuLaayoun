@@ -41,7 +41,7 @@
 
         {{-- pnu table --}}
         <div class="card-datatable" id="table_pnu">
-            <div class="row">
+            <div class="row m-2">
                 <div class="col-md-4 stock1_status"></div>
             </div>
           <table class="datatables-table table tablepnu" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.pnu') }}">
@@ -53,7 +53,7 @@
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quantite')}}</th>
-                <th class="never">{{__('Quantite')}}</th>
+                <th class="never">{{__('stock_id')}}</th>
                 <th></th>
               </tr>
             </thead>
@@ -62,18 +62,19 @@
 
         {{-- filter table --}}
         <div class="card-datatable hidden" id="table_filter">
-            <div class="row">
-                <div class="col-md-4 stock_status"></div>
+            <div class="row m-2">
+                <div class="col-md-4 stock2_status"></div>
             </div>
           <table class="datatables-table table tablefilter" data-edit="{{ route('Product.edit' ,"") }}" data-api="{{ route('Product.filter') }}">
             <thead>
               <tr>
-                <th class=""></th>
+                <th class="control"></th>
                 <th class="">{{__('Reference de filter')}}</th>
                 <th class="">{{__('designation de filter')}}
                 <th class="">{{__('Prix d\'achat')}}</th>
                 <th class="">{{__('Prix de vente')}}</th>
                 <th class="">{{__('Quentite')}}</th>
+                <th class="never">{{__('stock_id')}}</th>
                 <th></th>
               </tr>
             </thead>
