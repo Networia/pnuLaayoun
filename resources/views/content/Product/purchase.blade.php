@@ -36,7 +36,7 @@
       <div class="row card">
         <form class="auth-register-form mt-2" >
           {{-- method="POST" action="{{ route('Purchase.store') }}" --}}
-          @csrf
+          {{-- @csrf --}}
 
             <div class="col-12">
               <div class="card">
@@ -45,8 +45,8 @@
                     <label class="form-label" for="modern-username" >serie de bone</label>
                     <input type="text" id="serie_bone" name="serie_bone" class="form-control" placeholder="johndoe" />
                   </div>
-                  <x-forms.select2 label="Supplier" name="supplier" htmlname="supplier" dataobject="supplier" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
-                  <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
+                  <x-forms.select2 label="Supplier" id="supplier_data" name="supplier" htmlname="supplier" dataobject="supplier" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
+                  <x-forms.select2 label="Stock" id="stock_id" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-4 col-md-6 mb-1" />
                   <div class="form-group col-md-12">
                     <label class="form-label" for="modern-username">Product</label>
                     <input type="text" id="product" class="form-control" placeholder="johndoe" />
@@ -235,6 +235,44 @@
       }
     </script>
 
+    
+<script>
+  $("#submit").each(function(i, obj){
+    $('#submit').unbind('click');
+    $("#submit").click(function(event){
+    // var infoProduct = {};
+    event.preventDefault();
+    var arrInfoProducts=[];
+    $(".prixAchaat").find("input").each(function() {
+      var idprosduits = $(this).attr("id");
+      var newPrixProduct =  $(this).val();
+      var quantity = $(this).parent().parent().find('.qty-input').val();
+      var dataProduct = {id: idprosduits , prix:newPrixProduct , quantity:quantity};
+      arrInfoProducts.push(dataProduct);
+    });
+    $.ajax({
+            type: "POST",
+            url: "{{ route('Product.CretePurchase') }}",
+            data: {
+                '_token': "{{csrf_token()}}",
+                'productsArray': arrInfoProducts,
+                'serie_bone': $('#serie_bone').val(),
+                'prix_total': $('#totalpurchase').text(),
+                'supplier_id': $('#supplier_data').val(),
+                'stock_id': $('#stock_id').val()
+            },
+            success: function (result) {
+                console.log(result); //please post output of this
+            }
+        });
+
+    console.log(arrInfoProducts);
+    })
+  });
+  
+
+</script>
+
     <script type="text/javascript">
         var path = "{{ route('Product.autocomplete') }}";
         var responseProduct;
@@ -267,35 +305,6 @@
         });
     </script>
 
-    <script>
-      $("#submit").click(function(event){
-        // var infoProduct = {};
-        event.preventDefault();
-        var arrInfoProducts=[];
-        $(".prixAchaat").find("input").each(function() {
-          var idprosduits = $(this).attr("id");
-          var newPrixProduct =  $(this).val();
-          var quantity = $(this).parent().parent().find('.qty-input').val();
-          var dataProduct = {id: idprosduits , prix:newPrixProduct , quantity:quantity};
-          arrInfoProducts.push(dataProduct);
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "{{ route('Purchase.store') }}",
-            data:{
-              '_token': "{{csrf_token()}}",
-              'productsArray':AllproductSelect
-            } ,
-            success: function( result ) {
-              console.log( result ); 
-            }
-        });
-        
-        console.log(arrInfoProducts);
-      })
-
-    </script>
     
 
 

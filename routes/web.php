@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('edit/{id}', [ProductController::class, 'edit'])->name('Product.edit');
         Route::post('update/{id}', [ProductController::class, 'update'])->name('Product.update');
         Route::get('purchase', [ProductController::class, 'purchase'])->name('Product.purchase');
+        Route::post('purchase/store', [PurchaseController::class, 'store'])->name('Product.CretePurchase');
     });
 
     //Purchase
@@ -67,7 +68,7 @@ Route::middleware(['auth'])->group(function () {
         //Route::get('api', [PurchaseController::class, 'api'])->name('Purchase.api');
         // Route::get('select', [PurchaseController::class, 'list_select'])->name('Purchase.list_select');
         // Route::get('create', [PurchaseController::class, 'create'])->name('Purchase.create');
-        Route::post('store', [PurchaseController::class, 'store'])->name('Purchase.store');
+        // Route::post('store', [PurchaseController::class, 'store'])->name('purchase.store');
         // Route::get('edit/{id}', [PurchaseController::class, 'edit'])->name('Purchase.edit');
         // Route::post('update/{id}', [PurchaseController::class, 'update'])->name('Purchase.update');
         // Route::get('purchase', [PurchaseController::class, 'purchase'])->name('Purchase.purchase');
