@@ -107,32 +107,33 @@ class ProductController extends Controller
 
     public function create()
     {
-        return view('content.Product.add' );
+        $stocks = Stock::all();
+        return view('content.Product.add',['stocks' => $stocks]);
     }
 
     public function store(ProductRequest $request)
     {
-        // dd($request);
+        dd($request);
         $categorie_id = $request->categorie;
         // $categorie =Categorie::find($categorie_id);
 
-        $stock_id =$request->stock;
-        $stock = Stock::find($stock_id);
-        if(!$stock){
-            $newStock = Stock::create([
-                'name'=>$request->stock,
-            ]);
-            $stock_id = $newStock->id;
-        }
+        // $stock_id =$request->stock;
+        // $stock = Stock::find($stock_id);
+        // if(!$stock){
+        //     $newStock = Stock::create([
+        //         'name'=>$request->stock,
+        //     ]);
+        //     $stock_id = $newStock->id;
+        // }
 
         Product::create([
             'reference'=>$request->reference,
             'designation'=>$request->designation,
-            'prix_achat'=>$request->prix_achat,
-            'prix_vente'=>$request->prix_vente,
-            'quantite_dispo'=> 0,
+            // 'prix_achat'=>$request->prix_achat,
+            // 'prix_vente'=>$request->prix_vente,
+            // 'quantite_dispo'=> 0,
             'categorie_id'=>$categorie_id,
-            'stock_id'=>$stock_id,
+            // 'stock_id'=>$stock_id,
         ]);
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
