@@ -41,7 +41,15 @@
                             <x-forms.input label="Prix vente" name="prix_vente"  type='number' min="0" step=".01" cols="col-3 "/>
                             {{-- <x-forms.input label="Quantité disponible" type='number' name="quantite_dispo" cols="col-3 "/> --}}
                             {{-- Stock --}}
-                            <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" />
+                            {{-- <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" /> --}}
+                            <div class="mb-1">
+                                <label class="form-label" for="product-stock">Stock</label>
+                                <select class="select2 form-control"  name="stocks_ids[]" multiple>
+                                    @foreach ($stocks as $stock)
+                                    <option value="{{$stock->id}}">{{$stock->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
@@ -69,7 +77,7 @@
 @section('vendor-script')
     <!-- vendor files -->
     <script src="{{ asset(mix('vendors/js/forms/spinner/jquery.bootstrap-touchspin.js')) }}"></script>
-    {{-- <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script> --}}
+    <script src="{{ asset(mix('vendors/js/forms/select/select2.full.min.js')) }}"></script>
     <!-- vendor files -->
 @endsection
 

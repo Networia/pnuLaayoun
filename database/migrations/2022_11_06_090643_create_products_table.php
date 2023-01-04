@@ -20,11 +20,7 @@ class CreateProductsTable extends Migration
                 $table->id();
                 $table->string('reference');//reference
                 $table->string('designation');
-                $table->decimal('prix_achat');
-                $table->decimal('prix_vente');
-                $table->integer('quantite_dispo')->nullable();
                 $table->foreignId('categorie_id')->constrained('categories')->onUpdate('cascade')->onDelete('cascade');
-                $table->foreignId('stock_id')->constrained('stocks')->onUpdate('cascade')->onDelete('cascade');
                 $table->timestamps();
             });
         }
