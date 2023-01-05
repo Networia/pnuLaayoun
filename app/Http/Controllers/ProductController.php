@@ -94,7 +94,8 @@ class ProductController extends Controller
     public function autocomplete(Request $request)
     {
         $data = Product::select("reference as value" , "designation as designation", "prix_achat as prix_achat" , "prix_vente as prix_vente", "id")
-            ->where('reference', 'LIKE', '%'. $request->get('search'). '%')
+            ->join('product_stock', 'orders.user_id', '=', 'payments.userID')
+            ->where(['reference', 'LIKE', '%'. $request->get('search'). '%'], ['reference' , ])
             ->get();
 
         return response()->json($data);
