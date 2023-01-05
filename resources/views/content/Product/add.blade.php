@@ -23,25 +23,8 @@
                             <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
                             <x-forms.input  label="reference" name="reference" cols="col-3 serie_peneu input_collection" />
                             <x-forms.input  label="designation" name="designation" cols="col-3 marque_peneu input_collection" />
-                            {{-- Filter --}}
-                            {{-- <x-forms.input  label="Serie Filter" name="reference_filter" cols="col-3 reference_filter input_collection hidden"/>
-                            <x-forms.input  label="Mark Filter" name="marque_filter" cols="col-3 marque_filter input_collection hidden"/> --}}
-                            {{-- Battrie --}}
-                            {{-- <x-forms.input  label="Mark Battrie" name="marque_baterie" cols="col-3 marque_baterie input_collection hidden"/>
-                            <x-forms.input  label="num voltage" name="num_voltage" cols="col-3 num_voltage input_collection hidden"/> --}}
-                            {{-- Chambrere --}}
-                            {{-- <x-forms.input  label="Serie Chambrer" name="serie_chambrere" cols="col-3 serie_chambrere input_collection hidden"/>
-                            <x-forms.input  label="Mark Chambrer" name="marque_chambrere" cols="col-3 marque_chambrere input_collection hidden"/> --}}
-                             {{-- Huile --}}
-                            {{-- <x-forms.input  label="Serie Huile" name="serie_huile" cols="col-3 serie_huile input_collection hidden"/>
-                            <x-forms.input  label="Mark Huile" name="marque_huile" cols="col-3 marque_huile input_collection hidden"/>
-                            <x-forms.input  label="Lettrage Huile" name="lettrage_huile" cols="col-3 lettrage_huile input_collection hidden"/> --}}
-                            {{-- detail achta --}}
                             <x-forms.input label="Prix Achat" name="prix_achat"  type='number' min="0" step=".01" cols="col-3 "/>
                             <x-forms.input label="Prix vente" name="prix_vente"  type='number' min="0" step=".01" cols="col-3 "/>
-                            {{-- <x-forms.input label="Quantité disponible" type='number' name="quantite_dispo" cols="col-3 "/> --}}
-                            {{-- Stock --}}
-                            {{-- <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" /> --}}
 
                             <label class="form-label" for="product-stock">Stock</label>
                             <select class="select2 form-control"  name="stocks_ids[]" multiple>

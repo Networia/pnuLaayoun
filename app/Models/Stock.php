@@ -12,9 +12,9 @@ class Stock extends Model
         'name',
     ];
 
-    public function products(){
-        return $this->hasMany(Product::class );
-    }
+    // public function products(){
+    //     return $this->hasMany(Product::class );
+    // }
     public function bone(){
         return $this->hasMany(Bone::class);
     }
@@ -26,5 +26,10 @@ class Stock extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'user_stock');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class, 'product_stock');
     }
 }
