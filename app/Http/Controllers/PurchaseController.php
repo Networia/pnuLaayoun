@@ -34,9 +34,10 @@ class PurchaseController extends Controller
                ]);
                if ($resultInsert){
                    collect($dataProducts)->each(function ($product) use (&$dataProductBone,$resultInsert) {
+                    $quantity =DB::table('products')->where('id', json_decode($product['id']))->value('quantite_dispo');
                        DB::table('products')
                            ->where('id', json_decode($product['id']))
-                           ->update(['prix_achat' => json_decode($product['prix']) , 'quantite_dispo' => floatval('quantite_dispo')+json_decode($product['quantity'])]);
+                           ->update(['prix_achat' => json_decode($product['prix']) , 'quantite_dispo' => intval($quantity) + json_decode($product['quantity'])]);
 
                        $dataProductBone =  BoneProduit::create([
                            'prix_achat'=>json_decode($product['prix']),
