@@ -38,7 +38,7 @@ class ProductRequest extends FormRequest
             // 'lettrage_huile' => ['numeric', 'max:255' , 'nullable'  ],
             'prix_achat' => ['required', 'numeric'],
             'prix_vente' => ['required' , 'numeric'],
-            'stock'  => ['required'],
+            // 'stock'  => ['required'],
         ];
 
     }
