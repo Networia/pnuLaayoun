@@ -113,7 +113,7 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        dd($request);
+        // dd($request);
         $categorie_id = $request->categorie;
         // $categorie =Categorie::find($categorie_id);
 
@@ -125,8 +125,8 @@ class ProductController extends Controller
         //     ]);
         //     $stock_id = $newStock->id;
         // }
-
-        Product::create([
+        $ids_stocks = $request->input('stocks_ids', []);
+        $product = Product::create([
             'reference'=>$request->reference,
             'designation'=>$request->designation,
             // 'prix_achat'=>$request->prix_achat,
@@ -135,6 +135,8 @@ class ProductController extends Controller
             'categorie_id'=>$categorie_id,
             // 'stock_id'=>$stock_id,
         ]);
+        $product->stocks()->attach($ids_stocks, ['prix_vente' => $request->prix_vente, 'prix_achat' => $request->prix_achat]);
+
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return redirect(route('Product'));

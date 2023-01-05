@@ -23,9 +23,14 @@ class Product extends Model
         return $this->belongsTo(Categorie::class);
     }
 
-    public function stock()
+    // public function stock()
+    // {
+    //     return $this->belongsTo(Stock::class);
+    // }
+
+    public function stocks()
     {
-        return $this->belongsTo(Stock::class);
+        return $this->belongsToMany(Stock::class, 'product_stock');
     }
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
