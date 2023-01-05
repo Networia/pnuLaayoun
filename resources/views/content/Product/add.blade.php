@@ -42,13 +42,15 @@
                             {{-- <x-forms.input label="Quantité disponible" type='number' name="quantite_dispo" cols="col-3 "/> --}}
                             {{-- Stock --}}
                             {{-- <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" /> --}}
-
-                            <label class="form-label" for="product-stock">Stock</label>
-                            <select class="select2 form-control"  name="stocks_ids[]" multiple>
-                                @foreach ($stocks as $stock)
-                                <option value="{{$stock->id}}">{{$stock->name}}</option>
-                                @endforeach
-                            </select>
+                            <div class="col-3">
+                                <label class="form-label" for="product-stock">Stock</label>
+                                <select class="select2 form-control"  name="stocks_ids[]" multiple>
+                                    @foreach ($stocks as $stock)
+                                    <option value="{{$stock->id}}">{{$stock->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            
 
 
                             <div class="col-12">
