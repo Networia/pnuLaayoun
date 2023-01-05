@@ -20,6 +20,7 @@
                         @csrf
                         <div class="row">
                             {{-- Pnu --}}
+                            <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
                             <x-forms.input  label="reference" name="reference" cols="col-3 serie_peneu input_collection" />
                             <x-forms.input  label="designation" name="designation" cols="col-3 marque_peneu input_collection" />
                             {{-- Filter --}}
@@ -49,7 +50,6 @@
                                 @endforeach
                             </select>
 
-                            <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
 
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
