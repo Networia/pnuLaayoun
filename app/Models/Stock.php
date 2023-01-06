@@ -30,6 +30,6 @@ class Stock extends Model
 
     public function products()
     {
-        return $this->belongsToMany(Product::class, 'product_stock');
+        return $this->belongsToMany(Product::class, 'product_stock')->withPivot('prix_achat', 'prix_vente');
     }
 }

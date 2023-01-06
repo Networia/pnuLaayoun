@@ -19,15 +19,11 @@
                     <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.store') }}">
                         @csrf
                         <div class="row">
-                            {{-- Pnu --}}
                             <x-forms.select2 label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
                             <x-forms.input  label="reference" name="reference" cols="col-3 serie_peneu input_collection" />
                             <x-forms.input  label="designation" name="designation" cols="col-3 marque_peneu input_collection" />
                             <x-forms.input label="Prix Achat" name="prix_achat"  type='number' min="0" step=".01" cols="col-3 "/>
                             <x-forms.input label="Prix vente" name="prix_vente"  type='number' min="0" step=".01" cols="col-3 "/>
-                            {{-- <x-forms.input label="Quantité disponible" type='number' name="quantite_dispo" cols="col-3 "/> --}}
-                            {{-- Stock --}}
-                            {{-- <x-forms.select2 label="Stock" name="stock" htmlname="stock" dataobject="stock" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1" /> --}}
                             <div class="col-3">
                                 <label class="form-label" for="product-stock">Stock</label>
                                 <select class="select2 form-control"  name="stocks_ids[]" multiple>
@@ -36,9 +32,6 @@
                                     @endforeach
                                 </select>
                             </div>
-
-
-
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Créer</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>
