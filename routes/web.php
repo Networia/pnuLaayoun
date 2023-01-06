@@ -128,6 +128,8 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store', [StockController::class, 'store'])->name('Stock.store');
         Route::get('edit/{id}', [StockController::class, 'edit'])->name('Stock.edit');
         Route::post('update/{id}', [StockController::class, 'update'])->name('Stock.update');
+        Route::get('edit/user/{id}', [StockController::class, 'edit_user_in_stock'])->name('stock.user.edit');
+        Route::post('update/user/{id}', [StockController::class, 'update_user_in_stock'])->name('stock.user.update');
     });
 
     Route::prefix('categorie')->group(function () {

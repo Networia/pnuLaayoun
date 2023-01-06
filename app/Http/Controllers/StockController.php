@@ -67,4 +67,24 @@ class StockController extends Controller
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return redirect(route('Stock'));
     }
+    public function edit_user_in_stock($id)
+    {
+        $last = Stock::findOrFail($id);
+        $users_by_stock = $last->users->pluck('id')->toArray();
+
+        $users = User::all();
+
+        return view('content.Stock.add-user-to-stock',['last' => $last, 'users' => $users, 'users_by_stock' => $users_by_stock]);
+    }
+
+    public function update_user_in_stock($id, Request $data)
+    {
+        $stock = Stock::findOrFail($id);
+        $ids_users = $data->input('users_ids', []);
+
+        $stock->users()->sync($ids_users);
+
+        session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
+        return redirect(route('Stock'));
+    }
 }

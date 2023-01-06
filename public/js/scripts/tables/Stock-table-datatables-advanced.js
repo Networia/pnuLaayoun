@@ -69,7 +69,7 @@ $(function () {
         },
         {
           targets: 3,
-          
+
           render: function ( data, type, full, meta ,row ) {
             const users = full['users'];
             const names = users.map(user => user.name)
@@ -93,6 +93,11 @@ $(function () {
               '<a href="'+ dtUserTable.data('edit') + '/' + full.id +'" class="dropdown-item">' +
               feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
               'Edit</a>' +
+              '</a>' +
+              '<div class="dropdown-menu dropdown-menu-end">' +
+              '<a href="'+ dtUserTable.data('user') + '/' + full.id +'" class="dropdown-item">' +
+              feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
+              'Add user</a>' +
               '</div>' +
               '</div>'
             )
