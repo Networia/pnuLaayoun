@@ -11,14 +11,11 @@ class Product extends Model
     protected $fillable = [
         'reference',
         'designation',
-        'prix_achat',
-        'prix_vente',
-        'quantite_dispo',
         'categorie_id',
         'stock_id',
     ];
 
-    public function categories()
+    public function categorie()
     {
         return $this->belongsTo(Categorie::class);
     }
@@ -30,7 +27,7 @@ class Product extends Model
 
     public function stock()
     {
-        return $this->belongsToMany(Stock::class, 'product_stock');
+        return $this->belongsToMany(Stock::class, 'product_stock')->withPivot('prix_achat', 'prix_vente');
     }
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',

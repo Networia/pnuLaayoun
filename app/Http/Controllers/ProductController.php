@@ -145,16 +145,24 @@ class ProductController extends Controller
 
     public function edit($id)
     {
-        $last = Product::findOrFail($id);
+        $last = Product::with('categorie')->findOrFail($id);
 
-        return view('content.Product.edit',['last' => $last]);
+        $stocks_by_product = $last->stocks->pluck('id')->toArray();
+        $stocks = Stock::all();
+        return view('content.Product.edit',['last' => $last, 'stocks_by_product' => $stocks_by_product, 'stocks' => $stocks]);
     }
 
-    public function update(ProductRequest $data)
+    public function update($id,Request $data)
     {
-        $user = Product::findOrFail($data->id);
+        $product = Product::findOrFail($id);
 
-        $user->update($data->toArray());
+        $ids_stocks = $data->input('stocks_ids', []);
+
+        $product->stocks()->sync($ids_stocks);
+        $product->reference = $data->reference;
+        $product->designation = $data->designation;
+        $product->categorie_id = $data->categorie;
+        $product->save();
 
         session()->flash('toastr', ['type' => 'success' , 'title' => __('toastr.title.success') , 'contant' =>  __('toastr.contant.success')]);
         return redirect(route('Product'));

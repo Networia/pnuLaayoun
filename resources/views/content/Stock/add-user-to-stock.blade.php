@@ -1,6 +1,6 @@
 @extends('layouts/contentLayoutMaster')
 
-@section('title', __('Éditer les informations de Product : '.$last->name))
+@section('title', __('Éditer les informations de Stock : '.$last->name))
 
 @section('vendor-style')
     <!-- vendor css files -->
@@ -16,21 +16,19 @@
             <div class="card">
 
                 <div class="card-body">
-                    <form class="auth-register-form mt-2" method="POST" action="{{ route('Product.update',request()->id) }}">
+                    <form class="auth-register-form mt-2" method="POST" action="{{ route('stock.user.update',request()->id) }}">
                         @csrf
                         <div class="row">
 
-                            <x-forms.select2 :last="$last" label="Catégorie" name="categorie" htmlname="categorie" dataobject="categorie" dataname="name" datavalue="id" cols="col-xl-3 col-md-6 mb-1 typecategorie" />
-                            <x-forms.input  :last="$last" label="reference" name="reference" cols="col-3 serie_peneu input_collection" />
-                            <x-forms.input  :last="$last" label="designation" name="designation" cols="col-3 marque_peneu input_collection" />
-                            <div class="col-3">
-                                <label class="form-label" for="product-stock">Stock</label>
-                                <select class="select2 form-control"  name="stocks_ids[]" multiple>
-                                    @foreach ($stocks as $stock)
-                                    <option value="{{$stock->id}}" {{ in_array($stock->id,$stocks_by_product) ? 'selected' : '' }}>{{$stock->name}}</option>
+                            <div class="mb-1">
+                                <label class="form-label" for="user-stock">Assigner un user</label>
+                                <select class="select2 form-control"   name="users_ids[]" multiple>
+                                    @foreach ($users as $user)
+                                    <option value="{{$user->id}}" {{ in_array($user->id,$users_by_stock) ? 'selected' : '' }}>{{$user->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
+
                             <div class="col-12">
                                 <button type="submit" class="btn btn-primary mt-1 me-1">Sauvegarder</button>
                                 <button type="reset" class="btn btn-outline-secondary mt-1">Réinitialiser</button>

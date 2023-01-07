@@ -69,12 +69,18 @@ $(function () {
         },
         {
           targets: 3,
-          
+
           render: function ( data, type, full, meta ,row ) {
             const users = full['users'];
             const names = users.map(user => user.name)
-            console.log(names.join('-'));
-            return names.join(' - ');
+            const images = users.map(user => user.image)
+
+            console.log(users);
+            return ('<li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="'+ names +'" class="avatar avatar-sm pull-up">' +
+                '<img class="rounded-circle" src="https://ui-avatars.com/api/?background=7367f0&color=FFF&name='+names + '"/>'+
+              '</li>');
+            //inspire span performance
+            //  names.join(' - ');
           }
         },
         {
@@ -93,6 +99,11 @@ $(function () {
               '<a href="'+ dtUserTable.data('edit') + '/' + full.id +'" class="dropdown-item">' +
               feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
               'Edit</a>' +
+              '</a>' +
+              '<div class="dropdown-menu dropdown-menu-end">' +
+              '<a href="'+ dtUserTable.data('user') + '/' + full.id +'" class="dropdown-item">' +
+              feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) +
+              'Add user</a>' +
               '</div>' +
               '</div>'
             )

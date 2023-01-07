@@ -31,7 +31,7 @@
           </div>
         </div> --}}
         <div class="card-datatable">
-          <table class="datatables-table table" data-edit="{{ route('Stock.edit' ,"") }}" data-api="{{ route('Stock.api') }}">
+          <table class="datatables-table table" data-edit="{{ route('Stock.edit' ,"") }}" data-user="{{ route('stock.user.edit' ,"") }}" data-api="{{ route('Stock.api') }}">
             <thead>
               <tr>
                 <th class=""></th>

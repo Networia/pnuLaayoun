@@ -55,7 +55,7 @@
       </div>
     </div>
   @endforeach
-  
+
   <div class="col-xl-4 col-lg-6 col-md-6">
     <div class="card">
       <div class="row">
