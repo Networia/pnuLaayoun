@@ -28,7 +28,7 @@ class Product extends Model
     //     return $this->belongsTo(Stock::class);
     // }
 
-    public function stocks()
+    public function stock()
     {
         return $this->belongsToMany(Stock::class, 'product_stock');
     }
