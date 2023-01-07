@@ -73,8 +73,14 @@ $(function () {
           render: function ( data, type, full, meta ,row ) {
             const users = full['users'];
             const names = users.map(user => user.name)
-            console.log(names.join('-'));
-            return names.join(' - ');
+            const images = users.map(user => user.image)
+
+            console.log(users);
+            return ('<li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" title="'+ names +'" class="avatar avatar-sm pull-up">' +
+                '<img class="rounded-circle" src="https://ui-avatars.com/api/?background=7367f0&color=FFF&name='+names + '"/>'+
+              '</li>');
+            //inspire span performance
+            //  names.join(' - ');
           }
         },
         {
