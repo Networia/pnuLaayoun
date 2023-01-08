@@ -25,7 +25,7 @@ class Product extends Model
     //     return $this->belongsTo(Stock::class);
     // }
 
-    public function stock()
+    public function stocks()
     {
         return $this->belongsToMany(Stock::class, 'product_stock')->withPivot('prix_achat', 'prix_vente');
     }
