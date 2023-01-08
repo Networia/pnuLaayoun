@@ -28,7 +28,7 @@ class ProductController extends Controller
     //get pneu
     public function pnu()
     {
-        $model = Product::with(['categories', 'stock'])->where('categorie_id', 1);
+        $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 1);
         // ->whereHas('stock.users', function($query){
         //     $query->where('users.id', '=', auth()->user()->id);
         // });
