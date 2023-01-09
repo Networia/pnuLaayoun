@@ -29,7 +29,7 @@ class ClientRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'number_phone' => ['required', 'max:255'],
+            'number_phone' => ['required', 'numeric','unique:clients,number_phone'],
             'adress' => ['string', 'max:255'],
             'stock'  => ['required'],
         ];
