@@ -21,7 +21,9 @@ class SalesController extends Controller
 
     public function autocomplete(Request $request)
     {
-        $data = Product::select("reference as value", "designation as designation", "prix_achat as prix_achat", "prix_vente as prix_vente", "id", "quantite_dispo")
+        $data = Product::select("reference as value", "designation as designation", "prix_achat as prix_achat", "prix_vente as prix_vente", "products.id", "quantite_dispo","product_stock.stock_id")
+            ->join('product_stock', 'product_stock.product_id', '=', 'products.id')
+            ->where('product_stock.stock_id', '=' , $request->get('stock_id'))
             ->where('reference', 'LIKE', '%' . $request->get('search') . '%')
             ->get();
 
@@ -44,9 +46,10 @@ class SalesController extends Controller
                ]);
                if ($resultInsert){
                    collect($dataProducts)->each(function ($product) use (&$dataProductBone,$resultInsert) {
-                       DB::table('products')
-                           ->where('id', json_decode($product['id']))
-                           ->update(['prix_vente' => json_decode($product['prix'])]);
+                       $quantity =DB::table('product_stock')->where('product_stock.product_id', json_decode($product['id']))->value('quantite_dispo');
+                       DB::table('product_stock')
+                           ->where('product_stock.product_id', json_decode($product['id']))
+                           ->update(['prix_vente' => json_decode($product['prix']),'quantite_dispo' => intval($quantity) - json_decode($product['quantity'])]);
 
                        $dataProductBone =  BoneSalesProducts::create([
                            'prix_vente'=>json_decode($product['prix']),

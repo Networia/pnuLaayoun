@@ -28,7 +28,7 @@ class ProductController extends Controller
     //get pneu
     public function pnu()
     {
-        $model = Product::with(['categories', 'stock'])->where('categorie_id', 1);
+        $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 1);
         // ->whereHas('stock.users', function($query){
         //     $query->where('users.id', '=', auth()->user()->id);
         // });
@@ -41,7 +41,7 @@ class ProductController extends Controller
     //get filter
     public function filterapi()
     {
-        $model = Product::with(['categories', 'stock'])->where('categorie_id', 2);
+        $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 2);
         return \DataTables::eloquent($model)->with([
             'stock_filter' => Stock::select("id as value", "name")->get(),
         ])
@@ -51,7 +51,7 @@ class ProductController extends Controller
     //get Battrie
     public function battrieapi()
     {
-        $model = Product::with(['categories', 'stock'])->where('categorie_id', 3);
+        $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 3);
         return \DataTables::eloquent($model)->with([
             'stock_filter' => Stock::select("id as value", "name")->get(),
         ])
@@ -61,7 +61,7 @@ class ProductController extends Controller
     //get Chambrière
     public function chambriereapi()
     {
-        $model = Product::with(['categories', 'stock'])->where('categorie_id', 4);
+        $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 4);
         return \DataTables::eloquent($model)->with([
             'stock_filter' => Stock::select("id as value", "name")->get(),
         ])
@@ -71,7 +71,7 @@ class ProductController extends Controller
      //get huile
      public function huileapi()
      {
-         $model = Product::with(['categories', 'stock'])->where('categorie_id', 5);
+         $model = Product::with(['categorie', 'stocks'])->where('categorie_id', 5);
          return \DataTables::eloquent($model)->with([
             'stock_filter' => Stock::select("id as value", "name")->get(),
         ])

@@ -12,7 +12,6 @@ class Product extends Model
         'reference',
         'designation',
         'categorie_id',
-        'stock_id',
     ];
 
     public function categorie()

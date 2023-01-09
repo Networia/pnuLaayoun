@@ -52,10 +52,10 @@ $(function () {
           { data: '' },
           { data: 'reference' ,defaultContent:'----' },
           { data: 'designation' ,defaultContent:'----' },
-          { data: 'prix_achat' ,defaultContent:'----' },
-          { data: 'prix_vente' ,defaultContent:'----' },
-          { data: 'quantite_dispo' ,defaultContent:'----' },
-          { data: 'stock_id' ,defaultContent:'----' },
+          { data: 'stocks.prix_achat' ,defaultContent:'----' },
+          { data: 'stocks.pivot.prix_vente' ,defaultContent:'----' },
+          { data: 'stocks.pivot.quantite_dispo' ,defaultContent:'----' },
+          { data: 'stocks.id' ,defaultContent:'----' },
           { data: '' }
         ],
         columnDefs: [
