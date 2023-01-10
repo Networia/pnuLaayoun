@@ -285,6 +285,7 @@
                 dataType: "json",
                 data: {
                   search: request.term
+                  stock_id: $('#stock_id').val()
                 },
                 success: function( data ) {
                   response( data );
